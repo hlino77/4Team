@@ -26,6 +26,22 @@ HRESULT CTerrain::Initialize(void)
 		return E_FAIL;
 	}
 
+	if (FAILED(CTextureMgr::Get_Instance()->Insert_Texture(L"../Texture/Stage/Terrain/Collider/ColliderGreen.png", TEX_SINGLE, L"Col_Green")))
+	{
+		AfxMessageBox(L"TileTexture Create Failed");
+		return E_FAIL;
+	}
+	if (FAILED(CTextureMgr::Get_Instance()->Insert_Texture(L"../Texture/Stage/Terrain/Collider/ColliderRed.png", TEX_SINGLE, L"Col_Red")))
+	{
+		AfxMessageBox(L"TileTexture Create Failed");
+		return E_FAIL;
+	}
+	if (FAILED(CTextureMgr::Get_Instance()->Insert_Texture(L"../Texture/Stage/Terrain/Collider/ColliderBlack.png", TEX_SINGLE, L"Col_Black")))
+	{
+		AfxMessageBox(L"TileTexture Create Failed");
+		return E_FAIL;
+	}
+
 	TILE*	pMap = new TILE;
 	pMap->vPos = { 0.f, 0.f, 0.f };
 	pMap->vSize = { MAPCX, MAPCY, 0.f };
@@ -33,24 +49,43 @@ HRESULT CTerrain::Initialize(void)
 	pMap->byDrawID = 0;
 
 	m_pMapInfo = pMap;
-//	m_iZoomLevel = 0;
-	//for (int i = 0; i < TILEY; ++i)
-	//{
-	//	for (int j = 0; j < TILEX; ++j)
-	//	{
-	//		TILE* pTile = new TILE;
-	//
-	//		float	fX = (TILECX * j) + ((TILECX / 2.f) * (i % 2));
-	//		float	fY = (TILECY / 2.f) * i;
-	//
-	//		pTile->vPos = {fX, fY, 0.f};
-	//		pTile->vSize = { TILECX, TILECY, 0.f };
-	//		pTile->byOption = 0;
-	//		pTile->byDrawID = 3;
-	//		
-	//		m_vecTile.push_back(pTile);
-	//	}
-	//}
+
+	for (int i = 0; i < TILEY; ++i)
+	{
+		for (int j = 0; j < TILEX; ++j)
+		{
+			TILE* pTile = new TILE;
+
+			float	fX = (TILECX * j) + (TILECX / 2);
+			float	fY = (TILECY * i) + (TILECY / 2);
+
+			pTile->vPos = { fX, fY, 0.f };
+			pTile->vSize = { TILECX, TILECY, 0.f };
+			pTile->byOption = 0;
+			pTile->byDrawID = 0;
+
+
+			pTile->vPoint[0] = { (TILECX * 0.5f) * -1.0f, (TILECY * 0.5f) * -1.0f, 0.0f };
+			pTile->vPoint[1] = { (TILECX * 0.5f), (TILECY * 0.5f) * -1.0f, 0.0f };
+			pTile->vPoint[2] = { (TILECX * 0.5f), (TILECY * 0.5f), 0.0f };
+			pTile->vPoint[3] = { (TILECX * 0.5f) * -1.0f, (TILECY * 0.5f), 0.0f };
+			pTile->vPoint[4] = { (TILECX * 0.5f) * -1.0f, (TILECY * 0.5f) * -1.0f, 0.0f };
+
+
+
+			for (int i = 0; 5 > i; ++i)
+			{
+				pTile->vOriginPoint[i] = pTile->vPoint[i];
+			}
+
+			pTile->bCollider = false;
+
+			m_vecTile.push_back(pTile);
+		}
+	}
+
+	m_GridState = GRID_STATE::NONE;
+	m_ColState = SETCOL_STATE::NONE;
 
 	return S_OK;
 }
@@ -79,11 +114,6 @@ void CTerrain::Render(void)
 		0.f);
 
 	matWorld = matScale * matTrans;
-	//if(0 == m_iZoomLevel)
-
-	//else if(0 > m_iZoomLevel)
-
-	//else
 
 	Set_Ratio(&matWorld, fX, fY);
 
@@ -92,38 +122,12 @@ void CTerrain::Render(void)
 	const TEXINFO*	pTexInfo = CTextureMgr::Get_Instance()->Get_Texture(L"Map");
 
 	CDevice::Get_Instance()->Get_Sprite()->Draw(pTexInfo->pTexture,
-					nullptr,							// 출력할 이미지 영역에 대한 Rect 주소, null인 경우 이미지의 0, 0 기준으로 출력
-					&D3DXVECTOR3(fX, fY, 0.f),			// 출력할 이미지의 중심축에 대한 vector3 주소, null인 경우 이미지의 0, 0이 중심 좌표
-					nullptr,							// 위치 좌표에 대한 vector3 주소, null인 경우 스크린 상의 0, 0좌표 출력
-					D3DCOLOR_ARGB(255, 255, 255, 255)); // 출력할 이미지와 섞을 색상 값, 0xffffffff를 넘겨주면 원본 색상 유지
+		nullptr,							// 출력할 이미지 영역에 대한 Rect 주소, null인 경우 이미지의 0, 0 기준으로 출력
+		&D3DXVECTOR3(fX, fY, 0.f),			// 출력할 이미지의 중심축에 대한 vector3 주소, null인 경우 이미지의 0, 0이 중심 좌표
+		nullptr,							// 위치 좌표에 대한 vector3 주소, null인 경우 스크린 상의 0, 0좌표 출력
+		D3DCOLOR_ARGB(255, 255, 255, 255)); // 출력할 이미지와 섞을 색상 값, 0xffffffff를 넘겨주면 원본 색상 유지
 
-	/*for (auto iter : m_vecTile)
-	{
-		D3DXMatrixIdentity(&matWorld);
-		D3DXMatrixScaling(&matScale, 1.f, 1.f, 1.f);
-		D3DXMatrixTranslation(&matTrans, 
-			iter->vPos.x - m_pMainView->GetScrollPos(0), // 0일 경우 x 스크롤 값 얻어옴
-			iter->vPos.y - m_pMainView->GetScrollPos(1), // 1일 경우 y 스크롤 값 얻어옴
-			0.f);
 
-		matWorld = matScale * matTrans;
-
-//		Set_Ratio(&matWorld, fX, fY);
-
-		const TEXINFO*	pTexInfo = CTextureMgr::Get_Instance()->Get_Texture(L"Map", L"Tile", iter->byDrawID);
-		
-		float	fX = pTexInfo->tImgInfo.Width / 2.f;
-		float	fY = pTexInfo->tImgInfo.Height / 2.f;
-			
-		// 이미지에 행렬을 반영
-		CDevice::Get_Instance()->Get_Sprite()->SetTransform(&matWorld);
-
-		CDevice::Get_Instance()->Get_Sprite()->Draw(pTexInfo->pTexture,
-			nullptr,							// 출력할 이미지 영역에 대한 Rect 주소, null인 경우 이미지의 0, 0 기준으로 출력
-			&D3DXVECTOR3(fX, fY, 0.f),			// 출력할 이미지의 중심축에 대한 vector3 주소, null인 경우 이미지의 0, 0이 중심 좌표
-			nullptr,							// 위치 좌표에 대한 vector3 주소, null인 경우 스크린 상의 0, 0좌표 출력
-			D3DCOLOR_ARGB(255, 255, 255, 255)); // 출력할 이미지와 섞을 색상 값, 0xffffffff를 넘겨주면 원본 색상 유지
-	}*/
 }
 
 void CTerrain::Mini_Render(void)
@@ -142,13 +146,14 @@ void CTerrain::Mini_Render(void)
 	CMainFrame*		pMainFrm = dynamic_cast<CMainFrame*>(AfxGetMainWnd());
 	CMiniView*		pMiniView = dynamic_cast<CMiniView*>(pMainFrm->m_SecondSplitter.GetPane(0, 0));
 	CRect rc;
-	
+
 	pMiniView->GetClientRect(rc);
-	
+
 	const TEXINFO*	pTexInfo = CTextureMgr::Get_Instance()->Get_Texture(L"Map");
 
 	float	fX = rc.Width() / (2.f * WINCX);
 	float	fY = rc.Height() / (2.f * WINCY);
+
 
 	// 이미지에 행렬을 반영
 	Set_Ratio(&matWorld, 0.2f, 0.15f);
@@ -157,57 +162,168 @@ void CTerrain::Mini_Render(void)
 
 	CDevice::Get_Instance()->Get_Sprite()->Draw(pTexInfo->pTexture,
 		nullptr,
-		&D3DXVECTOR3(fX, fY, 0.f),
+		&D3DXVECTOR3(0.9f * fX, 0.9f * fY, 0.f),
 		nullptr,
 		D3DCOLOR_ARGB(255, 255, 255, 255));
 
-	/*for (auto iter : m_vecTile)
+}
+
+void CTerrain::Grid_Render(void)
+{
+	switch (m_GridState)
+	{
+	case GRID_STATE::NONE:
+		break;
+	case GRID_STATE::NORMAL:
+		NormalGrid_Render();
+		break;
+	case GRID_STATE::SMALL:
+		SmallGrid_Render();
+		break;
+	}
+}
+
+void CTerrain::NormalGrid_Render(void)
+{
+	D3DXMATRIX	matWorld, matScale, matTrans;
+
+	D3DXVECTOR2 vRenderPoint[5];
+
+	RECT	rc{};
+
+	LPDIRECT3DDEVICE9 pDevice = CDevice::Get_Instance()->Get_Device();
+	CDevice::Get_Instance()->Get_Sprite()->End();
+	LPD3DXLINE pLine = CDevice::Get_Instance()->Get_Line();
+	pLine->SetWidth(1.0f);
+	pLine->Begin();
+
+	// GetClientRect : 현재 클라이언트 영역의 rect 정보를 얻어옴
+	GetClientRect(m_pMainView->m_hWnd, &rc);
+
+	float	fX = WINCX / float(rc.right - rc.left);
+	float	fY = WINCY / float(rc.bottom - rc.top);
+
+
+	for (auto iter : m_vecTile)
 	{
 		D3DXMatrixIdentity(&matWorld);
 		D3DXMatrixScaling(&matScale, 1.f, 1.f, 1.f);
 		D3DXMatrixTranslation(&matTrans,
-			iter->vPos.x, 
-			iter->vPos.y, 
+			int(iter->vPos.x - m_pMainView->GetScrollPos(0)), // 0일 경우 x 스크롤 값 얻어옴
+			int(iter->vPos.y - m_pMainView->GetScrollPos(1)), // 1일 경우 y 스크롤 값 얻어옴
 			0.f);
 
 		matWorld = matScale * matTrans;
 
-		Set_Ratio(&matWorld, 0.3f, 0.3f);
+		Set_Ratio(&matWorld, fX, fY);
 
-		const TEXINFO*	pTexInfo = CTextureMgr::Get_Instance()->Get_Texture(L"Terrain", L"Tile", iter->byDrawID);
 
-		float	fX = pTexInfo->tImgInfo.Width / 2.f;
-		float	fY = pTexInfo->tImgInfo.Height / 2.f;
+		for (int i = 0; 5 > i; ++i)
+		{
+			iter->vPoint[i] = iter->vOriginPoint[i];
 
-		// 이미지에 행렬을 반영
-		CDevice::Get_Instance()->Get_Sprite()->SetTransform(&matWorld);
+			D3DXVec3TransformCoord(&iter->vPoint[i], &iter->vPoint[i], &matWorld);
 
-		CDevice::Get_Instance()->Get_Sprite()->Draw(pTexInfo->pTexture,
-			nullptr,							
-			&D3DXVECTOR3(fX, fY, 0.f),			
-			nullptr,							
-			D3DCOLOR_ARGB(255, 255, 255, 255)); 
-	}*/
+			vRenderPoint[i] = { iter->vPoint[i].x , iter->vPoint[i].y };
+		}
+
+
+
+		pLine->Draw(vRenderPoint, 5, D3DCOLOR_XRGB(0, 0, 0));
+
+
+
+
+	}
+
+
+
+
+
+	pLine->End();
+
+}
+
+void CTerrain::SmallGrid_Render(void)
+{
+}
+
+void CTerrain::Collider_Render(void)
+{
+	D3DXMATRIX	matWorld, matScale, matTrans;
+
+	D3DXVECTOR2 vRenderPoint[5];
+
+	RECT	rc{};
+
+	LPDIRECT3DDEVICE9 pDevice = CDevice::Get_Instance()->Get_Device();
+
+	// GetClientRect : 현재 클라이언트 영역의 rect 정보를 얻어옴
+	GetClientRect(m_pMainView->m_hWnd, &rc);
+
+	float	fX = WINCX / float(rc.right - rc.left);
+	float	fY = WINCY / float(rc.bottom - rc.top);
+
+
+	for (auto iter : m_vecTile)
+	{
+		if (iter->bCollider)
+		{
+			D3DXMatrixIdentity(&matWorld);
+			D3DXMatrixScaling(&matScale, 1.f, 1.f, 1.f);
+			D3DXMatrixTranslation(&matTrans,
+				int(iter->vPos.x - m_pMainView->GetScrollPos(0)), // 0일 경우 x 스크롤 값 얻어옴
+				int(iter->vPos.y - m_pMainView->GetScrollPos(1)), // 1일 경우 y 스크롤 값 얻어옴
+				0.f);
+
+			matWorld = matScale * matTrans;
+
+			Set_Ratio(&matWorld, fX, fY);
+
+
+
+			CDevice::Get_Instance()->Get_Sprite()->SetTransform(&matWorld);
+
+			const TEXINFO*	pTexInfo = CTextureMgr::Get_Instance()->Get_Texture(L"Col_Red");
+
+			CDevice::Get_Instance()->Get_Sprite()->Draw(pTexInfo->pTexture,
+				nullptr,							// 출력할 이미지 영역에 대한 Rect 주소, null인 경우 이미지의 0, 0 기준으로 출력
+				&D3DXVECTOR3(16.0f, 16.0f, 0.f),			// 출력할 이미지의 중심축에 대한 vector3 주소, null인 경우 이미지의 0, 0이 중심 좌표
+				nullptr,							// 위치 좌표에 대한 vector3 주소, null인 경우 스크린 상의 0, 0좌표 출력
+				D3DCOLOR_ARGB(100, 255, 255, 255)); // 출력할 이미지와 섞을 색상 값, 0xffffffff를 넘겨주면 원본 색상 유지
+		}
+	}
+
+
+
+
 }
 
 void CTerrain::Release(void)
 {
-	/*for_each(m_vecTile.begin(), m_vecTile.end(), CDeleteObj());
-	m_vecTile.clear();
-	m_vecTile.shrink_to_fit();*/
 	delete m_pMapInfo;
 	m_pMapInfo = nullptr;
 }
 
-void CTerrain::Tile_Change(const D3DXVECTOR3 & vPos, const int & iDrawID)
+void CTerrain::Tile_Change(const D3DXVECTOR3 & vPos)
 {
-	/*int		iIndex = Get_TileIndex(vPos);
+	int iX = vPos.x / TILECX;
+	int iY = vPos.y / TILECY;
+	int iIndex = iX + (iY * TILEX);
 
-	if (-1 == iIndex)
-		return;
 
-	m_vecTile[iIndex]->byDrawID = (BYTE)iDrawID;
-	m_vecTile[iIndex]->byOption = 1;*/
+	switch (m_ColState)
+	{
+	case SETCOL_STATE::COLLIDER:
+		m_vecTile[iIndex]->bCollider = true;
+		break;
+	case SETCOL_STATE::DELETECOL:
+		m_vecTile[iIndex]->bCollider = false;
+		break;
+	case SETCOL_STATE::NONE:
+		break;
+	}
+
 }
 
 void CTerrain::Set_Ratio(D3DXMATRIX * pOut, float fRatioX, float fRatioY)
@@ -224,117 +340,3 @@ void CTerrain::Set_Ratio(D3DXMATRIX * pOut, float fRatioX, float fRatioY)
 
 }
 
-int CTerrain::Get_TileIndex(const D3DXVECTOR3 & vPos)
-{
-	//for (size_t index = 0; index < m_vecTile.size(); ++index)
-	//{
-	//	if (Picking_Dot(vPos, index))
-	//	{
-	//		return index;
-	//	}
-	//}
-
-	return -1;
-}
-
-bool CTerrain::Picking(const D3DXVECTOR3 & vPos, const int & iIndex)
-{
-
-	//float	fGradient[4] {
-
-	//	((TILECY / 2.f) / (TILECX / 2.f)) * -1.f,
-	//	((TILECY / 2.f) / (TILECX / 2.f)),
-	//	((TILECY / 2.f) / (TILECX / 2.f)) * -1.f,
-	//	((TILECY / 2.f) / (TILECX / 2.f))
-	//};
-
-	//// 12, 3, 6, 9 시 순서로 점의 위치를 저장
-
-	//D3DXVECTOR3		vPoint[4] {
-
-	//	{ m_vecTile[iIndex]->vPos.x,m_vecTile[iIndex]->vPos.y + (TILECY / 2.f), 0.f },
-	//	{ m_vecTile[iIndex]->vPos.x + (TILECX / 2.f),m_vecTile[iIndex]->vPos.y, 0.f },
-	//	{ m_vecTile[iIndex]->vPos.x,m_vecTile[iIndex]->vPos.y - (TILECY / 2.f), 0.f },
-	//	{ m_vecTile[iIndex]->vPos.x - (TILECX / 2.f),m_vecTile[iIndex]->vPos.y , 0.f }
-	//};
-	//
-	//// Y = aX + b-> b = y - ax;
-
-	//float	fB[4] {
-
-	//	vPoint[0].y - fGradient[0] * vPoint[0].x, 
-	//	vPoint[1].y - fGradient[1] * vPoint[1].x,
-	//	vPoint[2].y - fGradient[2] * vPoint[2].x,
-	//	vPoint[3].y - fGradient[3] * vPoint[3].x	
-	//};
-
-
-	//// 0 == ax + b - y		: 직선 상에 있는 상태
-	//// 0 > ax + b - y		: 직선 보다 위쪽에 있는 상태
-	//// 0 < ax + b - y		: 직선 보다 아래쪽에 있는 상태
-
-	//bool		bCheck[4] { false };
-
-	//if (0 < fGradient[0] * vPos.x + fB[0] - vPos.y)
-	//	bCheck[0] = true;
-
-	//if (0 >= fGradient[1] * vPos.x + fB[1] - vPos.y)
-	//	bCheck[1] = true;
-
-	//if (0 > fGradient[2] * vPos.x + fB[2] - vPos.y)
-	//	bCheck[2] = true;
-
-	//if (0 < fGradient[3] * vPos.x + fB[3] - vPos.y)
-	//	bCheck[3] = true;
-	//
-	//return bCheck[0] && bCheck[1] && bCheck[2] && bCheck[3];
-	return false;
-}
-
-bool CTerrain::Picking_Dot(const D3DXVECTOR3 & vPos, const int & iIndex)
-{
-	/*D3DXVECTOR3		vPoint[4]{
-
-		{ m_vecTile[iIndex]->vPos.x,m_vecTile[iIndex]->vPos.y + (TILECY / 2.f), 0.f },
-		{ m_vecTile[iIndex]->vPos.x + (TILECX / 2.f),m_vecTile[iIndex]->vPos.y, 0.f },
-		{ m_vecTile[iIndex]->vPos.x,m_vecTile[iIndex]->vPos.y - (TILECY / 2.f), 0.f },
-		{ m_vecTile[iIndex]->vPos.x - (TILECX / 2.f),m_vecTile[iIndex]->vPos.y , 0.f }
-	};
-
-	D3DXVECTOR3			vDir[4] {
-		
-		vPoint[1] - vPoint[0],
-		vPoint[2] - vPoint[1], 
-		vPoint[3] - vPoint[2],
-		vPoint[0] - vPoint[3],
-	};
-
-	D3DXVECTOR3			vNormal[4]{
-		{ -vDir[0].y, vDir[0].x, 0.f},
-		{ -vDir[1].y, vDir[1].x, 0.f },
-		{ -vDir[2].y, vDir[2].x, 0.f },
-		{ -vDir[3].y, vDir[3].x, 0.f },
-	};
-
-	D3DXVECTOR3			vMouseDir[4]{
-
-		vPos - vPoint[0],
-		vPos - vPoint[1],
-		vPos - vPoint[2],
-		vPos - vPoint[3]
-	};
-
-	for (int i = 0; i < 4; ++i)
-	{
-		D3DXVec3Normalize(&vNormal[i], &vNormal[i]);
-		D3DXVec3Normalize(&vMouseDir[i], &vMouseDir[i]);
-	}
-
-	for (int i = 0; i < 4; ++i)
-	{
-		if (0.f < D3DXVec3Dot(&vNormal[i], &vMouseDir[i]))
-			return false;
-	}
-*/
-	return true;
-}

@@ -30,6 +30,11 @@ typedef struct tagTile
 	D3DXVECTOR3	vPos;
 	D3DXVECTOR3 vSize;
 
+	D3DXVECTOR3 vPoint[5];
+	D3DXVECTOR3 vOriginPoint[5];
+
+	bool		bCollider;
+
 	BYTE		byOption;
 	BYTE		byDrawID;
 }TILE;
