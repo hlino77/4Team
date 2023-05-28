@@ -1,4 +1,5 @@
 #pragma once
+#include "afxcmn.h"
 
 
 // CUnitTool 대화 상자입니다.
@@ -20,4 +21,15 @@ protected:
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV 지원입니다.
 
 	DECLARE_MESSAGE_MAP()
+public:
+	CTreeCtrl m_UnitTree;
+
+	HTREEITEM	m_Units;
+	HTREEITEM	m_Protoss;
+	HTREEITEM	m_GroundUnits;
+	HTREEITEM	m_AirUnits;
+
+	//vector<HTREEITEM> m_vecUnits;
+
+	virtual BOOL OnInitDialog();
 };
