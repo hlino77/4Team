@@ -16,9 +16,14 @@
 #define IDD_TABBUILDING                 327
 #define IDD_TABUNIT                     328
 #define IDC_BUTTON7                     1001
+#define IDC_ColiderButton               1001
 #define IDC_TAB1                        1023
-#define IDC_BUTTON1                     1029
 #define IDC_TREE1                       1030
+#define IDC_Option1                     1031
+#define IDC_Option2                     1032
+#define IDC_Option3                     1033
+#define IDC_Size1                       1034
+#define IDC_Size2                       1035
 
 // Next default values for new objects
 // 
@@ -26,7 +31,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        333
 #define _APS_NEXT_COMMAND_VALUE         32771
-#define _APS_NEXT_CONTROL_VALUE         1031
+#define _APS_NEXT_CONTROL_VALUE         1036
 #define _APS_NEXT_SYMED_VALUE           321
 #endif
 #endif

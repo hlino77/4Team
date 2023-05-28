@@ -14,25 +14,31 @@ public:
 	void		Update(void);
 	void		Render(void);
 	void		Mini_Render(void);
+
+	void		Grid_Render(void);
+	void		NormalGrid_Render(void);
+	void		SmallGrid_Render(void);
+	void		Collider_Render(void);
+
 	void		Release(void);
-	
+
 
 public:
 	void		Set_MainView(CToolView* pMainView) { m_pMainView = pMainView; }
 	void		Set_Ratio(D3DXMATRIX* pOut, float fRatioX, float fRatioY);
-//	void		Set_ZommScale(int _iZoomLevel, CPoint _pt) { m_iZoomLevel = _iZoomLevel; }
+
 
 public:
-	int		Get_TileIndex(const D3DXVECTOR3& vPos);
-	void	Tile_Change(const D3DXVECTOR3& vPos, const int& iDrawID);
-	bool	Picking(const D3DXVECTOR3& vPos, const int& iIndex);
-	bool	Picking_Dot(const D3DXVECTOR3& vPos, const int& iIndex);
+	void	Set_GridState(GRID_STATE _GridType) { m_GridState = _GridType; }
+	void	Set_ColState(SETCOL_STATE _ColState) { m_ColState = _ColState; }
+
+	void	Tile_Change(const D3DXVECTOR3& vPos);
+
 private:
-	//vector<TILE*>		m_vecTile;
+	vector<TILE*>		m_vecTile;
 	TILE*				m_pMapInfo;
 	CToolView*			m_pMainView = nullptr;
 
-	//int					m_iZoomLevel;
-	//CPoint				m_cZoomPoint;
+	GRID_STATE			m_GridState;
+	SETCOL_STATE		m_ColState;
 };
-

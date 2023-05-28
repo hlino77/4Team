@@ -20,7 +20,7 @@ public:
 
 // 작업입니다.
 public:
-
+	CTerrain*	Get_Terrain(void) { return m_pTerrain; }
 // 재정의입니다.
 public:
 	virtual void OnDraw(CDC* pDC);  // 이 뷰를 그리기 위해 재정의되었습니다.

@@ -129,7 +129,14 @@ void CToolView::OnDraw(CDC* /*pDC*/)
 	CDevice::Get_Instance()->Render_Begin();
 
 	m_pTerrain->Render();
+	m_pTerrain->Collider_Render();
+
 	CObjectMgr::Get_Instance()->Render();
+
+	
+
+	m_pTerrain->Grid_Render();
+
 
 	CDevice::Get_Instance()->Render_End();
 }
@@ -207,26 +214,20 @@ void CToolView::OnLButtonDown(UINT nFlags, CPoint point)
 
 	// point : 마우스 좌표를 갖고 있음.
 
-	m_pTerrain->Tile_Change({ float(point.x + GetScrollPos(0)), float(point.y + GetScrollPos(1)), 0.f }, 0);
-
-	// Invalidate : 호출 시 윈도우에 WM_PAINT와 WM_ERASEBKGND 메세지를 발생 시킴, 이때 OnDraw함수를 다시 한번 호출
-	// 인자가 FALSE : WM_PAINT만 발생
-	// 인자가 TRUE : WM_PAINT와 WM_ERASEBKGND 메세지를 발생
-	
-	Invalidate(FALSE);
 
 
-	// AfxGetMainWnd : 현재 쓰레드로부터 WND를 반환하는 함수
-	//CMainFrame*		pMainFrm = dynamic_cast<CMainFrame*>(AfxGetMainWnd());
+	if (GetAsyncKeyState(VK_LBUTTON))
+	{
+		m_pTerrain->Tile_Change({ float(point.x + GetScrollPos(0)), float(point.y + GetScrollPos(1)), 0.f });
 
-	// AfxGetApp : 메인 쓰레드를 갖고 있는 현재 메인 APP을 반환
-	CMainFrame*		pMainFrm = dynamic_cast<CMainFrame*>(AfxGetApp()->GetMainWnd());
+		Invalidate(FALSE);
 
-	// GetParentFrame : 현재 VIEW를 둘러싸고 있는 상위 FrameWnd를 반환
-	//CMainFrame*		pMainFrm = dynamic_cast<CMainFrame*>(GetParentFrame());
+		CMainFrame*		pMainFrm = dynamic_cast<CMainFrame*>(AfxGetApp()->GetMainWnd());
+		CMiniView*		pMiniView = dynamic_cast<CMiniView*>(pMainFrm->m_SecondSplitter.GetPane(0, 0));
 
-	CMiniView*		pMiniView = dynamic_cast<CMiniView*>(pMainFrm->m_SecondSplitter.GetPane(0, 0));
-	pMiniView->Invalidate(FALSE);
+		pMiniView->Invalidate(FALSE);
+	}
+
 
 
 }
@@ -240,7 +241,7 @@ void CToolView::OnMouseMove(UINT nFlags, CPoint point)
 	
 	if (GetAsyncKeyState(VK_LBUTTON))
 	{
-		m_pTerrain->Tile_Change({ float(point.x + GetScrollPos(0)), float(point.y + GetScrollPos(1)), 0.f }, 0);
+		m_pTerrain->Tile_Change({ float(point.x + GetScrollPos(0)), float(point.y + GetScrollPos(1)), 0.f });
 		Invalidate(FALSE);
 
 		CMainFrame*		pMainFrm = dynamic_cast<CMainFrame*>(AfxGetMainWnd());
