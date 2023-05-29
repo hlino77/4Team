@@ -110,7 +110,7 @@ void CToolView::OnInitialUpdate()
 		return;
 	}
 
-	m_eToolType = TOOLTYPE::TOOL_END;
+	m_eToolType = TOOLTYPE::TOOL_TERRAIN;
 	
 	CObjectMgr::Get_Instance()->Initialize();
 	CCollisionMgr::Get_Instance()->CheckGroup(OBJID::OBJ_ONCURSOR, OBJID::OBJ_UNIT_GROUND);
@@ -289,7 +289,10 @@ void CToolView::OnMouseMove_Terrain(CPoint point)
 {
 	if (GetAsyncKeyState(VK_LBUTTON))
 	{
-		if (point.x < 30 || point.y < 30 || point.x > WINCX - 30 || point.y > WINCY - 30)
+		RECT	rc{};
+		GetClientRect(&rc);
+
+		if (point.x < 30 || point.y < 30 || point.x > rc.right - 30 || point.y > rc.bottom - 30)
 			return;
 
 		m_pTerrain->Tile_Change({ float(point.x + GetScrollPos(0)), float(point.y + GetScrollPos(1)), 0.f });
@@ -317,7 +320,10 @@ void CToolView::OnMouseMove_Unit(CPoint point)
 
 		if (GetAsyncKeyState(VK_LBUTTON) && !vecCursorObj.front()->GetCollider()->isCollided())
 		{
-			if (point.x < 30 || point.y < 30 || point.x > WINCX - 30 || point.y > WINCY - 30)
+			RECT	rc{};
+			GetClientRect(&rc);
+
+			if (point.x < 30 || point.y < 30 || point.x > rc.right - 30 || point.y > rc.bottom - 30)
 				return;	// 유닛 툴에서 유닛 선택 직후 및 스크롤 클릭 후 가장자리에 유닛이 찍히는 문제에 대한 예외 처리.
 
 			CGameObject* pClone = vecCursorObj.front()->Clone();

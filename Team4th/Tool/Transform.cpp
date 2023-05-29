@@ -40,7 +40,7 @@ void CTransform::Initialize(CGameObject * _pHost)
 
 	//Temp m_tInfo;
 	m_tInfo.vPos = D3DXVECTOR3(0.f, 0.f, 0.f);
-	m_tInfo.vSize = D3DXVECTOR3(32.f, 32.f, 0.f);
+	m_tInfo.vSize = D3DXVECTOR3(1.f, 1.f, 0.f);
 	m_tInfo.vDir = D3DXVECTOR3(0.f, 0.f, 0.f);
 	m_tInfo.vLook = D3DXVECTOR3(0.f, 0.f, 0.f);
 }
@@ -81,5 +81,6 @@ void CTransform::Scale(D3DXVECTOR3& _vScale)
 {
 	D3DXMATRIX	matScale;
 	D3DXMatrixScaling(&matScale, _vScale.x, _vScale.y, _vScale.z);
+	D3DXVec3TransformCoord(&m_tInfo.vSize, &m_tInfo.vSize, &matScale);
 	// 나중에 정점에 다 곱해주든가 하자
 }

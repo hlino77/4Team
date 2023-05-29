@@ -124,6 +124,9 @@
     <Filter Include="07. Managers\03. ResourceMgr">
       <UniqueIdentifier>{789093ee-99e2-4840-b5b5-705e12600804}</UniqueIdentifier>
     </Filter>
+    <Filter Include="05. Etc\01. GameObject\02. Unit\01. GroundUnit\02. Probe">
+      <UniqueIdentifier>{89d2024c-24a4-4d21-8470-ae67489a8cde}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Tool.h">
