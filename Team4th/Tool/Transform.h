@@ -7,12 +7,14 @@ class CTransform :
 {
 public:
 	CTransform();
+	CTransform(const CTransform& rhs);
 	virtual ~CTransform();
 
 	virtual void Initialize(CGameObject* _pHost) override;
 	void	Update();
 
 	void	Translate(D3DXVECTOR3& _vTrans);
+	void	Translate(const D3DXVECTOR3& _vTrans);
 	void	Rotate(float _fRotate);
 	void	Scale(D3DXVECTOR3& _vScale);
 

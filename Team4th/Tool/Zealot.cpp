@@ -14,6 +14,11 @@ CZealot::CZealot()
 {
 }
 
+CZealot::CZealot(const CZealot& rhs) : CZealot()
+{
+	Initialize();
+}
+
 
 CZealot::~CZealot()
 {
@@ -138,4 +143,10 @@ void CZealot::OnCollisionStay(CCollider * _pOther)
 
 void CZealot::OnCollisionExit(CCollider * _pOther)
 {
+}
+
+CGameObject * CZealot::Clone()
+{
+	CGameObject* pNewObj = new CZealot(*this);
+	return pNewObj;
 }

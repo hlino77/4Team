@@ -14,7 +14,10 @@
 #include "Device.h"
 #include "TextureMgr.h"
 #include "ObjectMgr.h"
+#include "GameObject.h"
+#include "Transform.h"
 #include "CollisionMgr.h"
+#include "Collider.h"
 #include "MainFrm.h"
 
 #ifdef _DEBUG
@@ -109,8 +112,10 @@ void CToolView::OnInitialUpdate()
 
 
 	CObjectMgr::Get_Instance()->Initialize();
-	CCollisionMgr::Get_Instance()->CheckGroup(OBJID::OBJ_UNIT_GROUND, OBJID::OBJ_UNIT_GROUND);
-	CCollisionMgr::Get_Instance()->CheckGroup(OBJID::OBJ_UNIT_GROUND, OBJID::OBJ_BUILDING);
+	CCollisionMgr::Get_Instance()->CheckGroup(OBJID::OBJ_ONCURSOR, OBJID::OBJ_UNIT_GROUND);
+	CCollisionMgr::Get_Instance()->CheckGroup(OBJID::OBJ_ONCURSOR, OBJID::OBJ_BUILDING);
+	//CCollisionMgr::Get_Instance()->CheckGroup(OBJID::OBJ_UNIT_GROUND, OBJID::OBJ_UNIT_GROUND);
+	//CCollisionMgr::Get_Instance()->CheckGroup(OBJID::OBJ_UNIT_GROUND, OBJID::OBJ_BUILDING);
 
 	m_pTerrain->Set_MainView(this);
 }
@@ -214,9 +219,16 @@ void CToolView::OnLButtonDown(UINT nFlags, CPoint point)
 
 	// point : 마우스 좌표를 갖고 있음.
 
+	vector<CGameObject*> vecCursorObj = CObjectMgr::Get_Instance()->GetObjList(OBJID::OBJ_ONCURSOR);
+	if (vecCursorObj.size() && !vecCursorObj.front()->GetCollider()->isCollided())
+	{
+		CGameObject* pClone = vecCursorObj.front()->Clone();
+		pClone->GetTransform()->Translate(vecCursorObj.front()->GetTransform()->Position());
+		CObjectMgr::Get_Instance()->GetObjList(vecCursorObj.front()->GetType()).push_back(pClone);
+		Invalidate(FALSE);
+	}
 
-
-	if (GetAsyncKeyState(VK_LBUTTON))
+	/*if (GetAsyncKeyState(VK_LBUTTON))
 	{
 		m_pTerrain->Tile_Change({ float(point.x + GetScrollPos(0)), float(point.y + GetScrollPos(1)), 0.f });
 
@@ -226,7 +238,7 @@ void CToolView::OnLButtonDown(UINT nFlags, CPoint point)
 		CMiniView*		pMiniView = dynamic_cast<CMiniView*>(pMainFrm->m_SecondSplitter.GetPane(0, 0));
 
 		pMiniView->Invalidate(FALSE);
-	}
+	}*/
 
 
 
@@ -239,7 +251,28 @@ void CToolView::OnMouseMove(UINT nFlags, CPoint point)
 
 	CScrollView::OnMouseMove(nFlags, point);
 	
-	if (GetAsyncKeyState(VK_LBUTTON))
+	vector<CGameObject*> vecCursorObj = CObjectMgr::Get_Instance()->GetObjList(OBJID::OBJ_ONCURSOR);
+	if (vecCursorObj.size())
+	{
+		const D3DXVECTOR3& vCursorObjPos = vecCursorObj.front()->GetTransform()->Position();
+
+		D3DXVECTOR3 vToMousePos(point.x - vCursorObjPos.x + GetScrollPos(0), point.y - vCursorObjPos.y + GetScrollPos(1), 0.f);
+		vecCursorObj.front()->GetTransform()->Translate(vToMousePos);
+
+		if (GetAsyncKeyState(VK_LBUTTON) && !vecCursorObj.front()->GetCollider()->isCollided())
+		{
+			if (point.x < 30 || point.y < 30 || point.x > WINCX - 30 || point.y > WINCY - 30)
+				return;	// 유닛 툴에서 유닛 선택 직후 및 스크롤 클릭 후 가장자리에 유닛이 찍히는 문제에 대한 예외 처리.
+
+			CGameObject* pClone = vecCursorObj.front()->Clone();
+			pClone->GetTransform()->Translate(vCursorObjPos);
+			CObjectMgr::Get_Instance()->GetObjList(vecCursorObj.front()->GetType()).push_back(pClone);
+		}
+
+		Invalidate(FALSE);
+	}
+
+	/*if (GetAsyncKeyState(VK_LBUTTON))
 	{
 		m_pTerrain->Tile_Change({ float(point.x + GetScrollPos(0)), float(point.y + GetScrollPos(1)), 0.f });
 		Invalidate(FALSE);
@@ -247,7 +280,7 @@ void CToolView::OnMouseMove(UINT nFlags, CPoint point)
 		CMainFrame*		pMainFrm = dynamic_cast<CMainFrame*>(AfxGetMainWnd());
 		CMiniView*		pMiniView = dynamic_cast<CMiniView*>(pMainFrm->m_SecondSplitter.GetPane(0, 0));
 		pMiniView->Invalidate(FALSE);
-	}
+	}*/
 
 }
 

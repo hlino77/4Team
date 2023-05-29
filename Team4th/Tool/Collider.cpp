@@ -2,7 +2,6 @@
 #include "Collider.h"
 #include "Transform.h"
 #include "GameObject.h"
-#include "SelectGDI.h"
 #include "Device.h"
 //
 #include "MainFrm.h"

@@ -15,6 +15,9 @@
 #define IDD_TABTERRAIN                  326
 #define IDD_TABBUILDING                 327
 #define IDD_TABUNIT                     328
+#define IDB_BITMAP_ZEALOT               333
+#define IDB_BITMAP_PGROUND              333
+#define IDB_BITMAP_PROBE                334
 #define IDC_BUTTON7                     1001
 #define IDC_ColiderButton               1001
 #define IDC_TAB1                        1023
@@ -31,7 +34,7 @@
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        333
+#define _APS_NEXT_RESOURCE_VALUE        335
 #define _APS_NEXT_COMMAND_VALUE         32771
 #define _APS_NEXT_CONTROL_VALUE         1039
 #define _APS_NEXT_SYMED_VALUE           321

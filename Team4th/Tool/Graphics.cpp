@@ -12,6 +12,10 @@ CGraphics::CGraphics()
 {
 }
 
+CGraphics::CGraphics(const CGraphics& rhs) : CGraphics()
+{
+}
+
 CGraphics::~CGraphics()
 {
 }
