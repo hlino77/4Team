@@ -1,4 +1,5 @@
 #pragma once
+#include "afxcmn.h"
 
 
 // CBuildingTool 대화 상자입니다.
@@ -20,4 +21,10 @@ protected:
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV 지원입니다.
 
 	DECLARE_MESSAGE_MAP()
+public:
+	CTreeCtrl m_BuildingTree;
+	virtual BOOL OnInitDialog();
+
+	HTREEITEM m_Buildings;
+	HTREEITEM m_Protoss;
 };

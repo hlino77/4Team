@@ -24,6 +24,7 @@ CBuildingTool::~CBuildingTool()
 void CBuildingTool::DoDataExchange(CDataExchange* pDX)
 {
 	CDialog::DoDataExchange(pDX);
+	DDX_Control(pDX, IDC_BuildingTree, m_BuildingTree);
 }
 
 
@@ -32,3 +33,20 @@ END_MESSAGE_MAP()
 
 
 // CBuildingTool 메시지 처리기입니다.
+
+
+BOOL CBuildingTool::OnInitDialog()
+{
+	CDialog::OnInitDialog();
+
+	m_Buildings = m_BuildingTree.InsertItem(L"Buildings");
+
+	m_Protoss = m_BuildingTree.InsertItem(L"Protoss", m_Buildings);
+	m_BuildingTree.InsertItem(L"Nexus", m_Protoss);
+	m_BuildingTree.InsertItem(L"GateWay", m_Protoss);
+
+	// TODO:  여기에 추가 초기화 작업을 추가합니다.
+
+	return TRUE;  // return TRUE unless you set the focus to a control
+				  // 예외: OCX 속성 페이지는 FALSE를 반환해야 합니다.
+}
