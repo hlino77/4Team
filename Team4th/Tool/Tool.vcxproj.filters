@@ -127,6 +127,12 @@
     <Filter Include="05. Etc\01. GameObject\02. Unit\01. GroundUnit\02. Probe">
       <UniqueIdentifier>{89d2024c-24a4-4d21-8470-ae67489a8cde}</UniqueIdentifier>
     </Filter>
+    <Filter Include="05. Etc\01. GameObject\01. Building\00. Building">
+      <UniqueIdentifier>{66d33465-114c-4cec-ad92-407c01360d70}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05. Etc\01. GameObject\01. Building\01. Nexus">
+      <UniqueIdentifier>{82a46320-83f5-44b9-b733-0a90c2b0863a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Tool.h">
@@ -201,9 +207,6 @@
     <ClInclude Include="GameObject.h">
       <Filter>05. Etc\01. GameObject\00. BaseClass</Filter>
     </ClInclude>
-    <ClInclude Include="Building.h">
-      <Filter>05. Etc\01. GameObject\01. Building</Filter>
-    </ClInclude>
     <ClInclude Include="Unit.h">
       <Filter>05. Etc\01. GameObject\02. Unit\00. UnitBase</Filter>
     </ClInclude>
@@ -233,6 +236,12 @@
     </ClInclude>
     <ClInclude Include="ResourceMgr.h">
       <Filter>07. Managers\03. ResourceMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="Building.h">
+      <Filter>05. Etc\01. GameObject\01. Building\00. Building</Filter>
+    </ClInclude>
+    <ClInclude Include="Nexus.h">
+      <Filter>05. Etc\01. GameObject\01. Building\01. Nexus</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -302,9 +311,6 @@
     <ClCompile Include="GameObject.cpp">
       <Filter>05. Etc\01. GameObject\00. BaseClass</Filter>
     </ClCompile>
-    <ClCompile Include="Building.cpp">
-      <Filter>05. Etc\01. GameObject\01. Building</Filter>
-    </ClCompile>
     <ClCompile Include="Unit.cpp">
       <Filter>05. Etc\01. GameObject\02. Unit\00. UnitBase</Filter>
     </ClCompile>
@@ -334,6 +340,12 @@
     </ClCompile>
     <ClCompile Include="ResourceMgr.cpp">
       <Filter>07. Managers\03. ResourceMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="Building.cpp">
+      <Filter>05. Etc\01. GameObject\01. Building\00. Building</Filter>
+    </ClCompile>
+    <ClCompile Include="Nexus.cpp">
+      <Filter>05. Etc\01. GameObject\01. Building\01. Nexus</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

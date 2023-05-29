@@ -27,4 +27,5 @@ public:
 
 	HTREEITEM m_Buildings;
 	HTREEITEM m_Protoss;
+	afx_msg void OnNMClickBuildingtree(NMHDR *pNMHDR, LRESULT *pResult);
 };

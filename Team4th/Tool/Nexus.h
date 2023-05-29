@@ -4,6 +4,7 @@ class CNexus : public CBuilding
 {
 public:
 	CNexus();
+	CNexus(const CNexus& rhs);
 	virtual ~CNexus();
 
 	// CBuilding을(를) 통해 상속됨

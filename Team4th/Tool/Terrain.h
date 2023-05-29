@@ -33,6 +33,7 @@ public:
 	void	Set_ColState(SETCOL_STATE _ColState) { m_ColState = _ColState; }
 
 	void	Tile_Change(const D3DXVECTOR3& vPos);
+	void	Tile_Change(const D3DXVECTOR3& vPos, const D3DXVECTOR3& vScale);
 
 private:
 	vector<TILE*>		m_vecTile;

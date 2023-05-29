@@ -287,6 +287,7 @@ void CToolView::OnLButtonDown_Unit(CPoint point)
 
 void CToolView::OnMouseMove_Terrain(CPoint point)
 {
+
 	if (GetAsyncKeyState(VK_LBUTTON))
 	{
 		RECT	rc{};
@@ -306,6 +307,39 @@ void CToolView::OnMouseMove_Terrain(CPoint point)
 
 void CToolView::OnMouseMove_Building(CPoint point)
 {
+	point.x -= point.x % TILECX;
+	point.y -= (point.y % TILECY);
+
+	vector<CGameObject*> vecCursorObj = CObjectMgr::Get_Instance()->GetObjList(OBJID::OBJ_ONCURSOR);
+	if (vecCursorObj.size())
+	{
+		const D3DXVECTOR3& vScale = vecCursorObj.front()->GetTransform()->LocalScale();
+
+		point.x += ((int(vScale.x) / 30) % 2) * (TILECX * 0.5f);
+		point.y += ((int(vScale.y) / 30) % 2) * (TILECY * 0.5f);
+
+		const D3DXVECTOR3& vCursorObjPos = vecCursorObj.front()->GetTransform()->Position();
+
+		D3DXVECTOR3 vToMousePos(point.x - vCursorObjPos.x + GetScrollPos(0), point.y - vCursorObjPos.y + GetScrollPos(1), 0.f);
+		vecCursorObj.front()->GetTransform()->Translate(vToMousePos);
+
+		if (GetAsyncKeyState(VK_LBUTTON) && !vecCursorObj.front()->GetCollider()->isCollided())
+		{
+			RECT	rc{};
+			GetClientRect(&rc);
+
+			if (point.x < 30 || point.y < 30 || point.x > rc.right - 30 || point.y > rc.bottom - 30)
+				return;	// 유닛 툴에서 유닛 선택 직후 및 스크롤 클릭 후 가장자리에 유닛이 찍히는 문제에 대한 예외 처리.
+
+			CGameObject* pClone = vecCursorObj.front()->Clone();
+			pClone->GetTransform()->Translate(vCursorObjPos);
+			CObjectMgr::Get_Instance()->GetObjList(vecCursorObj.front()->GetType()).push_back(pClone);
+
+			m_pTerrain->Tile_Change(pClone->GetTransform()->Position(), pClone->GetTransform()->LocalScale());
+		}
+
+		Invalidate(FALSE);
+	}
 }
 
 void CToolView::OnMouseMove_Unit(CPoint point)

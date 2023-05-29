@@ -28,6 +28,12 @@ HRESULT CObjectMgr::Initialize()
 		AfxMessageBox(L"Zealot Move12 Create Failed");
 		return E_FAIL;
 	}	// Áú·µ ÀÓ½Ã
+
+	if (FAILED(CTextureMgr::Get_Instance()->Insert_Texture(L"../Texture/Stage/Unit/protoss/Build/Nexus/Nexus.png", TEX_SINGLE, L"Nexus", L"Nexus")))
+	{
+		AfxMessageBox(L"Nexus Create Failed");
+		return E_FAIL;
+	}
 }
 
 void CObjectMgr::Update()

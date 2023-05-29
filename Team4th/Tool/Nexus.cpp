@@ -9,6 +9,11 @@ CNexus::CNexus()
 {
 }
 
+CNexus::CNexus(const CNexus & rhs)
+{
+	Initialize();
+}
+
 
 CNexus::~CNexus()
 {
@@ -45,8 +50,11 @@ void CNexus::Initialize(void)
 	m_pGraphics = new CGraphics;
 
 	m_pTransform->Initialize(this);
+	m_pTransform->Scale(D3DXVECTOR3(127.f, 95.f, 0.f));
 	m_pCollider->Initialize(this);
 	m_pGraphics->Initialize(this);
+
+
 }
 
 int CNexus::Update(void)
@@ -65,7 +73,7 @@ int CNexus::LateUpdate(void)
 
 void CNexus::Render()
 {
-	m_pGraphics->Render(L"Zealot", L"Move12", 0);
+	m_pGraphics->Render(L"Nexus", L"Nexus", 1);
 }
 
 void CNexus::Release(void)
@@ -86,5 +94,6 @@ void CNexus::OnCollisionExit(CCollider * _pOther)
 
 CGameObject * CNexus::Clone()
 {
-	return nullptr;
+	CGameObject* pNewObj = new CNexus(*this);
+	return pNewObj;
 }

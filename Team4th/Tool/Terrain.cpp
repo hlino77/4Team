@@ -326,6 +326,25 @@ void CTerrain::Tile_Change(const D3DXVECTOR3 & vPos)
 
 }
 
+void CTerrain::Tile_Change(const D3DXVECTOR3 & vPos, const D3DXVECTOR3 & vScale)
+{
+	int iX = (vPos.x - (vScale.x * 0.5f)) / TILECX;
+	int iY = (vPos.y - (vScale.y * 0.5f)) / TILECY;
+
+
+	int iMaxi = (vScale.x / TILECX) + 1;
+	int iMaxj = (vScale.y / TILECY) + 1;
+
+	for (int i = 0; iMaxi > i; ++i)
+	{
+		for (int j = 0; iMaxj > j; ++j)
+		{
+			m_vecTile[(iX + i) + ((iY + j) * TILEX)]->bCollider = true;
+		}
+	}
+
+}
+
 void CTerrain::Set_Ratio(D3DXMATRIX * pOut, float fRatioX, float fRatioY)
 {
 	pOut->_11 *= fRatioX;
