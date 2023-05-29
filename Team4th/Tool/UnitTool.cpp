@@ -137,6 +137,8 @@ void CUnitTool::OnNMClickTree1(NMHDR *pNMHDR, LRESULT *pResult)
 
 	if (vecCursorObj.size() && (m_UnitTree.GetItemText(hItem_dc) == vecCursorObj.front()->GetData().strName))
 		return;
+	//else if()
+
 
 	if(L"Zealot" == m_UnitTree.GetItemText(hItem_dc))
 	{

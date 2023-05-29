@@ -110,7 +110,8 @@ void CToolView::OnInitialUpdate()
 		return;
 	}
 
-
+	m_eToolType = TOOLTYPE::TOOL_END;
+	
 	CObjectMgr::Get_Instance()->Initialize();
 	CCollisionMgr::Get_Instance()->CheckGroup(OBJID::OBJ_ONCURSOR, OBJID::OBJ_UNIT_GROUND);
 	CCollisionMgr::Get_Instance()->CheckGroup(OBJID::OBJ_ONCURSOR, OBJID::OBJ_BUILDING);
@@ -219,16 +220,43 @@ void CToolView::OnLButtonDown(UINT nFlags, CPoint point)
 
 	// point : 마우스 좌표를 갖고 있음.
 
-	vector<CGameObject*> vecCursorObj = CObjectMgr::Get_Instance()->GetObjList(OBJID::OBJ_ONCURSOR);
-	if (vecCursorObj.size() && !vecCursorObj.front()->GetCollider()->isCollided())
+	switch (m_eToolType)
 	{
-		CGameObject* pClone = vecCursorObj.front()->Clone();
-		pClone->GetTransform()->Translate(vecCursorObj.front()->GetTransform()->Position());
-		CObjectMgr::Get_Instance()->GetObjList(vecCursorObj.front()->GetType()).push_back(pClone);
-		Invalidate(FALSE);
+	case TOOLTYPE::TOOL_TERRAIN:
+		OnLButtonDown_Terrain(point);
+		break;
+	case TOOLTYPE::TOOL_BUILDING:
+		OnLButtonDown_Building(point);
+		break;
+	case TOOLTYPE::TOOL_UNIT:
+		OnLButtonDown_Unit(point);
+		break;
 	}
+}
 
-	/*if (GetAsyncKeyState(VK_LBUTTON))
+void CToolView::OnMouseMove(UINT nFlags, CPoint point)
+{
+	// TODO: 여기에 메시지 처리기 코드를 추가 및/또는 기본값을 호출합니다.
+
+	CScrollView::OnMouseMove(nFlags, point);
+	
+	switch (m_eToolType)
+	{
+	case TOOLTYPE::TOOL_TERRAIN:
+		OnMouseMove_Terrain(point);
+		break;
+	case TOOLTYPE::TOOL_BUILDING:
+		OnMouseMove_Building(point);
+		break;
+	case TOOLTYPE::TOOL_UNIT:
+		OnMouseMove_Unit(point);
+		break;
+	}
+}
+
+void CToolView::OnLButtonDown_Terrain(CPoint point)
+{
+	if (GetAsyncKeyState(VK_LBUTTON))
 	{
 		m_pTerrain->Tile_Change({ float(point.x + GetScrollPos(0)), float(point.y + GetScrollPos(1)), 0.f });
 
@@ -238,19 +266,47 @@ void CToolView::OnLButtonDown(UINT nFlags, CPoint point)
 		CMiniView*		pMiniView = dynamic_cast<CMiniView*>(pMainFrm->m_SecondSplitter.GetPane(0, 0));
 
 		pMiniView->Invalidate(FALSE);
-	}*/
-
-
-
+	}
 }
 
-
-void CToolView::OnMouseMove(UINT nFlags, CPoint point)
+void CToolView::OnLButtonDown_Building(CPoint point)
 {
-	// TODO: 여기에 메시지 처리기 코드를 추가 및/또는 기본값을 호출합니다.
+}
 
-	CScrollView::OnMouseMove(nFlags, point);
-	
+void CToolView::OnLButtonDown_Unit(CPoint point)
+{
+	vector<CGameObject*> vecCursorObj = CObjectMgr::Get_Instance()->GetObjList(OBJID::OBJ_ONCURSOR);
+	if (vecCursorObj.size() && !vecCursorObj.front()->GetCollider()->isCollided())
+	{
+		CGameObject* pClone = vecCursorObj.front()->Clone();
+		pClone->GetTransform()->Translate(vecCursorObj.front()->GetTransform()->Position());
+		CObjectMgr::Get_Instance()->GetObjList(vecCursorObj.front()->GetType()).push_back(pClone);
+		Invalidate(FALSE);
+	}
+}
+
+void CToolView::OnMouseMove_Terrain(CPoint point)
+{
+	if (GetAsyncKeyState(VK_LBUTTON))
+	{
+		if (point.x < 30 || point.y < 30 || point.x > WINCX - 30 || point.y > WINCY - 30)
+			return;
+
+		m_pTerrain->Tile_Change({ float(point.x + GetScrollPos(0)), float(point.y + GetScrollPos(1)), 0.f });
+		Invalidate(FALSE);
+
+		CMainFrame*		pMainFrm = dynamic_cast<CMainFrame*>(AfxGetMainWnd());
+		CMiniView*		pMiniView = dynamic_cast<CMiniView*>(pMainFrm->m_SecondSplitter.GetPane(0, 0));
+		pMiniView->Invalidate(FALSE);
+	}
+}
+
+void CToolView::OnMouseMove_Building(CPoint point)
+{
+}
+
+void CToolView::OnMouseMove_Unit(CPoint point)
+{
 	vector<CGameObject*> vecCursorObj = CObjectMgr::Get_Instance()->GetObjList(OBJID::OBJ_ONCURSOR);
 	if (vecCursorObj.size())
 	{
@@ -271,17 +327,6 @@ void CToolView::OnMouseMove(UINT nFlags, CPoint point)
 
 		Invalidate(FALSE);
 	}
-
-	/*if (GetAsyncKeyState(VK_LBUTTON))
-	{
-		m_pTerrain->Tile_Change({ float(point.x + GetScrollPos(0)), float(point.y + GetScrollPos(1)), 0.f });
-		Invalidate(FALSE);
-
-		CMainFrame*		pMainFrm = dynamic_cast<CMainFrame*>(AfxGetMainWnd());
-		CMiniView*		pMiniView = dynamic_cast<CMiniView*>(pMainFrm->m_SecondSplitter.GetPane(0, 0));
-		pMiniView->Invalidate(FALSE);
-	}*/
-
 }
 
 

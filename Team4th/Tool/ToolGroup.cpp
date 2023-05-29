@@ -5,7 +5,8 @@
 #include "Tool.h"
 #include "ToolGroup.h"
 #include "Include.h"
-
+#include "MainFrm.h"
+#include "ToolView.h"
 // CToolGroup
 
 IMPLEMENT_DYNCREATE(CToolGroup, CFormView)
@@ -72,4 +73,8 @@ void CToolGroup::ChangeTool(TOOLTYPE _eType)
 
 	m_pCurrentTool = m_vecTools[(UINT)_eType];
 	m_pCurrentTool->ShowWindow(SW_SHOW);
+
+	CMainFrame*		pMainFrm = dynamic_cast<CMainFrame*>(AfxGetMainWnd());
+	CToolView*		pToolView = dynamic_cast<CToolView*>(pMainFrm->m_MainSplitter.GetPane(0, 1));
+	pToolView->m_eToolType = _eType;
 }

@@ -49,10 +49,22 @@ public:
 
 public:
 	CTerrain*			m_pTerrain;
+	TOOLTYPE			m_eToolType;
 
 public:
 	afx_msg void OnLButtonDown(UINT nFlags, CPoint point);
 	afx_msg void OnMouseMove(UINT nFlags, CPoint point);
+
+	//
+	void	OnLButtonDown_Terrain(CPoint point);
+	void	OnLButtonDown_Building(CPoint point);
+	void	OnLButtonDown_Unit(CPoint point);
+
+	void	OnMouseMove_Terrain(CPoint point);
+	void	OnMouseMove_Building(CPoint point);
+	void	OnMouseMove_Unit(CPoint point);
+
+
 	//afx_msg BOOL OnMouseWheel(UINT nFlags, short zDelta, CPoint pt);
 };
 
