@@ -5,6 +5,7 @@ class CZealot :
 {
 public:
 	CZealot();
+	CZealot(const CZealot& rhs);
 	virtual ~CZealot();
 
 	// CGroundUnit을(를) 통해 상속됨
@@ -17,6 +18,8 @@ public:
 	virtual void OnCollisionEnter(CCollider * _pOther)	override;
 	virtual void OnCollisionStay(CCollider * _pOther)	override;
 	virtual void OnCollisionExit(CCollider * _pOther)	override;
+
+	virtual CGameObject*	Clone()	override;
 
 //protected:
 //	OBJID			m_eType;

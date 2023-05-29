@@ -19,6 +19,7 @@ public:
 	D3DXVECTOR3 GetPosition() { return m_vPosition; }
 	D3DXVECTOR3 GetScale() { return m_vScale; }
 	UINT		GetID() { return m_iID; }
+	bool		isCollided() { return m_iCol; }//
 
 	void SetPosition(D3DXVECTOR3 _vPosition) { m_vPosition = _vPosition; }
 	void SetScale(D3DXVECTOR3 _vScale) { m_vScale = _vScale; }

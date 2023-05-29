@@ -28,15 +28,6 @@ HRESULT CObjectMgr::Initialize()
 		AfxMessageBox(L"Zealot Move12 Create Failed");
 		return E_FAIL;
 	}	// Áú·µ ÀÓ½Ã
-
-	CGameObject*	pZealot = new CZealot;
-	pZealot->Initialize();
-	m_vecObjList[(UINT)OBJID::OBJ_UNIT_GROUND].push_back(pZealot);
-
-	CGameObject*	pZealot2 = new CZealot;
-	pZealot2->Initialize();
-	pZealot2->GetTransform()->Translate(D3DXVECTOR3(33.f, 33.f, 0.f));
-	m_vecObjList[(UINT)OBJID::OBJ_UNIT_GROUND].push_back(pZealot2);
 }
 
 void CObjectMgr::Update()
@@ -81,8 +72,6 @@ void CObjectMgr::Render()
 
 void CObjectMgr::Release()
 {
-	/*for (int i = 0; i < (UINT)PEN_TYPE::END; ++i)
-		DeleteObject(m_arrPen[i]);*/
 	for (int i = 0; i < (UINT)OBJID::OBJ_END; ++i)
 	{
 		for (auto& iter : m_vecObjList[i])

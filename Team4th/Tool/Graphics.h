@@ -7,6 +7,7 @@ class CGraphics :
 {
 public:
 	CGraphics();
+	CGraphics(const CGraphics& rhs);
 	virtual ~CGraphics();
 
 	void	Render(const TCHAR * pObjKey, const TCHAR * pStateKey, const int & iCount);

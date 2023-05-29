@@ -4,8 +4,21 @@
 
 CTransform::CTransform()
 {
+	/*D3DXMatrixIdentity(&m_tInfo.matWorld);
+	m_tInfo.vPos = D3DXVECTOR3(0.f, 0.f, 0.f);
+	m_tInfo.vSize = D3DXVECTOR3(32.f, 32.f, 0.f);
+	m_tInfo.vDir = D3DXVECTOR3(0.f, 0.f, 0.f);
+	m_tInfo.vLook = D3DXVECTOR3(0.f, 0.f, 0.f);*/
 }
 
+CTransform::CTransform(const CTransform & rhs)
+{
+	/*D3DXMatrixIdentity(&m_tInfo.matWorld);
+	m_tInfo.vPos = rhs.m_tInfo.vPos;
+	m_tInfo.vSize = rhs.m_tInfo.vSize;
+	m_tInfo.vDir = rhs.m_tInfo.vDir;
+	m_tInfo.vLook = rhs.m_tInfo.vLook;*/
+}
 
 CTransform::~CTransform()
 {
@@ -26,7 +39,7 @@ void CTransform::Initialize(CGameObject * _pHost)
 	m_tInfo.matWorld = matScale * matRotate * matTrans;*/
 
 	//Temp m_tInfo;
-	m_tInfo.vPos = D3DXVECTOR3(200.f, 200.f, 0.f);
+	m_tInfo.vPos = D3DXVECTOR3(0.f, 0.f, 0.f);
 	m_tInfo.vSize = D3DXVECTOR3(32.f, 32.f, 0.f);
 	m_tInfo.vDir = D3DXVECTOR3(0.f, 0.f, 0.f);
 	m_tInfo.vLook = D3DXVECTOR3(0.f, 0.f, 0.f);
@@ -50,6 +63,11 @@ void CTransform::Translate(D3DXVECTOR3& _vTrans)
 	D3DXMATRIX	matTrans;
 	D3DXMatrixTranslation(&matTrans, _vTrans.x, _vTrans.y, _vTrans.z);
 	D3DXVec3TransformCoord(&m_tInfo.vPos, &m_tInfo.vPos, &matTrans);
+}
+
+void CTransform::Translate(const D3DXVECTOR3& _vTrans)
+{
+	Translate(const_cast<D3DXVECTOR3&>(_vTrans));
 }
 
 void CTransform::Rotate(float _fRotate)

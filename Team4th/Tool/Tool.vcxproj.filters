@@ -219,9 +219,6 @@
     <ClInclude Include="ObjectMgr.h">
       <Filter>07. Managers\01. ObjectMgr</Filter>
     </ClInclude>
-    <ClInclude Include="SelectGDI.h">
-      <Filter>05. Etc\02. Component\03. Graphics</Filter>
-    </ClInclude>
     <ClInclude Include="GroundUnit.h">
       <Filter>05. Etc\01. GameObject\02. Unit\01. GroundUnit\00. BaseGroundUnit</Filter>
     </ClInclude>
@@ -323,9 +320,6 @@
     <ClCompile Include="ObjectMgr.cpp">
       <Filter>07. Managers\01. ObjectMgr</Filter>
     </ClCompile>
-    <ClCompile Include="SelectGDI.cpp">
-      <Filter>05. Etc\02. Component\03. Graphics</Filter>
-    </ClCompile>
     <ClCompile Include="GroundUnit.cpp">
       <Filter>05. Etc\01. GameObject\02. Unit\01. GroundUnit\00. BaseGroundUnit</Filter>
     </ClCompile>
@@ -357,6 +351,12 @@
       <Filter>리소스 파일</Filter>
     </Image>
     <Image Include="res\Toolbar.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="res\bitmap1.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="res\bitmap2.bmp">
       <Filter>리소스 파일</Filter>
     </Image>
   </ItemGroup>

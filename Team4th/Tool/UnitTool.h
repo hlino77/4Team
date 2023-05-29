@@ -23,6 +23,8 @@ protected:
 	DECLARE_MESSAGE_MAP()
 public:
 	CTreeCtrl m_UnitTree;
+	CImageList m_ImageListTree;
+
 
 	HTREEITEM	m_Units;
 	HTREEITEM	m_Protoss;
@@ -32,4 +34,5 @@ public:
 	//vector<HTREEITEM> m_vecUnits;
 
 	virtual BOOL OnInitDialog();
+	afx_msg void OnNMClickTree1(NMHDR *pNMHDR, LRESULT *pResult);
 };
