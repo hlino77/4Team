@@ -25,6 +25,7 @@
 #endif
 
 HWND		g_hWnd;
+UINT		g_iNextID = 0;
 
 // CToolView
 
@@ -115,6 +116,7 @@ void CToolView::OnInitialUpdate()
 	CObjectMgr::Get_Instance()->Initialize();
 	CCollisionMgr::Get_Instance()->CheckGroup(OBJID::OBJ_ONCURSOR, OBJID::OBJ_UNIT_GROUND);
 	CCollisionMgr::Get_Instance()->CheckGroup(OBJID::OBJ_ONCURSOR, OBJID::OBJ_BUILDING);
+	CCollisionMgr::Get_Instance()->CheckGroup(OBJID::OBJ_ONCURSOR, OBJID::OBJ_TILE);
 	//CCollisionMgr::Get_Instance()->CheckGroup(OBJID::OBJ_UNIT_GROUND, OBJID::OBJ_UNIT_GROUND);
 	//CCollisionMgr::Get_Instance()->CheckGroup(OBJID::OBJ_UNIT_GROUND, OBJID::OBJ_BUILDING);
 
@@ -275,7 +277,7 @@ void CToolView::OnLButtonDown_Building(CPoint point)
 
 void CToolView::OnLButtonDown_Unit(CPoint point)
 {
-	vector<CGameObject*> vecCursorObj = CObjectMgr::Get_Instance()->GetObjList(OBJID::OBJ_ONCURSOR);
+	vector<CGameObject*>& vecCursorObj = CObjectMgr::Get_Instance()->GetObjList(OBJID::OBJ_ONCURSOR);
 	if (vecCursorObj.size() && !vecCursorObj.front()->GetCollider()->isCollided())
 	{
 		CGameObject* pClone = vecCursorObj.front()->Clone();
@@ -310,7 +312,7 @@ void CToolView::OnMouseMove_Building(CPoint point)
 	point.x -= point.x % TILECX;
 	point.y -= (point.y % TILECY);
 
-	vector<CGameObject*> vecCursorObj = CObjectMgr::Get_Instance()->GetObjList(OBJID::OBJ_ONCURSOR);
+	vector<CGameObject*>& vecCursorObj = CObjectMgr::Get_Instance()->GetObjList(OBJID::OBJ_ONCURSOR);
 	if (vecCursorObj.size())
 	{
 		const D3DXVECTOR3& vScale = vecCursorObj.front()->GetTransform()->LocalScale();
@@ -344,7 +346,7 @@ void CToolView::OnMouseMove_Building(CPoint point)
 
 void CToolView::OnMouseMove_Unit(CPoint point)
 {
-	vector<CGameObject*> vecCursorObj = CObjectMgr::Get_Instance()->GetObjList(OBJID::OBJ_ONCURSOR);
+	vector<CGameObject*>& vecCursorObj = CObjectMgr::Get_Instance()->GetObjList(OBJID::OBJ_ONCURSOR);
 	if (vecCursorObj.size())
 	{
 		const D3DXVECTOR3& vCursorObjPos = vecCursorObj.front()->GetTransform()->Position();

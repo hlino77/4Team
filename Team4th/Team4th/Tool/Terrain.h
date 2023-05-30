@@ -29,6 +29,7 @@ public:
 
 
 public:
+	vector<TILE*>&		Get_TileList() { return m_vecTile; }
 	void	Set_GridState(GRID_STATE _GridType) { m_GridState = _GridType; }
 	void	Set_ColState(SETCOL_STATE _ColState) { m_ColState = _ColState; }
 

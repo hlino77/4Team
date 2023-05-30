@@ -66,12 +66,16 @@ void CBuildingTool::OnNMClickBuildingtree(NMHDR *pNMHDR, LRESULT *pResult)
 	m_BuildingTree.ScreenToClient(&p);
 	HTREEITEM hItem_dc = m_BuildingTree.HitTest(p, &flag);
 
-	vector<CGameObject*> vecCursorObj = CObjectMgr::Get_Instance()->GetObjList(OBJID::OBJ_ONCURSOR);
+	vector<CGameObject*>& vecCursorObj = CObjectMgr::Get_Instance()->GetObjList(OBJID::OBJ_ONCURSOR);
 
 	if (vecCursorObj.size() && (m_BuildingTree.GetItemText(hItem_dc) == vecCursorObj.front()->GetData().strName))
 		return;
-	//else if()
-
+	else if (vecCursorObj.size() && m_BuildingTree.GetItemText(hItem_dc) != vecCursorObj.front()->GetData().strName)
+	{
+		for (auto& iter : vecCursorObj)
+			Safe_Delete(iter);
+		vecCursorObj.clear();
+	}
 
 	if (L"Nexus" == m_BuildingTree.GetItemText(hItem_dc))
 	{

@@ -37,6 +37,10 @@ public:
 	virtual void	OnCollisionStay(CCollider* _pOther)		PURE;
 	virtual void	OnCollisionExit(CCollider* _pOther)		PURE;
 
+	virtual void	OnCollisionEnter(TILE* _pTIle)			PURE;
+	virtual void	OnCollisionStay(TILE* _pTIle)			PURE;
+	virtual void	OnCollisionExit(TILE* _pTIle)			PURE;
+
 	virtual CGameObject*	Clone()							PURE;
 
 protected:

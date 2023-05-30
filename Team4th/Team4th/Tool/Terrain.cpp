@@ -5,7 +5,7 @@
 #include "ToolView.h"
 
 #include "Mainfrm.h"
-//#include ""
+#include "Collider.h"
 
 CTerrain::CTerrain()
 {
@@ -55,6 +55,8 @@ HRESULT CTerrain::Initialize(void)
 		for (int j = 0; j < TILEX; ++j)
 		{
 			TILE* pTile = new TILE;
+			pTile->m_iID = g_iNextID++;
+			pTile->eType = OBJID::OBJ_TILE;
 
 			float	fX = (TILECX * j) + (TILECX / 2);
 			float	fY = (TILECY * i) + (TILECY / 2);
@@ -303,6 +305,9 @@ void CTerrain::Release(void)
 {
 	delete m_pMapInfo;
 	m_pMapInfo = nullptr;
+	for (auto& iter : m_vecTile)
+		Safe_Delete(iter);
+	m_vecTile.clear();
 }
 
 void CTerrain::Tile_Change(const D3DXVECTOR3 & vPos)
@@ -356,6 +361,5 @@ void CTerrain::Set_Ratio(D3DXMATRIX * pOut, float fRatioX, float fRatioY)
 	pOut->_22 *= fRatioY;
 	pOut->_32 *= fRatioY;
 	pOut->_42 *= fRatioY;
-
 }
 

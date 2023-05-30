@@ -1,4 +1,5 @@
 #pragma once
+#include "Enum.h"
 
 typedef struct tagInfo
 {
@@ -27,6 +28,8 @@ typedef struct tagTexture
 
 typedef struct tagTile
 {
+	OBJID		eType;
+
 	D3DXVECTOR3	vPos;
 	D3DXVECTOR3 vSize;
 
@@ -34,6 +37,7 @@ typedef struct tagTile
 	D3DXVECTOR3 vOriginPoint[5];
 
 	bool		bCollider;
+	UINT		m_iID;
 
 	BYTE		byOption;
 	BYTE		byDrawID;

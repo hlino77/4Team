@@ -9,6 +9,9 @@
 
 #include "ObjectMgr.h"
 #include "Zealot.h"
+#include "Probe.h"
+#include "MainFrm.h"
+#include "ToolView.h"
 // CUnitTool 대화 상자입니다.
 
 IMPLEMENT_DYNAMIC(CUnitTool, CDialog)
@@ -133,12 +136,16 @@ void CUnitTool::OnNMClickTree1(NMHDR *pNMHDR, LRESULT *pResult)
 	m_UnitTree.ScreenToClient(&p);
 	HTREEITEM hItem_dc = m_UnitTree.HitTest(p, &flag);
 
-	vector<CGameObject*> vecCursorObj = CObjectMgr::Get_Instance()->GetObjList(OBJID::OBJ_ONCURSOR);
+	vector<CGameObject*>& vecCursorObj = CObjectMgr::Get_Instance()->GetObjList(OBJID::OBJ_ONCURSOR);
 
 	if (vecCursorObj.size() && (m_UnitTree.GetItemText(hItem_dc) == vecCursorObj.front()->GetData().strName))
 		return;
-	//else if()
-
+	else if (vecCursorObj.size() && m_UnitTree.GetItemText(hItem_dc) != vecCursorObj.front()->GetData().strName)
+	{
+		for (auto& iter : vecCursorObj)
+			Safe_Delete(iter);
+		vecCursorObj.clear();
+	}
 
 	if(L"Zealot" == m_UnitTree.GetItemText(hItem_dc))
 	{
@@ -146,12 +153,13 @@ void CUnitTool::OnNMClickTree1(NMHDR *pNMHDR, LRESULT *pResult)
 		pZealot->Initialize();
 		CObjectMgr::Get_Instance()->GetObjList(OBJID::OBJ_ONCURSOR).push_back(pZealot);
 	}
-
-	/*
 	else if (L"Probe" == m_UnitTree.GetItemText(hItem_dc))
 	{
-
+		CGameObject* pProbe = new CProbe;
+		pProbe->Initialize();
+		CObjectMgr::Get_Instance()->GetObjList(OBJID::OBJ_ONCURSOR).push_back(pProbe);
 	}
+	/*
 	else if (L"Dragoon" == m_UnitTree.GetItemText(hItem_dc))
 	{
 

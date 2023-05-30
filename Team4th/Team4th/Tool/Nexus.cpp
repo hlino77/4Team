@@ -97,3 +97,15 @@ CGameObject * CNexus::Clone()
 	CGameObject* pNewObj = new CNexus(*this);
 	return pNewObj;
 }
+
+void CNexus::OnCollisionEnter(TILE * _pTIle)
+{
+}
+
+void CNexus::OnCollisionStay(TILE * _pTIle)
+{
+}
+
+void CNexus::OnCollisionExit(TILE * _pTIle)
+{
+}

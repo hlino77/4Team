@@ -10,7 +10,7 @@
 #include "TextureMgr.h"
 //
 
-UINT CCollider::g_iNextID = 0;
+//UINT CCollider::g_iNextID = 0;
 
 CCollider::CCollider() : CComponent(), m_iCol(0), m_vPosition(), m_vScale()
 {
@@ -121,4 +121,21 @@ void CCollider::OnCollisionExit(CCollider * _pOther)
 {
 	--m_iCol;
 	m_pHost->OnCollisionExit(_pOther);
+}
+
+void CCollider::OnCollisionEnter(TILE * _pTile)
+{
+	++m_iCol;
+	m_pHost->OnCollisionEnter(_pTile);
+}
+
+void CCollider::OnCollisionStay(TILE * _pTile)
+{
+	m_pHost->OnCollisionStay(_pTile);
+}
+
+void CCollider::OnCollisionExit(TILE * _pTile)
+{
+	--m_iCol;
+	m_pHost->OnCollisionExit(_pTile);
 }

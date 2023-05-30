@@ -7,6 +7,10 @@
 #include "Include.h"
 #include "MainFrm.h"
 #include "ToolView.h"
+#include "GameObject.h"
+#include "ObjectMgr.h"
+
+
 // CToolGroup
 
 IMPLEMENT_DYNCREATE(CToolGroup, CFormView)
@@ -77,4 +81,16 @@ void CToolGroup::ChangeTool(TOOLTYPE _eType)
 	CMainFrame*		pMainFrm = dynamic_cast<CMainFrame*>(AfxGetMainWnd());
 	CToolView*		pToolView = dynamic_cast<CToolView*>(pMainFrm->m_MainSplitter.GetPane(0, 1));
 	pToolView->m_eToolType = _eType;
+
+	vector<CGameObject*>& vecCursorObj = CObjectMgr::Get_Instance()->GetObjList(OBJID::OBJ_ONCURSOR);
+	if (vecCursorObj.size())
+	{
+		for (auto& iter : vecCursorObj)
+			Safe_Delete(iter);
+		vecCursorObj.clear();
+
+		CMainFrame*		pMainFrm = dynamic_cast<CMainFrame*>(AfxGetMainWnd());
+		CToolView*		pToolView = dynamic_cast<CToolView*>(pMainFrm->m_MainSplitter.GetPane(0, 1));
+		pToolView->Invalidate(FALSE);
+	}
 }

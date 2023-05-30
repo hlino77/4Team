@@ -24,10 +24,16 @@ public:
 	void SetPosition(D3DXVECTOR3 _vPosition) { m_vPosition = _vPosition; }
 	void SetScale(D3DXVECTOR3 _vScale) { m_vScale = _vScale; }
 
+	//static void SetId(UINT& _iId) { _iId = ++g_iNextID; }
+
 public:
 	virtual void	OnCollisionEnter(CCollider* _pOther);
 	virtual void	OnCollisionStay(CCollider* _pOther);
 	virtual void	OnCollisionExit(CCollider* _pOther);
+
+	virtual void	OnCollisionEnter(TILE* _pOther);
+	virtual void	OnCollisionStay(TILE* _pOther);
+	virtual void	OnCollisionExit(TILE* _pOther);
 
 private:
 
@@ -35,7 +41,7 @@ private:
 	D3DXVECTOR3		m_vScale;
 
 	UINT			m_iID;
-	static UINT		g_iNextID;
+	//static UINT		g_iNextID;
 
 	int				m_iCol;
 

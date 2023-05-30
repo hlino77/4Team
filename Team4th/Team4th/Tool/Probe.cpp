@@ -1,30 +1,24 @@
 #include "stdafx.h"
-#include "Zealot.h"
+#include "Probe.h"
 #include "Transform.h"
 #include "Collider.h"
 #include "Graphics.h"
 
-//
-#include "MainFrm.h"
-#include "ToolView.h"
-#include "Device.h"
-#include "TextureMgr.h"
-
-CZealot::CZealot()
+CProbe::CProbe()
 {
 }
 
-CZealot::CZealot(const CZealot& rhs) : CZealot()
+CProbe::CProbe(const CProbe & rhs)
 {
 	Initialize();
 }
 
-
-CZealot::~CZealot()
+CProbe::~CProbe()
 {
+	Release();
 }
 
-void CZealot::Initialize(void)
+void CProbe::Initialize(void)
 {
 	m_eType = OBJID::OBJ_UNIT_GROUND;
 	m_IsDead = false;
@@ -33,20 +27,20 @@ void CZealot::Initialize(void)
 
 #pragma region Data
 
-	m_tData.strName = L"Zealot";
-	
-	m_tData.iMaxHp = 100;
+	m_tData.strName = L"Probe";
+
+	m_tData.iMaxHp = 20;
 	m_tData.iHp = m_tData.iMaxHp;
-	m_tData.iMaxShield = 60;
+	m_tData.iMaxShield = 20;
 	m_tData.iShield = m_tData.iMaxShield;
-	m_tData.iAttack = 8;
-	m_tData.iDeffnse = 1;
-	m_tData.fMovefSpeed = 1.875f;
+	m_tData.iAttack = 5;
+	m_tData.iDeffnse = 0;
+	m_tData.fMovefSpeed = 2.344f;
 	m_tData.fAttackSpeed = 22.f;
 
-	m_tData.iFireRange = 0;
-	m_tData.iSightRange = 7;
-	
+	m_tData.iFireRange = 1;
+	m_tData.iSightRange = 8;
+
 	m_tData.iMaxEnergy = 0;
 	m_tData.iEnergy = m_tData.iMaxEnergy;
 
@@ -60,49 +54,60 @@ void CZealot::Initialize(void)
 	m_pTransform->Scale(D3DXVECTOR3(32.f, 32.f, 0.f));
 	m_pCollider->Initialize(this);
 	m_pGraphics->Initialize(this);
-
-	// Temp
 }
 
-int CZealot::Update(void)
+int CProbe::Update(void)
 {
 	m_pTransform->Update();
 
 	return 0;
 }
 
-int CZealot::LateUpdate(void)
+int CProbe::LateUpdate(void)
 {
 	m_pCollider->LateUpdate();
+
 	return 0;
 }
 
-void CZealot::Render()
+void CProbe::Render()
 {
-	m_pGraphics->Render(L"Zealot", L"Move12", 0);
+	m_pGraphics->Render(L"Probe", L"Move12", 0);
 }
 
-void CZealot::Release(void)
+void CProbe::Release(void)
 {
 	Safe_Delete(m_pTransform);
 	Safe_Delete(m_pCollider);
 	Safe_Delete(m_pGraphics);
 }
 
-void CZealot::OnCollisionEnter(CCollider * _pOther)
+void CProbe::OnCollisionEnter(CCollider * _pOther)
 {
 }
 
-void CZealot::OnCollisionStay(CCollider * _pOther)
+void CProbe::OnCollisionStay(CCollider * _pOther)
 {
 }
 
-void CZealot::OnCollisionExit(CCollider * _pOther)
+void CProbe::OnCollisionExit(CCollider * _pOther)
 {
 }
 
-CGameObject * CZealot::Clone()
+void CProbe::OnCollisionEnter(TILE * _pTIle)
 {
-	CGameObject* pNewObj = new CZealot(*this);
+}
+
+void CProbe::OnCollisionStay(TILE * _pTIle)
+{
+}
+
+void CProbe::OnCollisionExit(TILE * _pTIle)
+{
+}
+
+CGameObject * CProbe::Clone()
+{
+	CGameObject* pNewObj = new CProbe(*this);
 	return pNewObj;
 }
