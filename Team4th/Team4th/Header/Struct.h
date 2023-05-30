@@ -43,6 +43,8 @@ typedef struct tagTile
 	BYTE		byDrawID;
 }TILE;
 
+
+
 typedef	struct tagUnitData
 {
 #ifndef _AFX
