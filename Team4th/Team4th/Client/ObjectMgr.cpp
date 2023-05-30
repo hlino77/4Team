@@ -40,6 +40,11 @@ HRESULT CObjectMgr::Initialize()
 		ERR_MSG(L"Nexus Create Failed");
 		return E_FAIL;
 	}
+
+
+	m_Terrain.Initialize();
+
+
 }
 
 void CObjectMgr::Update()
@@ -63,6 +68,8 @@ void CObjectMgr::LateUpdate()
 
 void CObjectMgr::Render()
 {
+	m_Terrain.Render();
+
 	for (int i = 0; i < (UINT)OBJID::OBJ_END; ++i)
 		for (auto& iter : m_vecObjList[i])
 			iter->Render();

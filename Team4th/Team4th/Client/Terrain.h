@@ -39,4 +39,6 @@ private:
 	CToolView*			m_pMainView = nullptr;
 
 	SETCOL_STATE		m_ColState;
+
+	void		Load_TileData(void);
 };

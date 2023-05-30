@@ -4,6 +4,7 @@
 #include "Device.h"
 
 #include "Collider.h"
+#include "CameraMgr.h"
 
 CTerrain::CTerrain()
 {
@@ -86,6 +87,8 @@ HRESULT CTerrain::Initialize(void)
 
 	m_ColState = SETCOL_STATE::NONE;
 
+	Load_TileData();
+
 	return S_OK;
 }
 
@@ -97,6 +100,8 @@ void CTerrain::Render(void)
 {
 	D3DXMATRIX	matWorld, matScale, matTrans;
 
+	float m_fScrollX = CCameraMgr::Get_Instance()->Get_ScrollX();
+	float m_fScrollY = CCameraMgr::Get_Instance()->Get_ScrollY();
 
 	float	fX = MAPCX * 0.5f;
 	float	fY = MAPCY * 0.5f;
@@ -104,8 +109,8 @@ void CTerrain::Render(void)
 	D3DXMatrixIdentity(&matWorld);
 	D3DXMatrixScaling(&matScale, 1.f, 1.f, 1.f);
 	D3DXMatrixTranslation(&matTrans,
-		m_pMapInfo->vPos.x,
-		m_pMapInfo->vPos.y,
+		m_pMapInfo->vPos.x + m_fScrollX,
+		m_pMapInfo->vPos.y + m_fScrollY,
 		0.f);
 
 	matWorld = matScale * matTrans;
@@ -118,7 +123,7 @@ void CTerrain::Render(void)
 
 	CDevice::Get_Instance()->Get_Sprite()->Draw(pTexInfo->pTexture,
 		nullptr,							// 출력할 이미지 영역에 대한 Rect 주소, null인 경우 이미지의 0, 0 기준으로 출력
-		&D3DXVECTOR3(fX, fY, 0.f),			// 출력할 이미지의 중심축에 대한 vector3 주소, null인 경우 이미지의 0, 0이 중심 좌표
+		nullptr,			// 출력할 이미지의 중심축에 대한 vector3 주소, null인 경우 이미지의 0, 0이 중심 좌표
 		nullptr,							// 위치 좌표에 대한 vector3 주소, null인 경우 스크린 상의 0, 0좌표 출력
 		D3DCOLOR_ARGB(255, 255, 255, 255)); // 출력할 이미지와 섞을 색상 값, 0xffffffff를 넘겨주면 원본 색상 유지
 
@@ -238,5 +243,31 @@ void CTerrain::Set_Ratio(D3DXMATRIX * pOut, float fRatioX, float fRatioY)
 	pOut->_22 *= fRatioY;
 	pOut->_32 *= fRatioY;
 	pOut->_42 *= fRatioY;
+}
+
+void CTerrain::Load_TileData(void)
+{
+	const TCHAR* pTilePath = L"../Data/TileData.dat";
+
+	HANDLE hFile = CreateFile(pTilePath, GENERIC_READ,
+		0, 0, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, 0);
+
+	if (INVALID_HANDLE_VALUE == hFile)
+		return;
+
+	DWORD	dwByte = 0;
+
+	for (auto& iter : m_vecTile)
+	{
+		ReadFile(hFile, &iter->bCollider, sizeof(bool), &dwByte, nullptr);
+		if (0 == dwByte)
+		{
+			break;
+		}
+	}
+
+	CloseHandle(hFile);
+
+
 }
 

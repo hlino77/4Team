@@ -61,6 +61,9 @@
     <Filter Include="02. GameObject\01. MyTerrain">
       <UniqueIdentifier>{47eae66f-815f-40f4-9a73-a68e528bf390}</UniqueIdentifier>
     </Filter>
+    <Filter Include="01. Mgr\06. CameraMgr">
+      <UniqueIdentifier>{799b2eae-3218-4d81-b546-11a23fff33bc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -153,6 +156,9 @@
     <ClInclude Include="Building.h">
       <Filter>02. GameObject</Filter>
     </ClInclude>
+    <ClInclude Include="CameraMgr.h">
+      <Filter>01. Mgr\06. CameraMgr</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -235,6 +241,9 @@
     </ClCompile>
     <ClCompile Include="Building.cpp">
       <Filter>02. GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="CameraMgr.cpp">
+      <Filter>01. Mgr\06. CameraMgr</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

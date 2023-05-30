@@ -1,6 +1,6 @@
 #pragma once
 #include "Include.h"
-
+#include "Terrain.h"
 
 class CGameObject;
 class CObjectMgr
@@ -26,5 +26,7 @@ public:
 
 private:
 	vector<CGameObject*> m_vecObjList[(UINT)OBJID::OBJ_END];
+
+	CTerrain			 m_Terrain;
 };
 

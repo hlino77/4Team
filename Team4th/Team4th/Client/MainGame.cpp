@@ -5,6 +5,7 @@
 #include "SceneMgr.h"
 #include "ObjectMgr.h"
 #include "TimeMgr.h"
+#include "CameraMgr.h"
 
 
 CMainGame::CMainGame()
@@ -30,6 +31,8 @@ HRESULT CMainGame::Initialize(void)
 
 	CTimeMgr::Get_Instance()->Initialize();
 	CSceneMgr::Get_Instance()->Change_SceneMgr(CSceneMgr::STAGE);
+	CObjectMgr::Get_Instance()->Initialize();
+	CCameraMgr::Get_Instance()->Initialize();
 
 	/*
 	#ifdef _DEBUG
@@ -53,11 +56,16 @@ void CMainGame::Update(void)
 {
 	CTimeMgr::Get_Instance()->Update();
 	CSceneMgr::Get_Instance()->Update_SceneMgr();
+	CObjectMgr::Get_Instance()->Update();
+	CCameraMgr::Get_Instance()->Update();
+	
 }
 
 void CMainGame::Late_Update(void)
 {
 	CSceneMgr::Get_Instance()->Late_Update_SceneMgr();
+	CObjectMgr::Get_Instance()->LateUpdate();
+	CCameraMgr::Get_Instance()->LateUpdate();
 }
 
 void CMainGame::Render(void)
@@ -67,6 +75,8 @@ void CMainGame::Render(void)
 	m_pGraphicDev->Render_Begin();
 
 	CSceneMgr::Get_Instance()->Render_SceneMgr();
+
+	CObjectMgr::Get_Instance()->Render();
 
 	m_pGraphicDev->Render_End();
 }
