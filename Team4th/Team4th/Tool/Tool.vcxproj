@@ -201,6 +201,7 @@
     <ClInclude Include="CollisionMgr.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="Device.h" />
+    <ClInclude Include="Dragoon.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="Graphics.h" />
     <ClInclude Include="GroundUnit.h" />
@@ -240,6 +241,7 @@
     <ClCompile Include="CollisionMgr.cpp" />
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="Device.cpp" />
+    <ClCompile Include="Dragoon.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="Graphics.cpp" />
     <ClCompile Include="GroundUnit.cpp" />

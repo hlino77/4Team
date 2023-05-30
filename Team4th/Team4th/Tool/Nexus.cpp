@@ -17,6 +17,7 @@ CNexus::CNexus(const CNexus & rhs)
 
 CNexus::~CNexus()
 {
+	Release();
 }
 
 void CNexus::Initialize(void)
@@ -25,8 +26,7 @@ void CNexus::Initialize(void)
 	m_IsDead = false;
 
 	m_dwTime = 0;
-
-
+	
 	m_tData.strName = L"Nexus";
 
 	m_tData.iMaxHp = 100;
@@ -78,6 +78,9 @@ void CNexus::Render()
 
 void CNexus::Release(void)
 {
+	Safe_Delete(m_pTransform);
+	Safe_Delete(m_pCollider);
+	Safe_Delete(m_pGraphics);
 }
 
 void CNexus::OnCollisionEnter(CCollider * _pOther)

@@ -10,6 +10,7 @@
 #include "ObjectMgr.h"
 #include "Zealot.h"
 #include "Probe.h"
+#include "Dragoon.h"
 #include "MainFrm.h"
 #include "ToolView.h"
 // CUnitTool 대화 상자입니다.
@@ -147,10 +148,13 @@ void CUnitTool::OnNMClickTree1(NMHDR *pNMHDR, LRESULT *pResult)
 		vecCursorObj.clear();
 	}
 
+	//CObjectMgr::Get_Instance()->CreateObject((TCHAR*)m_UnitTree.GetItemText(hItem_dc).GetString(), D3DXVECTOR3((float)p.x, (float)p.y, 0.f));
+
 	if(L"Zealot" == m_UnitTree.GetItemText(hItem_dc))
 	{
 		CGameObject* pZealot = new CZealot;
 		pZealot->Initialize();
+
 		CObjectMgr::Get_Instance()->GetObjList(OBJID::OBJ_ONCURSOR).push_back(pZealot);
 	}
 	else if (L"Probe" == m_UnitTree.GetItemText(hItem_dc))
@@ -159,11 +163,13 @@ void CUnitTool::OnNMClickTree1(NMHDR *pNMHDR, LRESULT *pResult)
 		pProbe->Initialize();
 		CObjectMgr::Get_Instance()->GetObjList(OBJID::OBJ_ONCURSOR).push_back(pProbe);
 	}
-	/*
 	else if (L"Dragoon" == m_UnitTree.GetItemText(hItem_dc))
 	{
-
+		CGameObject* pDragoon = new CDragoon;
+		pDragoon->Initialize();
+		CObjectMgr::Get_Instance()->GetObjList(OBJID::OBJ_ONCURSOR).push_back(pDragoon);
 	}
+	/*
 	else if (L"High Templer" == m_UnitTree.GetItemText(hItem_dc))
 	{
 

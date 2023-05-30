@@ -290,12 +290,11 @@ void CMyForm::OnLoadData()
 				break;
 			}
 
-
-
 			//if¹®Ãß°¡
+			CObjectMgr::Get_Instance()->CreateObject(pName, D3DXVECTOR3(fX, fY, 0.f));
 
-
-
+			CMainFrame*		pMainFrm = dynamic_cast<CMainFrame*>(AfxGetMainWnd());
+			dynamic_cast<CToolView*>(pMainFrm->m_MainSplitter.GetPane(0, 1))->Invalidate(FALSE);
 
 			delete[]pName;
 			pName = nullptr;
