@@ -45,6 +45,8 @@ public:
 	CTerrainTab*	m_pTerrainTab;
 	CBuildingTab*	m_pBuildingTab;
 	CUnitTab*		m_pUnitTab;
+	afx_msg void OnSaveData();
+	afx_msg void OnLoadData();
 };
 
 

@@ -10,6 +10,9 @@
 #include "BuildingTool.h"
 #include "MainFrm.h"
 #include "ToolGroup.h"
+#include "ObjectMgr.h"
+#include "GameObject.h"
+#include "Transform.h"
 
 // CMyForm
 
@@ -35,6 +38,8 @@ void CMyForm::DoDataExchange(CDataExchange* pDX)
 BEGIN_MESSAGE_MAP(CMyForm, CFormView)
 
 	ON_NOTIFY(TCN_SELCHANGE, IDC_TAB1, &CMyForm::OnTabChange)
+	ON_BN_CLICKED(IDC_SAVEBUTTON, &CMyForm::OnSaveData)
+	ON_BN_CLICKED(IDC_LOADBUTTON, &CMyForm::OnLoadData)
 END_MESSAGE_MAP()
 
 void CMyForm::OnInitialUpdate()
@@ -118,4 +123,67 @@ void CMyForm::OnTabChange(NMHDR *pNMHDR, LRESULT *pResult)
 	}
 
 	dynamic_cast<CToolGroup*>(pToolGroup)->ChangeTool((TOOLTYPE)iselect);
+}
+
+
+void CMyForm::OnSaveData()
+{
+	CFileDialog		Dlg(FALSE,	// TRUE(열기), FALSE(다른 이름으로 저장) 모드 지정	
+		L"dat", // defaule 파일 확장자명
+		L"*.dat", // 대화 상자에 표시될 최초 파일명
+		OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT, // OFN_HIDEREADONLY(읽기전용 체크박스 숨김), OFN_OVERWRITEPROMPT(중복파일 저장 시 경고메세지 띄우기)
+		L"Data Files(*.dat) | *.dat||",  // 대화 상자에 표시될 파일 형식 '콤보 박스에 출력될 문자열 | 실제 사용할 필터링 문자열 ||'
+		this); // 부모 윈도우 주소
+
+	TCHAR	szPath[MAX_PATH] = L"";
+
+	// GetCurrentDirectory : 현재 프로젝트 경로를 얻어오는 함수
+	GetCurrentDirectory(MAX_PATH, szPath);
+	//szPath = 0x00d2e810 L"D:\\유준환\\137기\\Frame137\\Tool"
+
+	//PathRemoveFileSpec : 전체 경로에서 파일 이름만 잘라내는 함수, 파일 이름이 없을 경우, 가장 마지막 경로명만 잘라냄
+	PathRemoveFileSpec(szPath);
+	//szPath = 0x00efe3f8 L"D:\\유준환\\137기\\Frame137"
+
+	lstrcat(szPath, L"\\Data");
+
+	// 대화 상자를 열었을 때 보이는 기본 경로 설정 값을 저장하는 변수
+	Dlg.m_ofn.lpstrInitialDir = szPath;
+
+	if (IDOK == Dlg.DoModal())
+	{
+		HANDLE hFile = CreateFile(L"../Data/TempData.dat", GENERIC_WRITE, 0, 0,
+			CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, 0);
+
+		if (INVALID_HANDLE_VALUE == hFile)
+			return;
+
+		DWORD	dwByte = 0;
+		DWORD	dwStrByte = 0;
+
+
+		for (int i = 0; i < (UINT)OBJID::OBJ_END; ++i)
+		{
+			vector<CGameObject*>& vecObjList = CObjectMgr::Get_Instance()->GetObjList((OBJID)i);
+			for (auto& iter : vecObjList)
+			{
+				dwStrByte = sizeof(TCHAR) * (iter->GetData().strName.GetLength() + 1);
+
+				WriteFile(hFile, &dwStrByte, sizeof(DWORD), &dwByte, nullptr);
+				WriteFile(hFile, iter->GetData().strName, dwStrByte, &dwByte, nullptr);
+
+				WriteFile(hFile, &(iter->GetTransform()->Position().x), sizeof(float), &dwByte, nullptr);
+				WriteFile(hFile, &(iter->GetTransform()->Position().y), sizeof(float), &dwByte, nullptr);
+			}
+		}
+
+
+		CloseHandle(hFile);
+	}
+}
+
+
+void CMyForm::OnLoadData()
+{
+	
 }

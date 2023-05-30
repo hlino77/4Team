@@ -29,6 +29,8 @@
 #define IDC_Size2                       1035
 #define IDC_B                           1038
 #define IDC_BuildingTree                1038
+#define IDC_SAVEBUTTON                  1041
+#define IDC_LOADBUTTON                  1042
 
 // Next default values for new objects
 // 
@@ -36,7 +38,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        335
 #define _APS_NEXT_COMMAND_VALUE         32771
-#define _APS_NEXT_CONTROL_VALUE         1039
+#define _APS_NEXT_CONTROL_VALUE         1043
 #define _APS_NEXT_SYMED_VALUE           321
 #endif
 #endif
