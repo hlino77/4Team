@@ -21,7 +21,7 @@ HRESULT CStage::Ready_Scene()
 		return E_FAIL;
 	}
 
-
+	
 	
 
 
@@ -40,7 +40,7 @@ HRESULT CStage::Ready_Scene()
 
 void CStage::Update_Scene()
 {
-	
+
 }
 
 void CStage::Late_Update_Scene()
@@ -55,4 +55,5 @@ void CStage::Render_Scene()
 
 void CStage::Release_Scene()
 {
+
 }
