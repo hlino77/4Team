@@ -309,8 +309,8 @@ void CToolView::OnMouseMove_Terrain(CPoint point)
 
 void CToolView::OnMouseMove_Building(CPoint point)
 {
-	point.x -= point.x % TILECX;
-	point.y -= (point.y % TILECY);
+	point.x -= (point.x + GetScrollPos(0)) % TILECX;
+	point.y -= (point.y + GetScrollPos(1)) % TILECY;
 
 	vector<CGameObject*>& vecCursorObj = CObjectMgr::Get_Instance()->GetObjList(OBJID::OBJ_ONCURSOR);
 	if (vecCursorObj.size())
@@ -322,7 +322,7 @@ void CToolView::OnMouseMove_Building(CPoint point)
 
 		const D3DXVECTOR3& vCursorObjPos = vecCursorObj.front()->GetTransform()->Position();
 
-		D3DXVECTOR3 vToMousePos(point.x - vCursorObjPos.x + GetScrollPos(0), point.y - vCursorObjPos.y + GetScrollPos(1), 0.f);
+		D3DXVECTOR3 vToMousePos(point.x + GetScrollPos(0) - vCursorObjPos.x , point.y + GetScrollPos(1) - vCursorObjPos.y , 0.f);
 		vecCursorObj.front()->GetTransform()->Translate(vToMousePos);
 
 		if (GetAsyncKeyState(VK_LBUTTON) && !vecCursorObj.front()->GetCollider()->isCollided())
