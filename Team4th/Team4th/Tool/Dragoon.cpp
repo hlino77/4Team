@@ -11,7 +11,6 @@
 
 CDragoon::CDragoon()
 {
-	Initialize();
 }
 
 CDragoon::CDragoon(const CDragoon & rhs)
@@ -41,7 +40,7 @@ void CDragoon::Initialize(void)
 	m_tData.iShield = m_tData.iMaxShield;
 	m_tData.iAttack = 20;
 	m_tData.iDeffnse = 1;
-	m_tData.fMovefSpeed = 2.461;
+	m_tData.fMovefSpeed = 2.461f;
 	m_tData.fAttackSpeed = 30.f;
 
 	m_tData.iFireRange = 4;
@@ -57,7 +56,7 @@ void CDragoon::Initialize(void)
 	m_pGraphics = new CGraphics;
 
 	m_pTransform->Initialize(this);
-	m_pTransform->Scale(D3DXVECTOR3(48.f, 48.f, 0.f));
+	m_pTransform->Scale(D3DXVECTOR3(32.f, 32.f, 0.f));
 	m_pCollider->Initialize(this);
 	m_pGraphics->Initialize(this);
 }

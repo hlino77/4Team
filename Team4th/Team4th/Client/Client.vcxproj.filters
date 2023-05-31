@@ -64,6 +64,15 @@
     <Filter Include="01. Mgr\06. CameraMgr">
       <UniqueIdentifier>{799b2eae-3218-4d81-b546-11a23fff33bc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. GameObject\03. GroundUnit">
+      <UniqueIdentifier>{55a1590c-666f-4609-a1a7-575d9adbebec}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\02. Building">
+      <UniqueIdentifier>{5d162618-bea3-4c7d-b57d-01264ca08f67}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\02. Building\00. Nexus">
+      <UniqueIdentifier>{5b04de33-1012-4108-b0ca-a08d167f28f0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -135,12 +144,6 @@
     <ClInclude Include="Graphics.h">
       <Filter>02. GameObject</Filter>
     </ClInclude>
-    <ClInclude Include="GroundUnit.h">
-      <Filter>02. GameObject</Filter>
-    </ClInclude>
-    <ClInclude Include="Nexus.h">
-      <Filter>02. GameObject</Filter>
-    </ClInclude>
     <ClInclude Include="Probe.h">
       <Filter>02. GameObject</Filter>
     </ClInclude>
@@ -153,11 +156,17 @@
     <ClInclude Include="Transform.h">
       <Filter>02. GameObject</Filter>
     </ClInclude>
-    <ClInclude Include="Building.h">
-      <Filter>02. GameObject</Filter>
-    </ClInclude>
     <ClInclude Include="CameraMgr.h">
       <Filter>01. Mgr\06. CameraMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="GroundUnit.h">
+      <Filter>02. GameObject\03. GroundUnit</Filter>
+    </ClInclude>
+    <ClInclude Include="Building.h">
+      <Filter>02. GameObject\02. Building</Filter>
+    </ClInclude>
+    <ClInclude Include="Nexus.h">
+      <Filter>02. GameObject\02. Building\00. Nexus</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -221,12 +230,6 @@
     <ClCompile Include="Graphics.cpp">
       <Filter>02. GameObject</Filter>
     </ClCompile>
-    <ClCompile Include="GroundUnit.cpp">
-      <Filter>02. GameObject</Filter>
-    </ClCompile>
-    <ClCompile Include="Nexus.cpp">
-      <Filter>02. GameObject</Filter>
-    </ClCompile>
     <ClCompile Include="Probe.cpp">
       <Filter>02. GameObject</Filter>
     </ClCompile>
@@ -239,11 +242,17 @@
     <ClCompile Include="Transform.cpp">
       <Filter>02. GameObject</Filter>
     </ClCompile>
-    <ClCompile Include="Building.cpp">
-      <Filter>02. GameObject</Filter>
-    </ClCompile>
     <ClCompile Include="CameraMgr.cpp">
       <Filter>01. Mgr\06. CameraMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="GroundUnit.cpp">
+      <Filter>02. GameObject\03. GroundUnit</Filter>
+    </ClCompile>
+    <ClCompile Include="Building.cpp">
+      <Filter>02. GameObject\02. Building</Filter>
+    </ClCompile>
+    <ClCompile Include="Nexus.cpp">
+      <Filter>02. GameObject\02. Building\00. Nexus</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

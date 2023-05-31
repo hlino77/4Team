@@ -28,7 +28,9 @@ public:
 
 	HTREEITEM	m_Units;
 	HTREEITEM	m_Protoss;
-	HTREEITEM	m_GroundUnits;
+	HTREEITEM	m_Zerg;
+	HTREEITEM	m_PGround;
+	HTREEITEM	m_ZGround;
 	HTREEITEM	m_AirUnits;
 
 	//vector<HTREEITEM> m_vecUnits;

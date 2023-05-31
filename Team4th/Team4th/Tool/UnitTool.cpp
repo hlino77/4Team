@@ -11,6 +11,7 @@
 #include "Zealot.h"
 #include "Probe.h"
 #include "Dragoon.h"
+#include "Zergling.h"
 #include "MainFrm.h"
 #include "ToolView.h"
 // CUnitTool 대화 상자입니다.
@@ -47,7 +48,7 @@ BOOL CUnitTool::OnInitDialog()
 	CDialog::OnInitDialog();
 
 #pragma region ImageList
-	m_ImageListTree.Create(IDB_BITMAP_PGROUND, 34, 5, D3DCOLOR_ARGB(255, 255, 255, 255));
+	m_ImageListTree.Create(IDB_BITMAP_PGROUND, 34, 6, D3DCOLOR_ARGB(255, 255, 255, 255));
 	m_UnitTree.SetImageList(&m_ImageListTree, TVSIL_NORMAL);
 
 	TVINSERTSTRUCT	tvInsert;
@@ -76,7 +77,7 @@ BOOL CUnitTool::OnInitDialog()
 	tvInsert.item.pszText = L"Ground Unit";
 	tvInsert.item.iImage = 0;
 	tvInsert.item.iSelectedImage = 0;
-	m_GroundUnits = m_UnitTree.InsertItem(&tvInsert);
+	m_PGround = m_UnitTree.InsertItem(&tvInsert);
 
 	tvInsert.hParent = m_Protoss;
 	tvInsert.item.pszText = L"Air Unit";
@@ -84,41 +85,62 @@ BOOL CUnitTool::OnInitDialog()
 	tvInsert.item.iSelectedImage = 3;
 	m_AirUnits = m_UnitTree.InsertItem(&tvInsert);
 
-	tvInsert.hParent = m_GroundUnits;
+	tvInsert.hParent = m_PGround;
 	tvInsert.item.pszText = L"Zealot";
 	tvInsert.item.iImage = 0;
 	tvInsert.item.iSelectedImage = 0;
 	m_UnitTree.InsertItem(&tvInsert);
 
-	tvInsert.hParent = m_GroundUnits;
+	tvInsert.hParent = m_PGround;
 	tvInsert.item.pszText = L"Probe";
 	tvInsert.item.iImage = 1;
 	tvInsert.item.iSelectedImage = 1;
 	m_UnitTree.InsertItem(&tvInsert);
 
-	tvInsert.hParent = m_GroundUnits;
+	tvInsert.hParent = m_PGround;
 	tvInsert.item.pszText = L"Dragoon";
 	tvInsert.item.iImage = 2;
 	tvInsert.item.iSelectedImage = 2;
 	m_UnitTree.InsertItem(&tvInsert);
 
-	tvInsert.hParent = m_GroundUnits;
+	tvInsert.hParent = m_PGround;
 	tvInsert.item.pszText = L"High Templer";
 	tvInsert.item.iImage = 3;
 	tvInsert.item.iSelectedImage = 3;
 	m_UnitTree.InsertItem(&tvInsert);
 
-	tvInsert.hParent = m_GroundUnits;
+	tvInsert.hParent = m_PGround;
 	tvInsert.item.pszText = L"Dark Templer";
 	tvInsert.item.iImage = 4;
 	tvInsert.item.iSelectedImage = 4;
+	m_UnitTree.InsertItem(&tvInsert);
+
+
+	tvInsert.hParent = m_Units;
+	tvInsert.item.pszText = L"Zerg";
+	tvInsert.item.iImage = 0;
+	tvInsert.item.iSelectedImage = 0;
+	m_Zerg = m_UnitTree.InsertItem(&tvInsert);
+
+	tvInsert.hParent = m_Zerg;
+	tvInsert.item.pszText = L"Ground Unit";
+	tvInsert.item.iImage = 0;
+	tvInsert.item.iSelectedImage = 0;
+	m_ZGround = m_UnitTree.InsertItem(&tvInsert);
+
+	tvInsert.hParent = m_ZGround;
+	tvInsert.item.pszText = L"Zergling";
+	tvInsert.item.iImage = 5;
+	tvInsert.item.iSelectedImage = 5;
 	m_UnitTree.InsertItem(&tvInsert);
 #pragma endregion ImageList
 
 
 	m_UnitTree.Expand(m_Units, TVE_EXPAND);
 	m_UnitTree.Expand(m_Protoss, TVE_EXPAND);
-	m_UnitTree.Expand(m_GroundUnits, TVE_EXPAND);
+	m_UnitTree.Expand(m_PGround, TVE_EXPAND);
+	m_UnitTree.Expand(m_Zerg, TVE_EXPAND);
+	m_UnitTree.Expand(m_ZGround, TVE_EXPAND);
 	m_UnitTree.Expand(m_AirUnits, TVE_EXPAND);
 
 		// TODO:  여기에 추가 초기화 작업을 추가합니다.
@@ -179,6 +201,12 @@ void CUnitTool::OnNMClickTree1(NMHDR *pNMHDR, LRESULT *pResult)
 
 
 	}*/
+	else if (L"Zergling" == m_UnitTree.GetItemText(hItem_dc))
+	{
+		CGameObject* pZergling = new CZergling;
+		pZergling->Initialize();
+		CObjectMgr::Get_Instance()->GetObjList(OBJID::OBJ_ONCURSOR).push_back(pZergling);
+	}
 
 	*pResult = 0;
 }

@@ -37,6 +37,7 @@
     <ClCompile Include="UnitTool.cpp" />
     <ClCompile Include="Zealot.cpp" />
     <ClCompile Include="Dragoon.cpp" />
+    <ClCompile Include="Zergling.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AirUnit.h" />
@@ -77,6 +78,7 @@
     <ClInclude Include="UnitTool.h" />
     <ClInclude Include="Zealot.h" />
     <ClInclude Include="Dragoon.h" />
+    <ClInclude Include="Zergling.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Tool.rc" />
