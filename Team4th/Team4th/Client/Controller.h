@@ -12,7 +12,6 @@ public:
 	void	LateUpdate(void);
 	void	Render(void);
 	void	Release(void);
-	void	Render(void);
 
 	vector<CGameObject*>&	GetControllObj() { return m_vecControllObj; }
 

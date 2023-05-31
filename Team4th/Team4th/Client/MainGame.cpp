@@ -72,7 +72,7 @@ HRESULT CMainGame::Initialize(void)
 void CMainGame::Update(void)
 {
 	CTimeMgr::Get_Instance()->Update();
-	CSceneMgr::Get_Instance()->Update_SceneMgr();
+	CSceneMgr::Get_Instance()->Update();
 	CObjectMgr::Get_Instance()->Update();
 	CCameraMgr::Get_Instance()->Update();
 	
@@ -80,7 +80,7 @@ void CMainGame::Update(void)
 
 void CMainGame::Late_Update(void)
 {
-	CSceneMgr::Get_Instance()->Late_Update_SceneMgr();
+	CSceneMgr::Get_Instance()->LateUpdate();
 	CObjectMgr::Get_Instance()->LateUpdate();
 	CCameraMgr::Get_Instance()->LateUpdate();
 }
@@ -91,7 +91,7 @@ void CMainGame::Render(void)
 
 	m_pGraphicDev->Render_Begin();
 
-	CSceneMgr::Get_Instance()->Render_SceneMgr();
+	CSceneMgr::Get_Instance()->Render();
 
 	CObjectMgr::Get_Instance()->Render();
 

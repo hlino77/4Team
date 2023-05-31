@@ -29,7 +29,7 @@ HRESULT CObjectMgr::Initialize()
 {
 	if (FAILED(CTextureMgr::Get_Instance()->Insert_Texture(L"../Texture/Stage/Unit/protoss/Zealot/Move12/%d.png", TEX_MULTI, L"Zealot", L"Move12", 8)) ||
 		FAILED(CTextureMgr::Get_Instance()->Insert_Texture(L"../Texture/Stage/Unit/protoss/Probe/Move12/%d.png", TEX_MULTI, L"Probe", L"Move12", 1)) ||
-		FAILED(CTextureMgr::Get_Instance()->Insert_Texture(L"../Texture/Stage/Unit/protoss/Dragoon/Move12/%d.png", TEX_MULTI, L"Dragoon", L"Move12", 10)) ||
+		FAILED(CTextureMgr::Get_Instance()->Insert_Texture(L"../Texture/Stage/Unit/protoss/Dragon/Move12/%d.png", TEX_MULTI, L"Dragoon", L"Move12", 10)) ||
 		FAILED(CTextureMgr::Get_Instance()->Insert_Texture(L"../Texture/Stage/Unit/protoss/Build/Nexus/0.png", TEX_SINGLE, L"Nexus", L"Nexus")) ||
 		FAILED(CTextureMgr::Get_Instance()->Insert_Texture(L"../Texture/Stage/Unit/zerg/Zergling/Move12/%d.png", TEX_MULTI, L"Zergling", L"Move12", 8)) ||
 		FAILED(CTextureMgr::Get_Instance()->Insert_Texture(L"../Texture/Stage/Terrain/Tile/Tile%d.png", TEX_MULTI, L"Terrain", L"Tile", 36)))
