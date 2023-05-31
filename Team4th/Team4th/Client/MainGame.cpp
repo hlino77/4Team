@@ -8,6 +8,9 @@
 #include "EventMgr.h"
 
 #include "GameScene.h"
+#include "CameraMgr.h"
+#include "GameObject.h"
+#include "MyMouse.h"
 
 
 CMainGame::CMainGame()
@@ -34,6 +37,11 @@ HRESULT CMainGame::Initialize(void)
 	CTimeMgr::Get_Instance()->Initialize();
 	CScene*	pGameScene = new CGameScene;
 	CSceneMgr::Get_Instance()->Initialize(pGameScene);
+	CGameObject* pMouse = new CMyMouse;
+	pMouse->Initialize();
+	CObjectMgr::Get_Instance()->GetObjList(pMouse->GetType()).push_back(pMouse);
+
+	ShowCursor(false);
 
 	/*
 	#ifdef _DEBUG
