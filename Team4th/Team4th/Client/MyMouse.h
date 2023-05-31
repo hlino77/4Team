@@ -23,12 +23,20 @@ public:
 
 	void		Key_Input(void);
 private:
-
+	void		Mouse_Render(int iX, int iY);
+	void		Update_ScrollDir(void);
 
 	D3DXVECTOR3 m_vStart;
 	D3DXVECTOR3 m_vEnd;
 	D3DXVECTOR2 m_vDragPoint[5];
 
 	bool		m_bDragStart;
+
+
+	MOUSE_STATE	m_MouseState;
+
+	int			m_iCurr;
+
+	BYTE		m_iDir;
 };
 

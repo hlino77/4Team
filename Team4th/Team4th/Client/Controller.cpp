@@ -42,7 +42,7 @@ void CController::Render(void)
 	float m_fScrollY = CCameraMgr::Get_Instance()->Get_ScrollY();
 
 
-	if (!m_vecControllObj.empty)
+	if (!m_vecControllObj.empty())
 	{
 		for (auto& iter : m_vecControllObj)
 		{
