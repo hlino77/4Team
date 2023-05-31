@@ -64,6 +64,18 @@
     <Filter Include="01. Mgr\06. CameraMgr">
       <UniqueIdentifier>{799b2eae-3218-4d81-b546-11a23fff33bc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. GameObject\02. MyMouse">
+      <UniqueIdentifier>{8aee7001-38b7-4878-8398-af9f0df63af3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Mgr\07. KeyMgr">
+      <UniqueIdentifier>{97813d34-3107-4551-93a7-a7fdc3e9e145}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Mgr\08. GameMgr">
+      <UniqueIdentifier>{eb2cad3e-1c63-441b-9b03-3166e0734cc3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05. Controller">
+      <UniqueIdentifier>{659cfba9-3bb1-47e8-88e4-0e467568b88f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -159,6 +171,18 @@
     <ClInclude Include="CameraMgr.h">
       <Filter>01. Mgr\06. CameraMgr</Filter>
     </ClInclude>
+    <ClInclude Include="MyMouse.h">
+      <Filter>02. GameObject\02. MyMouse</Filter>
+    </ClInclude>
+    <ClInclude Include="KeyMgr.h">
+      <Filter>01. Mgr\07. KeyMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="GameMgr.h">
+      <Filter>01. Mgr\08. GameMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="Controller.h">
+      <Filter>05. Controller</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -244,6 +268,18 @@
     </ClCompile>
     <ClCompile Include="CameraMgr.cpp">
       <Filter>01. Mgr\06. CameraMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="MyMouse.cpp">
+      <Filter>02. GameObject\02. MyMouse</Filter>
+    </ClCompile>
+    <ClCompile Include="KeyMgr.cpp">
+      <Filter>01. Mgr\07. KeyMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="GameMgr.cpp">
+      <Filter>01. Mgr\08. GameMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="Controller.cpp">
+      <Filter>05. Controller</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

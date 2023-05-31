@@ -1,8 +1,8 @@
 #pragma once
 
 
-#define		WINCX		1600
-#define		WINCY		900
+#define		WINCX		1280
+#define		WINCY		720
 
 #define		MAPCX		4096
 #define		MAPCY		4096
