@@ -42,7 +42,7 @@ HRESULT CMainGame::Initialize(void)
 	CObjectMgr::Get_Instance()->GetObjList(pMouse->GetType()).push_back(pMouse);
 
 	ShowCursor(false);
-
+	int i = 0;
 	/*
 	#ifdef _DEBUG
 
