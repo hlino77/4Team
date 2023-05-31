@@ -5,9 +5,11 @@
 #include "SceneMgr.h"
 #include "ObjectMgr.h"
 #include "TimeMgr.h"
+
 #include "EventMgr.h"
 
 #include "GameScene.h"
+
 #include "CameraMgr.h"
 #include "GameObject.h"
 #include "MyMouse.h"
@@ -35,8 +37,14 @@ HRESULT CMainGame::Initialize(void)
 	}
 
 	CTimeMgr::Get_Instance()->Initialize();
+
 	CScene*	pGameScene = new CGameScene;
 	CSceneMgr::Get_Instance()->Initialize(pGameScene);
+
+	CObjectMgr::Get_Instance()->Initialize();
+	CCameraMgr::Get_Instance()->Initialize();
+	
+
 	CGameObject* pMouse = new CMyMouse;
 	pMouse->Initialize();
 	CObjectMgr::Get_Instance()->GetObjList(pMouse->GetType()).push_back(pMouse);
@@ -64,12 +72,17 @@ HRESULT CMainGame::Initialize(void)
 void CMainGame::Update(void)
 {
 	CTimeMgr::Get_Instance()->Update();
-	CSceneMgr::Get_Instance()->Update();	
+	CSceneMgr::Get_Instance()->Update_SceneMgr();
+	CObjectMgr::Get_Instance()->Update();
+	CCameraMgr::Get_Instance()->Update();
+	
 }
 
 void CMainGame::Late_Update(void)
 {
-	CSceneMgr::Get_Instance()->LateUpdate();
+	CSceneMgr::Get_Instance()->Late_Update_SceneMgr();
+	CObjectMgr::Get_Instance()->LateUpdate();
+	CCameraMgr::Get_Instance()->LateUpdate();
 }
 
 void CMainGame::Render(void)
@@ -78,10 +91,11 @@ void CMainGame::Render(void)
 
 	m_pGraphicDev->Render_Begin();
 
-	CSceneMgr::Get_Instance()->Render();
+	CSceneMgr::Get_Instance()->Render_SceneMgr();
+
+	CObjectMgr::Get_Instance()->Render();
 
 	m_pGraphicDev->Render_End();
-	CEventMgr::Get_Instance()->Update();
 }
 
 void CMainGame::Release(void)
