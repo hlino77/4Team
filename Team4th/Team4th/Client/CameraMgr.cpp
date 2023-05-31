@@ -44,9 +44,7 @@ void CCameraMgr::MouseUpdate(void)
 	GetCursorPos(&Mouse);
 	ScreenToClient(g_hWnd, &Mouse);
 
-	system("cls");
-	cout << Mouse.x << endl;
-	cout << Mouse.y << endl;
+
 
 	m_vMouse.x = Mouse.x;
 	m_vMouse.y = Mouse.y;
@@ -88,16 +86,8 @@ const D3DXVECTOR3 & CCameraMgr::Get_RenderPos(const D3DXVECTOR3 & _vPos)
 	// TODO: 여기에 반환 구문을 삽입합니다.
 	D3DXVECTOR3 vMousePos;
 
-
 	return vMousePos;
 
 }
 
-const D3DXVECTOR3 & CCameraMgr::Get_MousePos(void)
-{
-	// TODO: 여기에 반환 구문을 삽입합니다.
-	
-	D3DXVECTOR3 vRenderPos;
 
-	return vRenderPos;
-}
