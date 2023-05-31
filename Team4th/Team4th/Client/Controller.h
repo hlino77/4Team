@@ -11,6 +11,7 @@ public:
 	void	Update(void);
 	void	LateUpdate(void);
 	void	Release(void);
+	void	Render(void);
 
 
 	void	Add_Obj(vector<CGameObject*>* _pvecObj) { m_vecControllObj.swap(*_pvecObj); }

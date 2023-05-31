@@ -21,7 +21,7 @@ public:
 	const float&					Get_ScrollX(void) const { return m_fScrollX; }
 	const float&					Get_ScrollY(void) const { return m_fScrollY; }
 
-	const D3DXVECTOR3&				Get_MousePos(void);
+	const D3DXVECTOR3&				Get_MousePos(void) { D3DXVECTOR3 vMouse = { m_vMouse.x - m_fScrollX, m_vMouse.y - m_fScrollY, 0.0f }; return vMouse; }
 	
 
 private:

@@ -6,6 +6,8 @@
 #include "ObjectMgr.h"
 #include "TimeMgr.h"
 #include "CameraMgr.h"
+#include "GameObject.h"
+#include "MyMouse.h"
 
 
 CMainGame::CMainGame()
@@ -33,6 +35,11 @@ HRESULT CMainGame::Initialize(void)
 	CSceneMgr::Get_Instance()->Change_SceneMgr(CSceneMgr::STAGE);
 	CObjectMgr::Get_Instance()->Initialize();
 	CCameraMgr::Get_Instance()->Initialize();
+	
+	CGameObject* pMouse = new CMyMouse;
+	pMouse->Initialize();
+	CObjectMgr::Get_Instance()->GetObjList(pMouse->GetType()).push_back(pMouse);
+
 
 	/*
 	#ifdef _DEBUG

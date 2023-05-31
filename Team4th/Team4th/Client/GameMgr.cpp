@@ -15,6 +15,7 @@ CGameMgr::~CGameMgr()
 
 void CGameMgr::Initialize(void)
 {
+
 }
 
 void CGameMgr::Update(void)

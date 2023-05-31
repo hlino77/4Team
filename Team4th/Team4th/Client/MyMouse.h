@@ -27,7 +27,8 @@ private:
 
 	D3DXVECTOR3 m_vStart;
 	D3DXVECTOR3 m_vEnd;
+	D3DXVECTOR2 m_vDragPoint[5];
 
-	bool		m_bDragEnd;
+	bool		m_bDragStart;
 };
 
