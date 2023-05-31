@@ -43,7 +43,6 @@ void CTimeMgr::Update(void)
 	m_fTimeDelta = float(m_CurrentTime.QuadPart - m_OldTime.QuadPart) / m_CpuTick.QuadPart;
 
 	m_OldTime = m_CurrentTime;
-
 }
 
 

@@ -19,10 +19,9 @@ public:
 	void		Release();
 
 	vector<CGameObject*>&	GetObjList(OBJID _eType)	{ return m_vecObjList[(UINT)_eType]; }
+	CTerrain&	GetTerrain() { return m_Terrain; }
 
-	// 임시 저장 불러오기
-	/*void OnSaveData();
-	void OnLoadData();*/
+	void		CreateObject(TCHAR*	_pName, D3DXVECTOR3& vPos);
 
 private:
 	vector<CGameObject*> m_vecObjList[(UINT)OBJID::OBJ_END];

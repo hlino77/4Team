@@ -9,6 +9,7 @@
 #include "Zealot.h"
 #include "Probe.h"
 #include "Dragoon.h"
+#include "Zergling.h"
 #include "Nexus.h"
 #include "Transform.h"
 
@@ -111,6 +112,7 @@ void CObjectMgr::CreateObject(TCHAR * _pName, D3DXVECTOR3& vPos)
 	else if (!_tcscmp(_pName, L"Dragoon"))			{ pNewObject = new CDragoon; }
 	else if (!_tcscmp(_pName, L"HighTempler"))		{	}
 	else if (!_tcscmp(_pName, L"DarkTempler"))		{	}
+	else if (!_tcscmp(_pName, L"Zergling"))			{ pNewObject = new CZergling; }
 	else if (!_tcscmp(_pName, L"Nexus"))			{ pNewObject = new CNexus; }
 	else if (!_tcscmp(_pName, L"Gateway"))			{	}
 

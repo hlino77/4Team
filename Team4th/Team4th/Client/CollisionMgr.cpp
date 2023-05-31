@@ -3,6 +3,7 @@
 #include "GameObject.h"
 #include "Collider.h"
 #include "ObjectMgr.h"
+#include "Terrain.h"
 
 IMPLEMENT_SINGLETON(CCollisionMgr)
 
@@ -169,76 +170,74 @@ void CCollisionMgr::CheckCollisionByType(OBJID _eTypeLeft, OBJID _eTypeRight)
 	// -----------------구분선-----------------//
 	else
 	{
-		//CMainFrame*		pMainFrm = dynamic_cast<CMainFrame*>(AfxGetMainWnd());
-		//CToolView*		pToolView = dynamic_cast<CToolView*>(pMainFrm->m_MainSplitter.GetPane(0, 1));
-		//const vector<TILE*>&  vecRight = pToolView->Get_Terrain()->Get_TileList();
+		const vector<TILE*>&  vecRight = CObjectMgr::Get_Instance()->GetTerrain().Get_TileList();
 
-		//map<ULONGLONG, bool>::iterator iter;
+		map<ULONGLONG, bool>::iterator iter;
 
-		//for (size_t i = 0; i < vecLeft.size(); ++i)
-		//{
-		//	if (nullptr == vecLeft[i]->GetCollider())
-		//		continue;
+		for (size_t i = 0; i < vecLeft.size(); ++i)
+		{
+			if (nullptr == vecLeft[i]->GetCollider())
+				continue;
 
-		//	for (size_t j = 0; j < vecRight.size(); ++j)
-		//	{
-		//		if (!vecRight[j]->bCollider)
-		//		{
-		//			continue;
-		//		}
+			for (size_t j = 0; j < vecRight.size(); ++j)
+			{
+				if (!vecRight[j]->bCollider)
+				{
+					continue;
+				}
 
-		//		CCollider* pLeftCol = vecLeft[i]->GetCollider();
-		//		//CCollider* pRightCol = vecRight[j]->GetCollider();
+				CCollider* pLeftCol = vecLeft[i]->GetCollider();
+				//CCollider* pRightCol = vecRight[j]->GetCollider();
 
-		//		COLLIDER_ID ID;
-		//		ID.Left_id = pLeftCol->GetID();
-		//		ID.Right_id = vecRight[j]->m_iID;
+				COLLIDER_ID ID;
+				ID.Left_id = pLeftCol->GetID();
+				ID.Right_id = vecRight[j]->m_iID;
 
-		//		iter = m_mapColInfo.find(ID.ID);
+				iter = m_mapColInfo.find(ID.ID);
 
-		//		if (m_mapColInfo.end() == iter)
-		//		{
-		//			m_mapColInfo.insert(make_pair(ID.ID, false));
-		//			iter = m_mapColInfo.find(ID.ID);
-		//		}
+				if (m_mapColInfo.end() == iter)
+				{
+					m_mapColInfo.insert(make_pair(ID.ID, false));
+					iter = m_mapColInfo.find(ID.ID);
+				}
 
-		//		if (IsTileCollision(pLeftCol, vecRight[j]))
-		//		{	// 현재 충돌 중
-		//			if (iter->second)
-		//			{	// 이전에도 충돌
-		//				if (vecLeft[i]->IsDead() || !vecRight[j]->bCollider)
-		//				{	// 둘 중 하나 삭제 예정이면 충돌 해제
-		//					pLeftCol->OnCollisionExit(vecRight[j]);
-		//					iter->second = false;
-		//				}
-		//				else
-		//				{
-		//					pLeftCol->OnCollisionStay(vecRight[j]);
-		//				}
-		//			}
-		//			else
-		//			{	// 이전에는 충돌 x	// 근데 둘 중 하나 삭제 예정이면 충돌하지 않은 것으로 취급
-		//				if (!vecLeft[i]->IsDead() && vecRight[j]->bCollider)
-		//				{
-		//					pLeftCol->OnCollisionEnter(vecRight[j]);
-		//					iter->second = true;
-		//				}
-		//				else
-		//				{
-		//					pLeftCol->OnCollisionExit(vecRight[j]);
-		//					iter->second = false;
-		//				}
-		//			}
-		//		}
-		//		else
-		//		{		// 현재 충돌 x면
-		//			if (iter->second)
-		//			{	//이전에는 충돌하고 있었다.
-		//				pLeftCol->OnCollisionExit(vecRight[j]);
-		//				iter->second = false;
-		//			}
-		//		}
-		//	}
-		//}
+				if (IsTileCollision(pLeftCol, vecRight[j]))
+				{	// 현재 충돌 중
+					if (iter->second)
+					{	// 이전에도 충돌
+						if (vecLeft[i]->IsDead() || !vecRight[j]->bCollider)
+						{	// 둘 중 하나 삭제 예정이면 충돌 해제
+							pLeftCol->OnCollisionExit(vecRight[j]);
+							iter->second = false;
+						}
+						else
+						{
+							pLeftCol->OnCollisionStay(vecRight[j]);
+						}
+					}
+					else
+					{	// 이전에는 충돌 x	// 근데 둘 중 하나 삭제 예정이면 충돌하지 않은 것으로 취급
+						if (!vecLeft[i]->IsDead() && vecRight[j]->bCollider)
+						{
+							pLeftCol->OnCollisionEnter(vecRight[j]);
+							iter->second = true;
+						}
+						else
+						{
+							pLeftCol->OnCollisionExit(vecRight[j]);
+							iter->second = false;
+						}
+					}
+				}
+				else
+				{		// 현재 충돌 x면
+					if (iter->second)
+					{	//이전에는 충돌하고 있었다.
+						pLeftCol->OnCollisionExit(vecRight[j]);
+						iter->second = false;
+					}
+				}
+			}
+		}
 	}
 }

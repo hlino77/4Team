@@ -2,32 +2,26 @@
 
 #include "Include.h"
 
-
 class CScene;
 class CSceneMgr final
 {
 	DECLARE_SINGLETON(CSceneMgr)
-
-public:
-	enum ID { LOADING, STAGE, BOSS, END };
 
 private:
 	CSceneMgr();
 	~CSceneMgr();
 
 public:
-	HRESULT Change_SceneMgr(ID eID);
+	void Initialize(CScene* _pScene);
+	void Update();
+	void LateUpdate();
+	void Render();
+	void Release();
 
 public:
-	void Update_SceneMgr();
-	void Late_Update_SceneMgr();
-	void Render_SceneMgr();
-	void Release_SceneMgr();
+	CScene* GetScene() { return m_pScene; }
 
 private:
 	CScene* m_pScene;
-
-	ID m_eCurScene;
-	ID m_eNextScene;
 };
 

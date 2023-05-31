@@ -2,7 +2,6 @@
 
 #include "Include.h"
 
-class CToolView;
 class CTerrain
 {
 public:
@@ -23,7 +22,6 @@ public:
 
 
 public:
-	void		Set_MainView(CToolView* pMainView) { m_pMainView = pMainView; }
 	void		Set_Ratio(D3DXMATRIX* pOut, float fRatioX, float fRatioY);
 
 
@@ -36,7 +34,6 @@ public:
 private:
 	vector<TILE*>		m_vecTile;
 	TILE*				m_pMapInfo;
-	CToolView*			m_pMainView = nullptr;
 
 	SETCOL_STATE		m_ColState;
 

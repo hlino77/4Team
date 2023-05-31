@@ -55,9 +55,6 @@
     <Filter Include="04. Texture\Single">
       <UniqueIdentifier>{972ee1da-e095-48a7-ba7e-2f6757bae2ad}</UniqueIdentifier>
     </Filter>
-    <Filter Include="03. Scene\Stage">
-      <UniqueIdentifier>{f996ad80-8ffa-472f-a018-c5258ddce12f}</UniqueIdentifier>
-    </Filter>
     <Filter Include="02. GameObject\01. MyTerrain">
       <UniqueIdentifier>{47eae66f-815f-40f4-9a73-a68e528bf390}</UniqueIdentifier>
     </Filter>
@@ -75,6 +72,12 @@
     </Filter>
     <Filter Include="05. Controller">
       <UniqueIdentifier>{659cfba9-3bb1-47e8-88e4-0e467568b88f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Mgr\09. EventMgr">
+      <UniqueIdentifier>{54169a6d-36a6-4557-8a9f-3cc75709c6c0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Scene\GameScene">
+      <UniqueIdentifier>{f996ad80-8ffa-472f-a018-c5258ddce12f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -122,9 +125,6 @@
     </ClInclude>
     <ClInclude Include="SingleTexture.h">
       <Filter>04. Texture\Single</Filter>
-    </ClInclude>
-    <ClInclude Include="Stage.h">
-      <Filter>03. Scene\Stage</Filter>
     </ClInclude>
     <ClInclude Include="Scene.h">
       <Filter>03. Scene</Filter>
@@ -183,6 +183,18 @@
     <ClInclude Include="Controller.h">
       <Filter>05. Controller</Filter>
     </ClInclude>
+    <ClInclude Include="EventMgr.h">
+      <Filter>01. Mgr\09. EventMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="GameScene.h">
+      <Filter>03. Scene\GameScene</Filter>
+    </ClInclude>
+    <ClInclude Include="Dragoon.h">
+      <Filter>02. GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Zergling.h">
+      <Filter>02. GameObject</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -220,9 +232,6 @@
     </ClCompile>
     <ClCompile Include="SingleTexture.cpp">
       <Filter>04. Texture\Single</Filter>
-    </ClCompile>
-    <ClCompile Include="Stage.cpp">
-      <Filter>03. Scene\Stage</Filter>
     </ClCompile>
     <ClCompile Include="Scene.cpp">
       <Filter>03. Scene</Filter>
@@ -280,6 +289,18 @@
     </ClCompile>
     <ClCompile Include="Controller.cpp">
       <Filter>05. Controller</Filter>
+    </ClCompile>
+    <ClCompile Include="EventMgr.cpp">
+      <Filter>01. Mgr\09. EventMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="GameScene.cpp">
+      <Filter>03. Scene\GameScene</Filter>
+    </ClCompile>
+    <ClCompile Include="Dragoon.cpp">
+      <Filter>02. GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Zergling.cpp">
+      <Filter>02. GameObject</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

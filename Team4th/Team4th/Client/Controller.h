@@ -10,10 +10,11 @@ public:
 	void	Initialize(void);
 	void	Update(void);
 	void	LateUpdate(void);
+	void	Render(void);
 	void	Release(void);
 
+	vector<CGameObject*>&	GetControllObj() { return m_vecControllObj; }
 
-	void	Add_Obj(vector<CGameObject*>* _pvecObj) { m_vecControllObj.swap(*_pvecObj); }
 private:
 	vector<CGameObject*> m_vecControllObj;
 };

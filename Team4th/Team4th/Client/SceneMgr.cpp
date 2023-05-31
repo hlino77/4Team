@@ -1,74 +1,44 @@
 #include "stdafx.h"
 #include "SceneMgr.h"
-#include "Stage.h"
+#include "GameScene.h"
+#include "CameraMgr.h"
 
 IMPLEMENT_SINGLETON(CSceneMgr)
 
 CSceneMgr::CSceneMgr()
 	:m_pScene(nullptr)
-	, m_eCurScene(END)
-	, m_eNextScene(END)
 {
 }
-
 
 CSceneMgr::~CSceneMgr()
 {
-	Release_SceneMgr();
+	Release();
 }
 
-HRESULT CSceneMgr::Change_SceneMgr(ID eID)
+void CSceneMgr::Initialize(CScene* _pScene)
 {
-	m_eNextScene = eID;
-
-	if (m_eCurScene != m_eNextScene)
-	{
-		Safe_Delete(m_pScene);
-
-		switch (m_eNextScene)
-		{
-		case CSceneMgr::LOADING:
-			break;
-
-		case CSceneMgr::STAGE:
-			m_pScene = new CStage;
-			break;
-
-		case CSceneMgr::BOSS:
-			break;
-
-		default:
-			break;
-		}
-		if (nullptr == m_pScene)
-		{
-			ERR_MSG(L"SceneChange Failed");
-			return E_FAIL;
-		}
-
-		m_pScene->Ready_Scene();
-
-		m_eCurScene = m_eNextScene;
-	}
-	return S_OK;
+	m_pScene = _pScene;
+	m_pScene->Ready_Scene();
 }
 
-void CSceneMgr::Update_SceneMgr()
+void CSceneMgr::Update()
 {
 	m_pScene->Update_Scene();
+	CCameraMgr::Get_Instance()->Update();
 }
 
-void CSceneMgr::Late_Update_SceneMgr()
+void CSceneMgr::LateUpdate()
 {
 	m_pScene->Late_Update_Scene();
+	CCameraMgr::Get_Instance()->LateUpdate();
 }
 
-void CSceneMgr::Render_SceneMgr()
+void CSceneMgr::Render()
 {
 	m_pScene->Render_Scene();
 }
 
-void CSceneMgr::Release_SceneMgr()
+void CSceneMgr::Release()
 {
 	Safe_Delete<CScene*>(m_pScene);
 }

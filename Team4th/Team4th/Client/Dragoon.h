@@ -1,10 +1,12 @@
 #pragma once
 #include "GameObject.h"
-class CMyMouse : public CGameObject
+class CDragoon :
+	public CGameObject
 {
 public:
-	CMyMouse();
-	virtual ~CMyMouse();
+	CDragoon();
+	CDragoon(const CDragoon& rhs);
+	virtual ~CDragoon();
 
 	// CGameObject을(를) 통해 상속됨
 	virtual void Initialize(void)	override;
@@ -22,13 +24,5 @@ public:
 	virtual void OnCollisionExit(TILE * _pTIle)		override;
 
 	virtual CGameObject * Clone() override;
-
-	void		Key_Input(void);
-
-private:
-	D3DXVECTOR3 m_vStart;
-	D3DXVECTOR3 m_vEnd;
-
-	bool		m_bDragStart;
 };
 

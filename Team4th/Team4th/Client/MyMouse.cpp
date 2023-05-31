@@ -6,23 +6,24 @@
 #include "Graphics.h"
 #include "KeyMgr.h"
 #include "CameraMgr.h"
+#include "GameMgr.h"
+#include "Controller.h"
 
 CMyMouse::CMyMouse()
 {
 }
 
-
 CMyMouse::~CMyMouse()
 {
+	Release();
 }
 
 void CMyMouse::Initialize(void)
 {
-	m_eType = OBJID::OBJ_UNIT_GROUND;
+	m_eType = OBJID::OBJ_MOUSE;
 	m_IsDead = false;
 
 	m_dwTime = 0;
-
 
 	m_pTransform = new CTransform;
 	m_pCollider = new CCollider;
@@ -36,6 +37,7 @@ void CMyMouse::Initialize(void)
 
 int CMyMouse::Update(void)
 {
+	Key_Input();
 
 	return 0;
 }
@@ -47,14 +49,19 @@ int CMyMouse::LateUpdate(void)
 
 void CMyMouse::Render()
 {
+
 }
 
 void CMyMouse::Release(void)
 {
+	Safe_Delete(m_pTransform);
+	Safe_Delete(m_pCollider);
+	Safe_Delete(m_pGraphics);
 }
 
 void CMyMouse::OnCollisionEnter(CCollider * _pOther)
 {
+
 }
 
 void CMyMouse::OnCollisionStay(CCollider * _pOther)
@@ -64,11 +71,16 @@ void CMyMouse::OnCollisionStay(CCollider * _pOther)
 
 void CMyMouse::OnCollisionExit(CCollider * _pOther)
 {
+	if (!m_bDragStart)
+	{
+		CGameMgr::Get_Instance()->Get_Controller()->GetControllObj().push_back(_pOther->GetHost());
+	}
 
 }
 
 void CMyMouse::OnCollisionEnter(TILE * _pTIle)
 {
+
 }
 
 void CMyMouse::OnCollisionStay(TILE * _pTIle)
@@ -78,6 +90,7 @@ void CMyMouse::OnCollisionStay(TILE * _pTIle)
 
 void CMyMouse::OnCollisionExit(TILE * _pTIle)
 {
+
 }
 
 CGameObject * CMyMouse::Clone()

@@ -87,7 +87,7 @@ HRESULT CTerrain::Initialize(void)
 
 	m_ColState = SETCOL_STATE::NONE;
 
-	Load_TileData();
+	//Load_TileData();
 
 	return S_OK;
 }
