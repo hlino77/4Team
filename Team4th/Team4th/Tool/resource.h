@@ -17,6 +17,7 @@
 #define IDD_TABUNIT                     328
 #define IDB_BITMAP_ZEALOT               333
 #define IDB_BITMAP_PGROUND              333
+#define IDB_BITMAP_UNIT                 333
 #define IDB_BITMAP_PROBE                334
 #define IDC_BUTTON7                     1001
 #define IDC_ColiderButton               1001

@@ -38,12 +38,17 @@ HRESULT CObjectMgr::Initialize()
 	}
 	if (FAILED(CTextureMgr::Get_Instance()->Insert_Texture(L"../Texture/Stage/Unit/protoss/Dragoon/Move12/%d.png", TEX_MULTI, L"Dragoon", L"Move12", 10)))
 	{
-		AfxMessageBox(L"Probe Move12 Create Failed");
+		AfxMessageBox(L"Dragoon Move12 Create Failed");
 		return E_FAIL;
 	}
 	if (FAILED(CTextureMgr::Get_Instance()->Insert_Texture(L"../Texture/Stage/Unit/protoss/Build/Nexus/0.png", TEX_SINGLE, L"Nexus", L"Nexus")))
 	{
 		AfxMessageBox(L"Nexus Create Failed");
+		return E_FAIL;
+	}
+	if (FAILED(CTextureMgr::Get_Instance()->Insert_Texture(L"../Texture/Stage/Unit/zerg/Zergling/Move12/%d.png", TEX_MULTI, L"Zergling", L"Move12", 8)))
+	{
+		AfxMessageBox(L"Zergling Move12 Create Failed");
 		return E_FAIL;
 	}
 }
@@ -97,6 +102,7 @@ void CObjectMgr::Release()
 		m_vecObjList[i].clear();
 	}
 }
+
 void CObjectMgr::CreateObject(TCHAR * _pName, D3DXVECTOR3& vPos)
 {
 	CGameObject* pNewObject = nullptr;

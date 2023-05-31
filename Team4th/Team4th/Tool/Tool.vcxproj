@@ -231,6 +231,7 @@
     <ClInclude Include="UnitTab.h" />
     <ClInclude Include="UnitTool.h" />
     <ClInclude Include="Zealot.h" />
+    <ClInclude Include="Zergling.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AirUnit.cpp" />
@@ -274,6 +275,7 @@
     <ClCompile Include="UnitTab.cpp" />
     <ClCompile Include="UnitTool.cpp" />
     <ClCompile Include="Zealot.cpp" />
+    <ClCompile Include="Zergling.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Tool.rc" />

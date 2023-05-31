@@ -51,7 +51,7 @@ void CProbe::Initialize(void)
 	m_pGraphics = new CGraphics;
 
 	m_pTransform->Initialize(this);
-	m_pTransform->Scale(D3DXVECTOR3(32.f, 32.f, 0.f));
+	m_pTransform->Scale(D3DXVECTOR3(23.f, 23.f, 0.f));
 	m_pCollider->Initialize(this);
 	m_pGraphics->Initialize(this);
 }
