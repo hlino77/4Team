@@ -83,7 +83,7 @@ void CObjectMgr::Render()
 	pLine->End();*/
 }
 
-void CObjectMgr::CreateObject(TCHAR*	_pName, D3DXVECTOR3& vPos)
+void CObjectMgr::CreateObject(TCHAR* _pName, D3DXVECTOR3& vPos)
 {
 	CGameObject* pNewObject = nullptr;
 	if (!_tcscmp(_pName, L"Zealot")) { pNewObject = new CZealot; }

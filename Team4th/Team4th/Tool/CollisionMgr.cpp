@@ -177,65 +177,80 @@ void CCollisionMgr::CheckCollisionByType(OBJID _eTypeLeft, OBJID _eTypeRight)
 
 		for (size_t i = 0; i < vecLeft.size(); ++i)
 		{
-			if (nullptr == vecLeft[i]->GetCollider())
+			CCollider* pLeftCol = vecLeft[i]->GetCollider();
+			if (nullptr == pLeftCol)
 				continue;
 
-			for (size_t j = 0; j < vecRight.size(); ++j)
+			D3DXVECTOR3 vPos = vecLeft[i]->GetCollider()->GetPosition();
+			D3DXVECTOR3 vScale = vecLeft[i]->GetCollider()->GetScale();
+
+			D3DXVECTOR3 vLT = vPos - vScale / 2.f;
+			D3DXVECTOR3 vRB = vPos + vScale / 2.f;
+
+			int iCX = (int)vScale.x / TILECX + 1;
+			int iCY = (int)vScale.y / TILECY + 1;
+
+			int iIndexLT_X = (int)vLT.x / TILECX;
+			int iIndexLT_Y = (int)vLT.y / TILECY;
+
+			for (int k = iIndexLT_Y - 50; k < iIndexLT_Y + iCY + 50; ++k)
 			{
-				if (!vecRight[j]->bCollider)
+				for (int j = iIndexLT_X - 50; j < iIndexLT_X + iCX + 50; ++j)
 				{
-					continue;
-				}
+					if (k < 0 || j < 0)
+						continue;
 
-				CCollider* pLeftCol = vecLeft[i]->GetCollider();
-				//CCollider* pRightCol = vecRight[j]->GetCollider();
+					int iIndex = k * TILEX + j;
+					if (!vecRight[iIndex]->bCollider)
+						continue;
 
-				COLLIDER_ID ID;
-				ID.Left_id = pLeftCol->GetID();
-				ID.Right_id = vecRight[j]->m_iID;
+					COLLIDER_ID ID;
+					ID.Left_id = pLeftCol->GetID();
+					ID.Right_id = vecRight[iIndex]->m_iID;
 
-				iter = m_mapColInfo.find(ID.ID);
-
-				if (m_mapColInfo.end() == iter)
-				{
-					m_mapColInfo.insert(make_pair(ID.ID, false));
 					iter = m_mapColInfo.find(ID.ID);
-				}
 
-				if (IsTileCollision(pLeftCol, vecRight[j]))
-				{	// 현재 충돌 중
-					if (iter->second)
-					{	// 이전에도 충돌
-						if (vecLeft[i]->IsDead() || !vecRight[j]->bCollider)
-						{	// 둘 중 하나 삭제 예정이면 충돌 해제
-							pLeftCol->OnCollisionExit(vecRight[j]);
-							iter->second = false;
+					if (m_mapColInfo.end() == iter)
+					{
+						m_mapColInfo.insert(make_pair(ID.ID, false));
+						iter = m_mapColInfo.find(ID.ID);
+					}
+
+					if (IsTileCollision(pLeftCol, vecRight[iIndex]))
+					{	// 현재 충돌 중
+						if (iter->second)
+						{	// 이전에도 충돌
+							if (vecLeft[i]->IsDead() || !vecRight[iIndex]->bCollider)
+							{	// 둘 중 하나 삭제 예정이면 충돌 해제
+								pLeftCol->OnCollisionExit(vecRight[iIndex]);
+								iter->second = false;
+							}
+							else
+							{
+								pLeftCol->OnCollisionStay(vecRight[iIndex]);
+							}
 						}
 						else
-						{
-							pLeftCol->OnCollisionStay(vecRight[j]);
+						{	// 이전에는 충돌 x	// 근데 둘 중 하나 삭제 예정이면 충돌하지 않은 것으로 취급
+							if (!vecLeft[i]->IsDead() && vecRight[iIndex]->bCollider)
+							{
+								pLeftCol->OnCollisionEnter(vecRight[iIndex]);
+								iter->second = true;
+							}
+							else
+							{
+								pLeftCol->OnCollisionExit(vecRight[iIndex]);
+								iter->second = false;
+							}
 						}
 					}
 					else
-					{	// 이전에는 충돌 x	// 근데 둘 중 하나 삭제 예정이면 충돌하지 않은 것으로 취급
-						if (!vecLeft[i]->IsDead() && vecRight[j]->bCollider)
-						{
-							pLeftCol->OnCollisionEnter(vecRight[j]);
-							iter->second = true;
-						}
-						else
-						{
-							pLeftCol->OnCollisionExit(vecRight[j]);
+					{		// 현재 충돌 x면
+						if (iter->second)
+						{	//이전에는 충돌하고 있었다.
+							pLeftCol->OnCollisionExit(vecRight[iIndex]);
 							iter->second = false;
 						}
-					}
-				}
-				else
-				{		// 현재 충돌 x면
-					if (iter->second)
-					{	//이전에는 충돌하고 있었다.
-						pLeftCol->OnCollisionExit(vecRight[j]);
-						iter->second = false;
 					}
 				}
 			}

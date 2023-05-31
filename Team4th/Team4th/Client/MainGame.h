@@ -17,6 +17,7 @@ private:
 	CDevice*			m_pGraphicDev = nullptr;
 
 	TCHAR				m_szFPS[MIN_STR];
+	DWORD				m_dwTime;
 	int					m_iFps;
 
 public:

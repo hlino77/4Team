@@ -6,7 +6,6 @@ IMPLEMENT_SINGLETON(CGameMgr)
 
 CGameMgr::CGameMgr()
 {
-
 }
 
 CGameMgr::~CGameMgr()
@@ -15,6 +14,7 @@ CGameMgr::~CGameMgr()
 
 void CGameMgr::Initialize(void)
 {
+	m_pController = new CController;
 	m_pController->Initialize();
 }
 

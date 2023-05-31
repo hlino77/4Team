@@ -29,12 +29,12 @@ void CMyMouse::Initialize(void)
 
 	m_pTransform = new CTransform;
 	m_pCollider = new CCollider;
-	m_pGraphics = new CGraphics;
+	//m_pGraphics = new CGraphics;
 
 	m_pTransform->Initialize(this);
 	m_pTransform->Scale(D3DXVECTOR3(0.f, 0.f, 0.f));
 	m_pCollider->Initialize(this);
-	m_pGraphics->Initialize(this);
+	//m_pGraphics->Initialize(this);
 	m_bDragStart = false;
 
 	if (FAILED(CTextureMgr::Get_Instance()->Insert_Texture(L"../Texture/Stage/Texture/Single/Mouse/0.png", TEX_SINGLE, L"Mouse", L"Mouse", 1)))
@@ -59,15 +59,12 @@ int CMyMouse::Update(void)
 int CMyMouse::LateUpdate(void)
 {
 	Update_ScrollDir();
-	
-
 
 	return 0;
 }
 
 void CMyMouse::Render()
 {
-
 	float m_fScrollX = CCameraMgr::Get_Instance()->Get_ScrollX();
 	float m_fScrollY = CCameraMgr::Get_Instance()->Get_ScrollY();
 
@@ -95,8 +92,6 @@ void CMyMouse::Render()
 			m_vDragPoint[4] = { m_vStart.x + m_fScrollX, m_vStart.y + m_fScrollY };
 
 			CDevice::Get_Instance()->Get_Line()->Draw(m_vDragPoint, 5, D3DCOLOR_XRGB(0, 255, 0));
-
-
 
 			CDevice::Get_Instance()->Get_Line()->End();
 
@@ -155,15 +150,13 @@ void CMyMouse::Render()
 	}
 		break;
 	}
-	
-
 }
 
 void CMyMouse::Release(void)
 {
 	Safe_Delete(m_pTransform);
 	Safe_Delete(m_pCollider);
-	Safe_Delete(m_pGraphics);
+	//Safe_Delete(m_pGraphics);
 }
 
 void CMyMouse::OnCollisionEnter(CCollider * _pOther)
@@ -180,9 +173,11 @@ void CMyMouse::OnCollisionExit(CCollider * _pOther)
 {
 	if (!m_bDragStart)
 	{
-		CGameMgr::Get_Instance()->Get_Controller()->GetControllObj().push_back(_pOther->GetHost());
-	}
+		vector<CGameObject*>& vecControllObj = CGameMgr::Get_Instance()->Get_Controller()->GetControllObj();
+		//vecControllObj.clear(); // 이전 리스트 다 날리고 새로 받도록. 여기서 호출해버리면 하나 넣을 때마다 앞에꺼 날려버리게 됨. 대안을 찾자...
 
+		vecControllObj.push_back(_pOther->GetHost());
+	}
 }
 
 void CMyMouse::OnCollisionEnter(TILE * _pTIle)
@@ -214,28 +209,27 @@ void CMyMouse::Key_Input(void)
 
 		m_MouseState = MOUSE_STATE::DRAG;
 	}
-
-	if (CKeyMgr::Get_Instance()->Key_Pressing(VK_LBUTTON))
+	else if (CKeyMgr::Get_Instance()->Key_Pressing(VK_LBUTTON))
 	{
 		m_vEnd = CCameraMgr::Get_Instance()->Get_MousePos();
 	}
 	else
 	{
-		D3DXVECTOR3 vPos = (m_vStart + m_vEnd) * 0.5f;
+		if (MOUSE_STATE::DRAG == m_MouseState)
+		{
+			D3DXVECTOR3 vPos = (m_vStart + m_vEnd) * 0.5f;
 
-		m_pCollider->SetPosition(vPos);
-		m_pCollider->SetScale(D3DXVECTOR3(fabs(m_vStart.x - m_vEnd.x), fabs(m_vStart.y - m_vEnd.y), 0.0f));
-		m_bDragStart = false;
+			m_pCollider->SetPosition(vPos);
+			m_pCollider->SetScale(D3DXVECTOR3(fabs(m_vStart.x - m_vEnd.x), fabs(m_vStart.y - m_vEnd.y), 0.0f));
+			m_bDragStart = false;
 
-		m_MouseState = MOUSE_STATE::IDLE;
+			m_MouseState = MOUSE_STATE::IDLE;
+		}
 	}
-
-	
 }
 
 void CMyMouse::Mouse_Render(int iX, int iY)
 {
-	
 	D3DXMATRIX	matWorld, matScale, matTrans;
 
 	RECT rc = {50 * iX, 60 * iY,(50 * iX) + 50, (50 * iY) + 50};
@@ -256,10 +250,7 @@ void CMyMouse::Mouse_Render(int iX, int iY)
 
 		if (vMouse.y < 20.0f)
 			vMouse.y = 30.0f;
-
-
 	}
-
 
 	D3DXMatrixIdentity(&matWorld);
 	D3DXMatrixScaling(&matScale, 1.f, 1.f, 1.f);
@@ -284,7 +275,6 @@ void CMyMouse::Mouse_Render(int iX, int iY)
 void CMyMouse::Update_ScrollDir(void)
 {
 	D3DXVECTOR3 vMouse = CCameraMgr::Get_Instance()->Get_Mouse();
-	
 
 	if (vMouse.x <= (WINCX - 20) && vMouse.x >= 20.0f && vMouse.y <= (WINCY - 20) && vMouse.y >= 20.0f)
 	{

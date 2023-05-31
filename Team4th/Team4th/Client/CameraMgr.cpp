@@ -2,13 +2,11 @@
 #include "CameraMgr.h"
 #include "TimeMgr.h"
 
-
 IMPLEMENT_SINGLETON(CCameraMgr)
 
 CCameraMgr::CCameraMgr() : m_fScrollSpeed(500.0f), m_fScrollX(0.0f), m_fScrollY(0.0f)
 {
 }
-
 
 CCameraMgr::~CCameraMgr()
 {
@@ -24,8 +22,6 @@ void CCameraMgr::Update(void)
 	MouseUpdate();
 
 	ScrollUpdate();
-
-	
 }
 
 void CCameraMgr::LateUpdate(void)
@@ -43,8 +39,6 @@ void CCameraMgr::MouseUpdate(void)
 	POINT	Mouse;
 	GetCursorPos(&Mouse);
 	ScreenToClient(g_hWnd, &Mouse);
-
-
 
 	m_vMouse.x = Mouse.x;
 	m_vMouse.y = Mouse.y;

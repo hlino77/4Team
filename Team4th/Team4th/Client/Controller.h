@@ -1,6 +1,6 @@
 #pragma once
-#include "GameObject.h"
 
+class CGameObject;
 class CController
 {
 public:

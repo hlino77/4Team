@@ -3,6 +3,8 @@
 #include "TextureMgr.h"
 #include "ObjectMgr.h"
 #include "CollisionMgr.h"
+#include "GameMgr.h"
+#include "Controller.h"
 
 CGameScene::CGameScene()
 {
@@ -17,13 +19,14 @@ HRESULT CGameScene::Ready_Scene()
 {
 	if(FAILED(CObjectMgr::Get_Instance()->Initialize()))
 		return E_FAIL;
-	
+
+	CGameMgr::Get_Instance()->Initialize();
+
 	if (FAILED(LoadUnitData()))
 		return E_FAIL;
 
-	CCollisionMgr::Get_Instance()->CheckGroup(OBJID::OBJ_MOUSE, OBJID::OBJ_UNIT_GROUND);
-	CCollisionMgr::Get_Instance()->CheckGroup(OBJID::OBJ_MOUSE, OBJID::OBJ_BUILDING);
-	CCollisionMgr::Get_Instance()->CheckGroup(OBJID::OBJ_UNIT_GROUND, OBJID::OBJ_BUILDING);
+	CCollisionMgr::Get_Instance()->CheckGroup(OBJID::OBJ_UNIT_GROUND, OBJID::OBJ_MOUSE);
+	CCollisionMgr::Get_Instance()->CheckGroup(OBJID::OBJ_BUILDING, OBJID::OBJ_MOUSE);
 	CCollisionMgr::Get_Instance()->CheckGroup(OBJID::OBJ_UNIT_GROUND, OBJID::OBJ_UNIT_GROUND);
 	CCollisionMgr::Get_Instance()->CheckGroup(OBJID::OBJ_UNIT_GROUND, OBJID::OBJ_TILE);
 
@@ -43,6 +46,7 @@ void CGameScene::Late_Update_Scene()
 void CGameScene::Render_Scene()
 {
 	CObjectMgr::Get_Instance()->Render();
+	CGameMgr::Get_Instance()->Get_Controller()->Render();
 }
 
 void CGameScene::Release_Scene()

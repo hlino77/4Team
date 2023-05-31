@@ -16,10 +16,9 @@
 
 
 CMainGame::CMainGame()
-	: m_pGraphicDev(CDevice::Get_Instance())
+	: m_pGraphicDev(CDevice::Get_Instance()), m_iFps(0), m_dwTime(0)
 {
 	ZeroMemory(m_szFPS, sizeof(TCHAR) * MIN_STR);
-	m_iFps = 0;
 }
 
 
@@ -41,16 +40,13 @@ HRESULT CMainGame::Initialize(void)
 	CScene*	pGameScene = new CGameScene;
 	CSceneMgr::Get_Instance()->Initialize(pGameScene);
 
-	CObjectMgr::Get_Instance()->Initialize();
 	CCameraMgr::Get_Instance()->Initialize();
 	
-
 	CGameObject* pMouse = new CMyMouse;
 	pMouse->Initialize();
 	CObjectMgr::Get_Instance()->GetObjList(pMouse->GetType()).push_back(pMouse);
 
 	ShowCursor(false);
-	int i = 0;
 	/*
 	#ifdef _DEBUG
 
@@ -87,7 +83,16 @@ void CMainGame::Late_Update(void)
 
 void CMainGame::Render(void)
 {
-	//++m_iFps;
+	++m_iFps;
+
+	if (m_dwTime + 1000 < GetTickCount())
+	{
+		swprintf_s(m_szFPS, L"FPS : %d", m_iFps);
+		SetWindowText(g_hWnd, m_szFPS);
+
+		m_iFps = 0;
+		m_dwTime = GetTickCount();
+	}
 
 	m_pGraphicDev->Render_Begin();
 
