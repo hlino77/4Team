@@ -225,6 +225,8 @@ void CMyMouse::Key_Input(void)
 			m_pCollider->SetScale(D3DXVECTOR3(0.0f,0.0f,0.0f));
 			m_bDragStart = false;
 
+			CGameMgr::Get_Instance()->Get_Controller()->ClearList();
+
 			m_MouseState = MOUSE_STATE::IDLE;
 		}
 	}

@@ -15,6 +15,7 @@ public:
 
 	vector<CGameObject*>&	GetControllObj() { return m_vecControllObj; }
 
+	void	ClearList(void) { m_vecControllObj.clear(); }
 private:
 	vector<CGameObject*> m_vecControllObj;
 };
