@@ -49,8 +49,8 @@ void CCollider::Initialize(CGameObject * _pHost)
 void CCollider::LateUpdate()
 {
 	/*assert(0 <= m_iCol);*/
-	/*if (m_iCol < 0)
-		m_iCol = 0;*/
+	if (m_iCol < 0)
+		m_iCol = 0;
 
 	m_vPosition = m_pHost->GetTransform()->Position();
 	int a = 0;
@@ -105,7 +105,7 @@ void CCollider::OnCollisionExit(CCollider * _pOther)
 
 void CCollider::OnCollisionEnter(TILE * _pTile)
 {
-	++m_iCol;
+	//++m_iCol;
 	m_pHost->OnCollisionEnter(_pTile);
 }
 
@@ -116,6 +116,6 @@ void CCollider::OnCollisionStay(TILE * _pTile)
 
 void CCollider::OnCollisionExit(TILE * _pTile)
 {
-	--m_iCol;
+	//--m_iCol;
 	m_pHost->OnCollisionExit(_pTile);
 }

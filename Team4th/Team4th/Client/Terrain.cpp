@@ -131,48 +131,7 @@ void CTerrain::Render(void)
 		nullptr,			// 출력할 이미지의 중심축에 대한 vector3 주소, null인 경우 이미지의 0, 0이 중심 좌표
 		nullptr,							// 위치 좌표에 대한 vector3 주소, null인 경우 스크린 상의 0, 0좌표 출력
 		D3DCOLOR_ARGB(255, 255, 255, 255)); // 출력할 이미지와 섞을 색상 값, 0xffffffff를 넘겨주면 원본 색상 유지
-
-
 }
-
-void CTerrain::Mini_Render(void)
-{
-	//D3DXMATRIX	matWorld, matScale, matTrans;
-
-	//D3DXMatrixIdentity(&matWorld);
-	//D3DXMatrixScaling(&matScale, 0.975f, 0.975f, 1.f);
-	//D3DXMatrixTranslation(&matTrans,
-	//	m_pMapInfo->vPos.x,
-	//	m_pMapInfo->vPos.y,
-	//	0.f);
-
-	//matWorld = matScale * matTrans;
-
-	//CMainFrame*		pMainFrm = dynamic_cast<CMainFrame*>(AfxGetMainWnd());
-	//CMiniView*		pMiniView = dynamic_cast<CMiniView*>(pMainFrm->m_SecondSplitter.GetPane(0, 0));
-	//CRect rc;
-
-	//pMiniView->GetClientRect(rc);
-
-	//const TEXINFO*	pTexInfo = CTextureMgr::Get_Instance()->Get_Texture(L"Map");
-
-	//float	fX = rc.Width() / (2.f * WINCX);
-	//float	fY = rc.Height() / (2.f * WINCY);
-
-
-	//// 이미지에 행렬을 반영
-	//Set_Ratio(&matWorld, 0.2f, 0.15f);
-
-	//CDevice::Get_Instance()->Get_Sprite()->SetTransform(&matWorld);
-
-	//CDevice::Get_Instance()->Get_Sprite()->Draw(pTexInfo->pTexture,
-	//	nullptr,
-	//	&D3DXVECTOR3(0.9f * fX, 0.9f * fY, 0.f),
-	//	nullptr,
-	//	D3DCOLOR_ARGB(255, 255, 255, 255));
-
-}
-
 
 void CTerrain::Collider_Render(void)
 {
