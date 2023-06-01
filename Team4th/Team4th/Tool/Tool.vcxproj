@@ -209,6 +209,7 @@
     <ClInclude Include="MiniView.h" />
     <ClInclude Include="MultiTexture.h" />
     <ClInclude Include="MyForm.h" />
+    <ClInclude Include="MyMouse.h" />
     <ClInclude Include="Nexus.h" />
     <ClInclude Include="ObjectMgr.h" />
     <ClInclude Include="Probe.h" />
@@ -250,6 +251,7 @@
     <ClCompile Include="MiniView.cpp" />
     <ClCompile Include="MultiTexture.cpp" />
     <ClCompile Include="MyForm.cpp" />
+    <ClCompile Include="MyMouse.cpp" />
     <ClCompile Include="Nexus.cpp" />
     <ClCompile Include="ObjectMgr.cpp" />
     <ClCompile Include="Probe.cpp" />

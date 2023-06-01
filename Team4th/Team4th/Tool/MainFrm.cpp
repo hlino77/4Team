@@ -124,8 +124,8 @@ BOOL CMainFrame::OnCreateClient(LPCREATESTRUCT lpcs, CCreateContext* pContext)
 	//
 	//CRuntimeClass* pMyForm = RUNTIME_CLASS(CMyTool);
  
-	m_SecondSplitter.CreateView(1, 0, RUNTIME_CLASS(CMyForm), CSize(300, 300), pContext);
-	m_SecondSplitter.CreateView(2, 0, RUNTIME_CLASS(CToolGroup), CSize(300, 300), pContext);
+	m_SecondSplitter.CreateView(1, 0, RUNTIME_CLASS(CMyForm), CSize(300, 190), pContext);
+	m_SecondSplitter.CreateView(2, 0, RUNTIME_CLASS(CToolGroup), CSize(300, 900), pContext);
 
 	//m_SecondSplitter.CreateView(2, 0, RUNTIME_CLASS(CMyTool), CSize(300, 300), pContext);
 	//m_SecondSplitter.CreateView(2, 0, RUNTIME_CLASS(CTool)MyForm, CSize(300, 300), pContext);

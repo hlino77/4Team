@@ -40,6 +40,7 @@ BEGIN_MESSAGE_MAP(CToolView, CScrollView)
 	ON_WM_LBUTTONDOWN()
 	ON_WM_MOUSEMOVE()
 	ON_WM_MOUSEWHEEL()
+	ON_WM_RBUTTONDOWN()
 END_MESSAGE_MAP()
 
 // CToolView 생성/소멸
@@ -117,10 +118,15 @@ void CToolView::OnInitialUpdate()
 	CCollisionMgr::Get_Instance()->CheckGroup(OBJID::OBJ_ONCURSOR, OBJID::OBJ_UNIT_GROUND);
 	CCollisionMgr::Get_Instance()->CheckGroup(OBJID::OBJ_ONCURSOR, OBJID::OBJ_BUILDING);
 	CCollisionMgr::Get_Instance()->CheckGroup(OBJID::OBJ_ONCURSOR, OBJID::OBJ_TILE);
+	CCollisionMgr::Get_Instance()->CheckGroup(OBJID::OBJ_UNIT_GROUND, OBJID::OBJ_MOUSE);
+	CCollisionMgr::Get_Instance()->CheckGroup(OBJID::OBJ_BUILDING, OBJID::OBJ_MOUSE);
 	//CCollisionMgr::Get_Instance()->CheckGroup(OBJID::OBJ_UNIT_GROUND, OBJID::OBJ_UNIT_GROUND);
 	//CCollisionMgr::Get_Instance()->CheckGroup(OBJID::OBJ_UNIT_GROUND, OBJID::OBJ_BUILDING);
 
 	m_pTerrain->Set_MainView(this);
+
+	m_Mouse.Initialize();
+	CObjectMgr::Get_Instance()->GetObjList(m_Mouse.GetType()).push_back(&m_Mouse);
 }
 
 void CToolView::OnDraw(CDC* /*pDC*/)
@@ -147,6 +153,9 @@ void CToolView::OnDraw(CDC* /*pDC*/)
 
 
 	CDevice::Get_Instance()->Render_End();
+
+
+	m_Mouse.LateUpdate();
 }
 void CToolView::OnDestroy()
 {
@@ -273,6 +282,7 @@ void CToolView::OnLButtonDown_Terrain(CPoint point)
 
 void CToolView::OnLButtonDown_Building(CPoint point)
 {
+	
 }
 
 void CToolView::OnLButtonDown_Unit(CPoint point)
@@ -283,6 +293,13 @@ void CToolView::OnLButtonDown_Unit(CPoint point)
 		CGameObject* pClone = vecCursorObj.front()->Clone();
 		pClone->GetTransform()->Translate(vecCursorObj.front()->GetTransform()->Position());
 		CObjectMgr::Get_Instance()->GetObjList(vecCursorObj.front()->GetType()).push_back(pClone);
+		Invalidate(FALSE);
+	}
+	else if (!vecCursorObj.size())
+	{
+		m_Mouse.GetTransform()->Translate(D3DXVECTOR3(point.x, point.y, 0.0f));
+		m_Mouse.GetCollider()->SetPosition(D3DXVECTOR3(point.x,point.y,0.0f));
+		m_Mouse.GetCollider()->SetScale(D3DXVECTOR3(1.0f, 1.0f, 1.0f));
 		Invalidate(FALSE);
 	}
 }
@@ -339,6 +356,13 @@ void CToolView::OnMouseMove_Building(CPoint point)
 
 			m_pTerrain->Tile_Change(pClone->GetTransform()->Position(), pClone->GetTransform()->LocalScale());
 		}
+		else if (!vecCursorObj.size())
+		{
+			m_Mouse.GetTransform()->Translate(D3DXVECTOR3(point.x, point.y, 0.0f));
+			m_Mouse.GetCollider()->SetPosition(D3DXVECTOR3(point.x, point.y, 0.0f));
+			m_Mouse.GetCollider()->SetScale(D3DXVECTOR3(1.0f, 1.0f, 1.0f));
+			Invalidate(FALSE);
+		}
 
 		Invalidate(FALSE);
 	}
@@ -393,3 +417,21 @@ void CToolView::OnMouseMove_Unit(CPoint point)
 //
 //	return CScrollView::OnMouseWheel(nFlags, zDelta, pt);
 //}
+
+
+void CToolView::OnRButtonDown(UINT nFlags, CPoint point)
+{
+	// TODO: 여기에 메시지 처리기 코드를 추가 및/또는 기본값을 호출합니다.
+
+	vector<CGameObject*>& vecCursorObj = CObjectMgr::Get_Instance()->GetObjList(OBJID::OBJ_ONCURSOR);
+	if (vecCursorObj.size())
+	{
+		for (auto& iter : vecCursorObj)
+			Safe_Delete(iter);
+		vecCursorObj.clear();
+
+		CMainFrame*		pMainFrm = dynamic_cast<CMainFrame*>(AfxGetMainWnd());
+		CToolView*		pToolView = dynamic_cast<CToolView*>(pMainFrm->m_MainSplitter.GetPane(0, 1));
+		pToolView->Invalidate(FALSE);
+	}
+}

@@ -134,37 +134,42 @@ void CTerrain::Render(void)
 
 void CTerrain::Mini_Render(void)
 {
-	D3DXMATRIX	matWorld, matScale, matTrans;
-
-	D3DXMatrixIdentity(&matWorld);
-	D3DXMatrixScaling(&matScale, 0.975f, 0.975f, 1.f);
-	D3DXMatrixTranslation(&matTrans,
-		m_pMapInfo->vPos.x,
-		m_pMapInfo->vPos.y,
-		0.f);
-
-	matWorld = matScale * matTrans;
-
 	CMainFrame*		pMainFrm = dynamic_cast<CMainFrame*>(AfxGetMainWnd());
 	CMiniView*		pMiniView = dynamic_cast<CMiniView*>(pMainFrm->m_SecondSplitter.GetPane(0, 0));
 	CRect rc;
 
 	pMiniView->GetClientRect(rc);
 
+	float fScaleX = rc.Width() / 4096.0f;
+	float fScaleY = rc.Height() / 4096.0f;
+
+	D3DXMATRIX	matWorld, matScale, matTrans;
+
+	D3DXMatrixIdentity(&matWorld);
+	D3DXMatrixScaling(&matScale, fScaleX, fScaleY, 1.0f);
+	D3DXMatrixTranslation(&matTrans,
+		0.f,
+		0.f,
+		0.f);
+
+	matWorld = matScale * matTrans;
+
+	
+
 	const TEXINFO*	pTexInfo = CTextureMgr::Get_Instance()->Get_Texture(L"Map");
 
-	float	fX = rc.Width() / (2.f * WINCX);
-	float	fY = rc.Height() / (2.f * WINCY);
+	float	fX = WINCX / float(rc.right - rc.left);
+	float	fY = WINCY / float(rc.bottom - rc.top);
 
 
 	// 이미지에 행렬을 반영
-	Set_Ratio(&matWorld, 0.2f, 0.15f);
+	Set_Ratio(&matWorld, fX, fY);
 
 	CDevice::Get_Instance()->Get_Sprite()->SetTransform(&matWorld);
 
 	CDevice::Get_Instance()->Get_Sprite()->Draw(pTexInfo->pTexture,
 		nullptr,
-		&D3DXVECTOR3(0.9f * fX, 0.9f * fY, 0.f),
+		nullptr,
 		nullptr,
 		D3DCOLOR_ARGB(255, 255, 255, 255));
 

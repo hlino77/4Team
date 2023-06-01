@@ -6,6 +6,7 @@
 
 #include "Include.h"
 #include "Terrain.h"
+#include "MyMouse.h"
 
 class CToolDoc;
 class CToolView : public CScrollView
@@ -50,6 +51,7 @@ public:
 public:
 	CTerrain*			m_pTerrain;
 	TOOLTYPE			m_eToolType;
+	CMyMouse			m_Mouse;
 
 public:
 	afx_msg void OnLButtonDown(UINT nFlags, CPoint point);
@@ -64,6 +66,7 @@ public:
 	void	OnMouseMove_Building(CPoint point);
 	void	OnMouseMove_Unit(CPoint point);
 	//afx_msg BOOL OnMouseWheel(UINT nFlags, short zDelta, CPoint pt);
+	afx_msg void OnRButtonDown(UINT nFlags, CPoint point);
 };
 
 #ifndef _DEBUG  // ToolView.cpp의 디버그 버전

@@ -38,6 +38,7 @@
     <ClCompile Include="Zealot.cpp" />
     <ClCompile Include="Dragoon.cpp" />
     <ClCompile Include="Zergling.cpp" />
+    <ClCompile Include="MyMouse.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AirUnit.h" />
@@ -79,6 +80,7 @@
     <ClInclude Include="Zealot.h" />
     <ClInclude Include="Dragoon.h" />
     <ClInclude Include="Zergling.h" />
+    <ClInclude Include="MyMouse.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Tool.rc" />
