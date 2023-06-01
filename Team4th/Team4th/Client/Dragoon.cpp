@@ -61,7 +61,7 @@ void CDragoon::Initialize(void)
 
 int CDragoon::Update(void)
 {
-	m_pTransform->Update();
+	CGroundUnit::Update();
 
 	return 0;
 }
@@ -94,18 +94,6 @@ void CDragoon::OnCollisionStay(CCollider * _pOther)
 }
 
 void CDragoon::OnCollisionExit(CCollider * _pOther)
-{
-}
-
-void CDragoon::OnCollisionEnter(TILE * _pTIle)
-{
-}
-
-void CDragoon::OnCollisionStay(TILE * _pTIle)
-{
-}
-
-void CDragoon::OnCollisionExit(TILE * _pTIle)
 {
 }
 

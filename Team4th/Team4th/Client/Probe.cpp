@@ -58,7 +58,7 @@ void CProbe::Initialize(void)
 
 int CProbe::Update(void)
 {
-	m_pTransform->Update();
+	CGroundUnit::Update();
 
 	return 0;
 }
@@ -91,18 +91,6 @@ void CProbe::OnCollisionStay(CCollider * _pOther)
 }
 
 void CProbe::OnCollisionExit(CCollider * _pOther)
-{
-}
-
-void CProbe::OnCollisionEnter(TILE * _pTIle)
-{
-}
-
-void CProbe::OnCollisionStay(TILE * _pTIle)
-{
-}
-
-void CProbe::OnCollisionExit(TILE * _pTIle)
 {
 }
 

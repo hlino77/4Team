@@ -3,7 +3,9 @@
 #include "GameObject.h"
 #include "TextureMgr.h"
 #include "CameraMgr.h"
+#include "KeyMgr.h"
 #include "Transform.h"
+#include "Unit.h"
 #include "Device.h"
 
 CController::CController()
@@ -25,6 +27,7 @@ void CController::Initialize(void)
 
 void CController::Update(void)
 {
+	Key_Input();
 }
 
 void CController::LateUpdate(void)
@@ -33,6 +36,22 @@ void CController::LateUpdate(void)
 
 void CController::Release(void)
 {
+}
+
+void CController::Key_Input()
+{
+	if (CKeyMgr::Get_Instance()->Key_Down(VK_RBUTTON))
+	{
+		D3DXVECTOR3 vTargetPos = CCameraMgr::Get_Instance()->Get_MousePos();
+
+		for (auto& iter : m_vecControllObj)
+			if (OBJID::OBJ_UNIT_GROUND == iter->GetType() || OBJID::OBJ_UNIT_AIR == iter->GetType())
+			{
+				static_cast<CUnit*>(iter)->SetTargetPos(vTargetPos);
+				static_cast<CUnit*>(iter)->Move();
+				static_cast<CUnit*>(iter)->SetState(UNIT_STATE::MOVE);
+			}
+	}
 }
 
 void CController::Render(void)

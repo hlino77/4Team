@@ -20,6 +20,7 @@ void CGameMgr::Initialize(void)
 
 void CGameMgr::Update(void)
 {
+	m_pController->Update();
 }
 
 void CGameMgr::LateUpdate(void)
