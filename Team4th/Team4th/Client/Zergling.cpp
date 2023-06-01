@@ -62,7 +62,7 @@ void CZergling::Initialize(void)
 
 int CZergling::Update(void)
 {
-	m_pTransform->Update();
+	CGroundUnit::Update();
 
 	return 0;
 }
@@ -95,18 +95,6 @@ void CZergling::OnCollisionStay(CCollider * _pOther)
 }
 
 void CZergling::OnCollisionExit(CCollider * _pOther)
-{
-}
-
-void CZergling::OnCollisionEnter(TILE * _pTIle)
-{
-}
-
-void CZergling::OnCollisionStay(TILE * _pTIle)
-{
-}
-
-void CZergling::OnCollisionExit(TILE * _pTIle)
 {
 }
 

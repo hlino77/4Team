@@ -1,7 +1,7 @@
 #pragma once
-#include "GameObject.h"
+#include "GroundUnit.h"
 class CDragoon :
-	public CGameObject
+	public CGroundUnit
 {
 public:
 	CDragoon();
@@ -18,10 +18,6 @@ public:
 	virtual void OnCollisionEnter(CCollider * _pOther)	override;
 	virtual void OnCollisionStay(CCollider * _pOther)	override;
 	virtual void OnCollisionExit(CCollider * _pOther)	override;
-
-	virtual void OnCollisionEnter(TILE * _pTIle)	override;
-	virtual void OnCollisionStay(TILE * _pTIle)		override;
-	virtual void OnCollisionExit(TILE * _pTIle)		override;
 
 	virtual CGameObject * Clone() override;
 };

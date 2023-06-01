@@ -35,6 +35,7 @@ HRESULT CGameScene::Ready_Scene()
 
 void CGameScene::Update_Scene()
 {
+	CGameMgr::Get_Instance()->Update();
 	CObjectMgr::Get_Instance()->Update();
 }
 

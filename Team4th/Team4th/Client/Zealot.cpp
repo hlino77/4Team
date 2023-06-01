@@ -59,12 +59,19 @@ void CZealot::Initialize(void)
 	m_pCollider->Initialize(this);
 	m_pGraphics->Initialize(this);
 
+	m_eState = UNIT_STATE::IDLE;
+	m_vTargetPos = m_pTransform->Position();
 	// Temp
 }
 
 int CZealot::Update(void)
 {
-	m_pTransform->Update();
+	CGroundUnit::Update();
+	/*if (UNIT_STATE::IDLE == m_eState)
+		m_vTargetPos = m_pTransform->Position();
+	else if (UNIT_STATE::MOVE == m_eState)
+		CGroundUnit::Move();*/
+	//m_pTransform->Update();
 
 	return 0;
 }
@@ -96,18 +103,6 @@ void CZealot::OnCollisionStay(CCollider * _pOther)
 }
 
 void CZealot::OnCollisionExit(CCollider * _pOther)
-{
-}
-
-void CZealot::OnCollisionEnter(TILE * _pTIle)
-{
-}
-
-void CZealot::OnCollisionStay(TILE * _pTIle)
-{
-}
-
-void CZealot::OnCollisionExit(TILE * _pTIle)
 {
 }
 
