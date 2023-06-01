@@ -20,10 +20,6 @@ public:
 	virtual void OnCollisionStay(CCollider * _pOther)	override;
 	virtual void OnCollisionExit(CCollider * _pOther)	override;
 
-	virtual void OnCollisionEnter(TILE* _pTIle)			override;
-	virtual void OnCollisionStay(TILE* _pTIle)			override;
-	virtual void OnCollisionExit(TILE* _pTIle)			override;
-
 	virtual CGameObject*	Clone()	override;
 
 //protected:

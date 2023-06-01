@@ -13,6 +13,8 @@ public:
 	void	Render(void);
 	void	Release(void);
 
+	void	Key_Input();
+
 	vector<CGameObject*>&	GetControllObj() { return m_vecControllObj; }
 
 	void	ClearList(void) { m_vecControllObj.clear(); }
