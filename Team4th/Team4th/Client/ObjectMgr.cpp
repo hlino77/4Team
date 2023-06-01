@@ -73,7 +73,7 @@ void CObjectMgr::Render()
 
 	CDevice::Get_Instance()->Get_Sprite()->End();
 	LPD3DXLINE	pLine = CDevice::Get_Instance()->Get_Line();
-	/*pLine->SetWidth(1.0f);
+	pLine->SetWidth(1.0f);
 	pLine->Begin();
 
 	for (int i = 0; i < (UINT)OBJID::OBJ_END; ++i)
@@ -82,7 +82,7 @@ void CObjectMgr::Render()
 			if(iter->GetCollider())
 				iter->GetCollider()->Render(pLine);
 		}
-		*/
+		
 	pLine->End();
 
 	CDevice::Get_Instance()->Get_Sprite()->Begin(D3DXSPRITE_ALPHABLEND);

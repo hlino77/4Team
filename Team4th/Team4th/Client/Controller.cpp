@@ -5,7 +5,8 @@
 #include "CameraMgr.h"
 #include "KeyMgr.h"
 #include "Transform.h"
-#include "Unit.h"
+#include "GroundUnit.h"
+#include "AirUnit.h"
 #include "Device.h"
 
 CController::CController()
@@ -45,12 +46,19 @@ void CController::Key_Input()
 		D3DXVECTOR3 vTargetPos = CCameraMgr::Get_Instance()->Get_MousePos();
 
 		for (auto& iter : m_vecControllObj)
-			if (OBJID::OBJ_UNIT_GROUND == iter->GetType() || OBJID::OBJ_UNIT_AIR == iter->GetType())
+		{
+			if (OBJID::OBJ_UNIT_GROUND == iter->GetType())
 			{
-				static_cast<CUnit*>(iter)->SetTargetPos(vTargetPos);
-				static_cast<CUnit*>(iter)->Move();
+				static_cast<CGroundUnit*>(iter)->SetTargetPos(vTargetPos);
+				static_cast<CGroundUnit*>(iter)->InitPath();
+				static_cast<CGroundUnit*>(iter)->SetState(UNIT_STATE::MOVE);
+			}
+			else if (OBJID::OBJ_UNIT_AIR == iter->GetType())
+			{
+				static_cast<CAirUnit*>(iter)->SetTargetPos(vTargetPos);
 				static_cast<CUnit*>(iter)->SetState(UNIT_STATE::MOVE);
 			}
+		}
 	}
 }
 

@@ -89,3 +89,54 @@ static D3DXVECTOR3		Get_Mouse()
 
 	return D3DXVECTOR3((float)Pt.x, (float)Pt.y, 0.f);
 }
+
+struct Pos
+{
+	Pos() : x(0), y(0) {};
+	Pos(int _x, int _y) { x = _x; y = _y; }
+
+	bool operator==(Pos& other)
+	{
+		return y == other.y && x == other.x;
+	}
+
+	bool operator!=(Pos& other)
+	{
+		return !(*this == other);
+	}
+
+	bool operator<(const Pos& other) const
+	{
+		if (y != other.y)
+			return y < other.y;
+		return x < other.x;
+	}
+
+	Pos operator+(Pos& other)
+	{
+		Pos ret;
+		ret.y = y + other.y;
+		ret.x = x + other.x;
+		return ret;
+	}
+
+	Pos& operator+=(Pos& other)
+	{
+		y += other.y;
+		x += other.x;
+		return *this;
+	}
+
+	int y;
+	int x;
+};
+
+struct PQNode
+{
+	bool operator<(const PQNode& other) const { return f < other.f; }
+	bool operator>(const PQNode& other) const { return f > other.f; }
+
+	int	f; // f = g + h
+	int	g;
+	Pos	pos;
+};

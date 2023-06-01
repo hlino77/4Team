@@ -12,9 +12,6 @@ public:
 	HRESULT		Initialize(void);
 	void		Update(void);
 	void		Render(void);
-	void		Mini_Render(void);
-
-	
 
 	void		Collider_Render(void);
 
@@ -23,7 +20,6 @@ public:
 
 public:
 	void		Set_Ratio(D3DXMATRIX* pOut, float fRatioX, float fRatioY);
-
 
 public:
 	vector<TILE*>&		Get_TileList() { return m_vecTile; }
