@@ -79,8 +79,10 @@ void CObjectMgr::Render()
 			if(iter->GetCollider())
 				iter->GetCollider()->Render(pLine);
 		}
+		*/
+	pLine->End();
 
-	pLine->End();*/
+	CDevice::Get_Instance()->Get_Sprite()->Begin(D3DXSPRITE_ALPHABLEND);
 }
 
 void CObjectMgr::CreateObject(TCHAR* _pName, D3DXVECTOR3& vPos)

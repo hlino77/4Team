@@ -16,6 +16,7 @@ public:
 	void		LateUpdate(void);
 	void		Release(void);
 
+
 	CController*	Get_Controller() { return m_pController; }
 
 private:

@@ -98,7 +98,9 @@ void CMainGame::Render(void)
 
 	CSceneMgr::Get_Instance()->Render();
 
-	CObjectMgr::Get_Instance()->Render();
+	
+
+	//CObjectMgr::Get_Instance()->Render();
 
 	m_pGraphicDev->Render_End();
 }

@@ -161,12 +161,11 @@ void CMyMouse::Release(void)
 
 void CMyMouse::OnCollisionEnter(CCollider * _pOther)
 {
-
+	
 }
 
 void CMyMouse::OnCollisionStay(CCollider * _pOther)
 {
-
 }
 
 void CMyMouse::OnCollisionExit(CCollider * _pOther)
@@ -182,7 +181,7 @@ void CMyMouse::OnCollisionExit(CCollider * _pOther)
 
 void CMyMouse::OnCollisionEnter(TILE * _pTIle)
 {
-
+	
 }
 
 void CMyMouse::OnCollisionStay(TILE * _pTIle)
@@ -212,15 +211,18 @@ void CMyMouse::Key_Input(void)
 	else if (CKeyMgr::Get_Instance()->Key_Pressing(VK_LBUTTON))
 	{
 		m_vEnd = CCameraMgr::Get_Instance()->Get_MousePos();
+
+		D3DXVECTOR3 vPos = (m_vStart + m_vEnd) * 0.5f;
+
+		m_pCollider->SetPosition(vPos);
+		m_pCollider->SetScale(D3DXVECTOR3(fabs(m_vStart.x - m_vEnd.x), fabs(m_vStart.y - m_vEnd.y), 0.0f));
 	}
 	else
 	{
 		if (MOUSE_STATE::DRAG == m_MouseState)
 		{
-			D3DXVECTOR3 vPos = (m_vStart + m_vEnd) * 0.5f;
-
-			m_pCollider->SetPosition(vPos);
-			m_pCollider->SetScale(D3DXVECTOR3(fabs(m_vStart.x - m_vEnd.x), fabs(m_vStart.y - m_vEnd.y), 0.0f));
+			m_pCollider->SetPosition(D3DXVECTOR3(0.0f,0.0f,0.0f));
+			m_pCollider->SetScale(D3DXVECTOR3(0.0f,0.0f,0.0f));
 			m_bDragStart = false;
 
 			m_MouseState = MOUSE_STATE::IDLE;

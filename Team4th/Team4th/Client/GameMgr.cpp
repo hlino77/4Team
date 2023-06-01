@@ -29,3 +29,5 @@ void CGameMgr::LateUpdate(void)
 void CGameMgr::Release(void)
 {
 }
+
+

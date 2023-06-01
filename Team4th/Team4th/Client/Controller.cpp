@@ -16,7 +16,7 @@ CController::~CController()
 
 void CController::Initialize(void)
 {
-	if (FAILED(CTextureMgr::Get_Instance()->Insert_Texture(L"../Texture/Stage/Texture/Single/Select/9.png", TEX_SINGLE, L"Select", L"Select", 1)))
+	if (FAILED(CTextureMgr::Get_Instance()->Insert_Texture(L"../Texture/Stage/Texture/Single/Select/2.png", TEX_SINGLE, L"Select", L"Select", 1)))
 	{
 		ERR_MSG(L"Zealot Move12 Create Failed");
 		return;
@@ -48,7 +48,8 @@ void CController::Render(void)
 
 			// GetClientRect : 현재 클라이언트 영역의 rect 정보를 얻어옴
 
-			float fScale = iter->GetTransform()->LocalScale().x / 224.0f;
+			//float fScale = iter->GetTransform()->LocalScale().x / 224.0f;
+			float fScale = 1.0f;
 
 			D3DXMatrixIdentity(&matWorld);
 			D3DXMatrixScaling(&matScale, fScale, fScale, 1.f);
@@ -70,9 +71,9 @@ void CController::Render(void)
 				nullptr,							// 출력할 이미지 영역에 대한 Rect 주소, null인 경우 이미지의 0, 0 기준으로 출력
 				&D3DXVECTOR3(_fX, _fY, 0.f),		// 출력할 이미지의 중심축에 대한 vector3 주소, null인 경우 이미지의 0, 0이 중심 좌표
 				nullptr,							// 위치 좌표에 대한 vector3 주소, null인 경우 스크린 상의 0, 0좌표 출력
-				D3DCOLOR_ARGB(255, 255, 255, 255)); // 출력할 이미지와 섞을 색상 값, 0xffffffff를 넘겨주면 원본 색상 유지
+				D3DCOLOR_ARGB(255, 0, 0, 0)); // 출력할 이미지와 섞을 색상 값, 0xffffffff를 넘겨주면 원본 색상 유지
 		}
 	}
-	
+
 }
 
