@@ -38,4 +38,6 @@ private:
 	SETCOL_STATE		m_ColState;
 
 	void		Load_TileData(void);
+	bool		m_bColRender;
+
 };

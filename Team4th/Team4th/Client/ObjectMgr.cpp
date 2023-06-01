@@ -49,6 +49,8 @@ void CObjectMgr::Update()
 			if (!(*iter)->IsDead())
 				(*iter)->Update();
 		}
+
+	m_Terrain.Update();
 }
 
 void CObjectMgr::LateUpdate()
@@ -63,6 +65,7 @@ void CObjectMgr::LateUpdate()
 void CObjectMgr::Render()
 {
 	m_Terrain.Render();
+	m_Terrain.Collider_Render();
 
 	for (int i = 0; i < (UINT)OBJID::OBJ_END; ++i)
 		for (auto& iter : m_vecObjList[i])

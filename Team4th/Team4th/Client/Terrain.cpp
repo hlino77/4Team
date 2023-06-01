@@ -5,8 +5,9 @@
 
 #include "Collider.h"
 #include "CameraMgr.h"
+#include "KeyMgr.h"
 
-CTerrain::CTerrain()
+CTerrain::CTerrain() : m_bColRender(false)
 {
 	//m_vecTile.reserve(TILEX * TILEY);
 	m_pMapInfo = nullptr;
@@ -87,13 +88,17 @@ HRESULT CTerrain::Initialize(void)
 
 	m_ColState = SETCOL_STATE::NONE;
 
-	//Load_TileData();
+	Load_TileData();
 
 	return S_OK;
 }
 
 void CTerrain::Update(void)
 {
+	if (CKeyMgr::Get_Instance()->Key_Down('C'))
+	{
+		m_bColRender = !m_bColRender;
+	}
 }
 
 void CTerrain::Render(void)
@@ -171,49 +176,49 @@ void CTerrain::Mini_Render(void)
 
 void CTerrain::Collider_Render(void)
 {
-	//D3DXMATRIX	matWorld, matScale, matTrans;
+	if (!m_bColRender)
+		return;
 
-	//D3DXVECTOR2 vRenderPoint[5];
+	D3DXMATRIX	matWorld, matScale, matTrans;
 
-	//RECT	rc{};
+	D3DXVECTOR2 vRenderPoint[5];
 
-	//LPDIRECT3DDEVICE9 pDevice = CDevice::Get_Instance()->Get_Device();
+	RECT	rc{};
 
-	//// GetClientRect : 현재 클라이언트 영역의 rect 정보를 얻어옴
-	//GetClientRect(m_pMainView->m_hWnd, &rc);
+	LPDIRECT3DDEVICE9 pDevice = CDevice::Get_Instance()->Get_Device();
 
-	//float	fX = WINCX / float(rc.right - rc.left);
-	//float	fY = WINCY / float(rc.bottom - rc.top);
+	// GetClientRect : 현재 클라이언트 영역의 rect 정보를 얻어옴
 
-
-	//for (auto iter : m_vecTile)
-	//{
-	//	if (iter->bCollider)
-	//	{
-	//		D3DXMatrixIdentity(&matWorld);
-	//		D3DXMatrixScaling(&matScale, 1.f, 1.f, 1.f);
-	//		D3DXMatrixTranslation(&matTrans,
-	//			int(iter->vPos.x - m_pMainView->GetScrollPos(0)), // 0일 경우 x 스크롤 값 얻어옴
-	//			int(iter->vPos.y - m_pMainView->GetScrollPos(1)), // 1일 경우 y 스크롤 값 얻어옴
-	//			0.f);
-
-	//		matWorld = matScale * matTrans;
-
-	//		Set_Ratio(&matWorld, fX, fY);
+	float m_fScrollX = CCameraMgr::Get_Instance()->Get_ScrollX();
+	float m_fScrollY = CCameraMgr::Get_Instance()->Get_ScrollY();
 
 
+	for (auto iter : m_vecTile)
+	{
+		if (iter->bCollider)
+		{
+			D3DXMatrixIdentity(&matWorld);
+			D3DXMatrixScaling(&matScale, 1.f, 1.f, 1.f);
+			D3DXMatrixTranslation(&matTrans,
+				int(iter->vPos.x + m_fScrollX), // 0일 경우 x 스크롤 값 얻어옴
+				int(iter->vPos.y + m_fScrollY), // 1일 경우 y 스크롤 값 얻어옴
+				0.f);
 
-	//		CDevice::Get_Instance()->Get_Sprite()->SetTransform(&matWorld);
+			matWorld = matScale * matTrans;
 
-	//		const TEXINFO*	pTexInfo = CTextureMgr::Get_Instance()->Get_Texture(L"Col_Red");
 
-	//		CDevice::Get_Instance()->Get_Sprite()->Draw(pTexInfo->pTexture,
-	//			nullptr,							// 출력할 이미지 영역에 대한 Rect 주소, null인 경우 이미지의 0, 0 기준으로 출력
-	//			&D3DXVECTOR3(16.0f, 16.0f, 0.f),			// 출력할 이미지의 중심축에 대한 vector3 주소, null인 경우 이미지의 0, 0이 중심 좌표
-	//			nullptr,							// 위치 좌표에 대한 vector3 주소, null인 경우 스크린 상의 0, 0좌표 출력
-	//			D3DCOLOR_ARGB(100, 255, 255, 255)); // 출력할 이미지와 섞을 색상 값, 0xffffffff를 넘겨주면 원본 색상 유지
-	//	}
-	//}
+
+			CDevice::Get_Instance()->Get_Sprite()->SetTransform(&matWorld);
+
+			const TEXINFO*	pTexInfo = CTextureMgr::Get_Instance()->Get_Texture(L"Col_Red");
+
+			CDevice::Get_Instance()->Get_Sprite()->Draw(pTexInfo->pTexture,
+				nullptr,							// 출력할 이미지 영역에 대한 Rect 주소, null인 경우 이미지의 0, 0 기준으로 출력
+				&D3DXVECTOR3(16.0f, 16.0f, 0.f),			// 출력할 이미지의 중심축에 대한 vector3 주소, null인 경우 이미지의 0, 0이 중심 좌표
+				nullptr,							// 위치 좌표에 대한 vector3 주소, null인 경우 스크린 상의 0, 0좌표 출력
+				D3DCOLOR_ARGB(100, 255, 255, 255)); // 출력할 이미지와 섞을 색상 값, 0xffffffff를 넘겨주면 원본 색상 유지
+		}
+	}
 
 
 

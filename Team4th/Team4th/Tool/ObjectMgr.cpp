@@ -37,7 +37,7 @@ HRESULT CObjectMgr::Initialize()
 		AfxMessageBox(L"Probe Move12 Create Failed");
 		return E_FAIL;
 	}
-	if (FAILED(CTextureMgr::Get_Instance()->Insert_Texture(L"../Texture/Stage/Unit/protoss/Dragoon/Move12/%d.png", TEX_MULTI, L"Dragoon", L"Move12", 10)))
+	if (FAILED(CTextureMgr::Get_Instance()->Insert_Texture(L"../Texture/Stage/Unit/protoss/Dragon/Move12/%d.png", TEX_MULTI, L"Dragoon", L"Move12", 10)))
 	{
 		AfxMessageBox(L"Dragoon Move12 Create Failed");
 		return E_FAIL;
