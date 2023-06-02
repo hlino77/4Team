@@ -348,7 +348,7 @@ void CToolView::OnMouseMove_Building(CPoint point)
 			pClone->GetTransform()->Translate(vCursorObjPos);
 			CObjectMgr::Get_Instance()->GetObjList(vecCursorObj.front()->GetType()).push_back(pClone);
 
-			m_pTerrain->Tile_Change(pClone->GetTransform()->Position(), pClone->GetTransform()->LocalScale());
+			m_pTerrain->Tile_Change(pClone->GetTransform()->Position(), pClone->GetTransform()->LocalScale(), true);
 		}
 		
 

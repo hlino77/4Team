@@ -7,6 +7,8 @@
 #include "Device.h"
 #include "TextureMgr.h"
 #include "ObjectMgr.h"
+#include "MainFrm.h"
+#include "ToolView.h"
 
 CMyMouse::CMyMouse()
 {
@@ -46,12 +48,17 @@ void CMyMouse::OnCollisionEnter(CCollider * _pOther)
 {
 	vector<CGameObject*>& vecObj = CObjectMgr::Get_Instance()->GetObjList(_pOther->GetHost()->GetType());
 
+	CMainFrame*		pMainFrm = dynamic_cast<CMainFrame*>(AfxGetMainWnd());
+	CToolView*		pToolView = dynamic_cast<CToolView*>(pMainFrm->m_MainSplitter.GetPane(0, 1));
+
 	CObjectMgr::Get_Instance()->GetObjList(OBJID::OBJ_ONCURSOR).push_back(_pOther->GetHost()->Clone());
 
 	for (auto iter = vecObj.begin(); iter != vecObj.end();)
 	{
 		if (*iter == _pOther->GetHost())
 		{
+			if ((*iter)->GetType() == OBJID::OBJ_BUILDING)
+				pToolView->Get_Terrain()->Tile_Change((*iter)->GetTransform()->Position(), (*iter)->GetTransform()->LocalScale(), false);
 			Safe_Delete(*iter);
 			iter = vecObj.erase(iter);
 		}
