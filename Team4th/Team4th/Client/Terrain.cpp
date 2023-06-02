@@ -28,17 +28,22 @@ HRESULT CTerrain::Initialize(void)
 
 	if (FAILED(CTextureMgr::Get_Instance()->Insert_Texture(L"../Texture/Stage/Terrain/Collider/ColliderGreen.png", TEX_SINGLE, L"Col_Green")))
 	{
-		ERR_MSG(L"TileTexture Create Failed");
+		ERR_MSG(L"Col_Green Create Failed");
 		return E_FAIL;
 	}
 	if (FAILED(CTextureMgr::Get_Instance()->Insert_Texture(L"../Texture/Stage/Terrain/Collider/ColliderRed.png", TEX_SINGLE, L"Col_Red")))
 	{
-		ERR_MSG(L"TileTexture Create Failed");
+		ERR_MSG(L"Col_Red Create Failed");
+		return E_FAIL;
+	}
+	if (FAILED(CTextureMgr::Get_Instance()->Insert_Texture(L"../Texture/Stage/Terrain/Collider/ColliderBlue.png", TEX_SINGLE, L"Col_Blue")))
+	{
+		ERR_MSG(L"Col_Blue Create Failed");
 		return E_FAIL;
 	}
 	if (FAILED(CTextureMgr::Get_Instance()->Insert_Texture(L"../Texture/Stage/Terrain/Collider/ColliderBlack.png", TEX_SINGLE, L"Col_Black")))
 	{
-		ERR_MSG(L"TileTexture Create Failed");
+		ERR_MSG(L"Col_Black Create Failed");
 		return E_FAIL;
 	}
 
@@ -128,7 +133,7 @@ void CTerrain::Render(void)
 
 	CDevice::Get_Instance()->Get_Sprite()->Draw(pTexInfo->pTexture,
 		nullptr,							// 출력할 이미지 영역에 대한 Rect 주소, null인 경우 이미지의 0, 0 기준으로 출력
-		nullptr,			// 출력할 이미지의 중심축에 대한 vector3 주소, null인 경우 이미지의 0, 0이 중심 좌표
+		nullptr,							// 출력할 이미지의 중심축에 대한 vector3 주소, null인 경우 이미지의 0, 0이 중심 좌표
 		nullptr,							// 위치 좌표에 대한 vector3 주소, null인 경우 스크린 상의 0, 0좌표 출력
 		D3DCOLOR_ARGB(255, 255, 255, 255)); // 출력할 이미지와 섞을 색상 값, 0xffffffff를 넘겨주면 원본 색상 유지
 }
@@ -142,15 +147,12 @@ void CTerrain::Collider_Render(void)
 
 	D3DXVECTOR2 vRenderPoint[5];
 
-	RECT	rc{};
-
 	LPDIRECT3DDEVICE9 pDevice = CDevice::Get_Instance()->Get_Device();
-
-	// GetClientRect : 현재 클라이언트 영역의 rect 정보를 얻어옴
 
 	float m_fScrollX = CCameraMgr::Get_Instance()->Get_ScrollX();
 	float m_fScrollY = CCameraMgr::Get_Instance()->Get_ScrollY();
 
+	const TEXINFO*	pTexInfo = CTextureMgr::Get_Instance()->Get_Texture(L"Col_Red");
 
 	for (auto iter : m_vecTile)
 	{
@@ -165,11 +167,7 @@ void CTerrain::Collider_Render(void)
 
 			matWorld = matScale * matTrans;
 
-
-
 			CDevice::Get_Instance()->Get_Sprite()->SetTransform(&matWorld);
-
-			const TEXINFO*	pTexInfo = CTextureMgr::Get_Instance()->Get_Texture(L"Col_Red");
 
 			CDevice::Get_Instance()->Get_Sprite()->Draw(pTexInfo->pTexture,
 				nullptr,							// 출력할 이미지 영역에 대한 Rect 주소, null인 경우 이미지의 0, 0 기준으로 출력

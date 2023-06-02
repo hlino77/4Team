@@ -39,6 +39,7 @@
     <ClCompile Include="Dragoon.cpp" />
     <ClCompile Include="Zergling.cpp" />
     <ClCompile Include="MyMouse.cpp" />
+    <ClCompile Include="Gateway.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AirUnit.h" />
@@ -81,6 +82,7 @@
     <ClInclude Include="Dragoon.h" />
     <ClInclude Include="Zergling.h" />
     <ClInclude Include="MyMouse.h" />
+    <ClInclude Include="Gateway.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Tool.rc" />
@@ -90,6 +92,7 @@
     <Image Include="res\Tool.ico" />
     <Image Include="res\Toolbar.bmp" />
     <Image Include="res\ToolDoc.ico" />
+    <Image Include="res\bmp00001.bmp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="res\Tool.rc2" />

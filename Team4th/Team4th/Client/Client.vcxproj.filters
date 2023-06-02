@@ -195,6 +195,9 @@
     <ClInclude Include="Zergling.h">
       <Filter>02. GameObject</Filter>
     </ClInclude>
+    <ClInclude Include="Gateway.h">
+      <Filter>02. GameObject</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -300,6 +303,9 @@
       <Filter>02. GameObject</Filter>
     </ClCompile>
     <ClCompile Include="Zergling.cpp">
+      <Filter>02. GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Gateway.cpp">
       <Filter>02. GameObject</Filter>
     </ClCompile>
   </ItemGroup>

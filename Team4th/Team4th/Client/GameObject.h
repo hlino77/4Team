@@ -55,5 +55,8 @@ protected:
 	CGraphics*		m_pGraphics;
 
 	UNITDATA		m_tData;
+	FRAME			m_tFrame;
+
+	void			Move_Frame(void);
 };
 

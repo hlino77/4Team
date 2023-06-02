@@ -166,6 +166,7 @@
     <ClInclude Include="EventMgr.h" />
     <ClInclude Include="GameMgr.h" />
     <ClInclude Include="GameObject.h" />
+    <ClInclude Include="Gateway.h" />
     <ClInclude Include="Graphics.h" />
     <ClInclude Include="GroundUnit.h" />
     <ClInclude Include="KeyMgr.h" />
@@ -205,6 +206,7 @@
     <ClCompile Include="EventMgr.cpp" />
     <ClCompile Include="GameMgr.cpp" />
     <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="Gateway.cpp" />
     <ClCompile Include="Graphics.cpp" />
     <ClCompile Include="GroundUnit.cpp" />
     <ClCompile Include="KeyMgr.cpp" />

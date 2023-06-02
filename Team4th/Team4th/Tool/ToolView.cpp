@@ -395,30 +395,6 @@ void CToolView::OnMouseMove_Unit(CPoint point)
 	}
 }
 
-
-//BOOL CToolView::OnMouseWheel(UINT nFlags, short zDelta, CPoint pt)
-//{
-//	// TODO: 여기에 메시지 처리기 코드를 추가 및/또는 기본값을 호출합니다.
-//	D3DXMATRIX matWorld, matScale, matTrans, matTransInv;
-//	D3DXMatrixIdentity(&matWorld);
-//	D3DXMatrixTranslation(&matTrans, -pt.x, -pt.y, 0.f);
-//	D3DXMatrixInverse(&matTransInv, NULL, &matTrans);
-//	if (zDelta < 0)
-//	{
-//		D3DXMatrixScaling(&matScale, 1.25f, 1.25f, 1.25f);
-//	}
-//	else
-//	{
-//		D3DXMatrixScaling(&matScale, 0.8f, 0.8f, 0.8f);
-//	}
-//	matWorld = matTrans * matScale * matTransInv;
-//
-//
-//
-//	return CScrollView::OnMouseWheel(nFlags, zDelta, pt);
-//}
-
-
 void CToolView::OnRButtonDown(UINT nFlags, CPoint point)
 {
 	// TODO: 여기에 메시지 처리기 코드를 추가 및/또는 기본값을 호출합니다.

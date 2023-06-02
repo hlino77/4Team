@@ -23,9 +23,12 @@ public:
 
 	void		CreateObject(TCHAR*	_pName, D3DXVECTOR3& vPos);
 
+	bool		m_bPath;	// 그냥 여기에 넣었음
+
 private:
 	vector<CGameObject*> m_vecObjList[(UINT)OBJID::OBJ_END];
 
 	CTerrain			 m_Terrain;
+
 };
 
