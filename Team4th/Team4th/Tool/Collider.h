@@ -35,6 +35,7 @@ public:
 	virtual void	OnCollisionStay(TILE* _pOther);
 	virtual void	OnCollisionExit(TILE* _pOther);
 
+	void			ResetCol(void) { m_iCol = 0; }
 private:
 
 	D3DXVECTOR3		m_vPosition;

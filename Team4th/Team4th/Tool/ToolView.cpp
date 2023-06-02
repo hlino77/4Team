@@ -295,13 +295,7 @@ void CToolView::OnLButtonDown_Unit(CPoint point)
 		CObjectMgr::Get_Instance()->GetObjList(vecCursorObj.front()->GetType()).push_back(pClone);
 		Invalidate(FALSE);
 	}
-	else if (!vecCursorObj.size())
-	{
-		m_Mouse.GetTransform()->Translate(D3DXVECTOR3(point.x, point.y, 0.0f));
-		m_Mouse.GetCollider()->SetPosition(D3DXVECTOR3(point.x,point.y,0.0f));
-		m_Mouse.GetCollider()->SetScale(D3DXVECTOR3(1.0f, 1.0f, 1.0f));
-		Invalidate(FALSE);
-	}
+	
 }
 
 void CToolView::OnMouseMove_Terrain(CPoint point)
@@ -356,16 +350,18 @@ void CToolView::OnMouseMove_Building(CPoint point)
 
 			m_pTerrain->Tile_Change(pClone->GetTransform()->Position(), pClone->GetTransform()->LocalScale());
 		}
-		else if (!vecCursorObj.size())
-		{
-			m_Mouse.GetTransform()->Translate(D3DXVECTOR3(point.x, point.y, 0.0f));
-			m_Mouse.GetCollider()->SetPosition(D3DXVECTOR3(point.x, point.y, 0.0f));
-			m_Mouse.GetCollider()->SetScale(D3DXVECTOR3(1.0f, 1.0f, 1.0f));
-			Invalidate(FALSE);
-		}
+		
 
 		Invalidate(FALSE);
 	}
+	else if (GetAsyncKeyState(VK_LBUTTON) && !vecCursorObj.size())
+	{
+		m_Mouse.GetTransform()->Translate(D3DXVECTOR3(point.x, point.y, 0.0f));
+		m_Mouse.GetCollider()->SetPosition(D3DXVECTOR3(point.x, point.y, 0.0f));
+		m_Mouse.GetCollider()->SetScale(D3DXVECTOR3(1.0f, 1.0f, 1.0f));
+		Invalidate(FALSE);
+	}
+	
 }
 
 void CToolView::OnMouseMove_Unit(CPoint point)
@@ -390,7 +386,16 @@ void CToolView::OnMouseMove_Unit(CPoint point)
 			pClone->GetTransform()->Translate(vCursorObjPos);
 			CObjectMgr::Get_Instance()->GetObjList(vecCursorObj.front()->GetType()).push_back(pClone);
 		}
+		
 
+		Invalidate(FALSE);
+	}
+
+	else if (GetAsyncKeyState(VK_LBUTTON) && !vecCursorObj.size())
+	{
+		m_Mouse.GetTransform()->Translate(D3DXVECTOR3(point.x, point.y, 0.0f));
+		m_Mouse.GetCollider()->SetPosition(D3DXVECTOR3(point.x, point.y, 0.0f));
+		m_Mouse.GetCollider()->SetScale(D3DXVECTOR3(1.0f, 1.0f, 1.0f));
 		Invalidate(FALSE);
 	}
 }

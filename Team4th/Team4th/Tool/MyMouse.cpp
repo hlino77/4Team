@@ -46,19 +46,20 @@ void CMyMouse::OnCollisionEnter(CCollider * _pOther)
 {
 	vector<CGameObject*>& vecObj = CObjectMgr::Get_Instance()->GetObjList(_pOther->GetHost()->GetType());
 
+	CObjectMgr::Get_Instance()->GetObjList(OBJID::OBJ_ONCURSOR).push_back(_pOther->GetHost()->Clone());
 
 	for (auto iter = vecObj.begin(); iter != vecObj.end();)
 	{
 		if (*iter == _pOther->GetHost())
+		{
+			Safe_Delete(*iter);
 			iter = vecObj.erase(iter);
+		}
 		else
 			++iter;
 	}
 	
-
 	
-	CObjectMgr::Get_Instance()->GetObjList(OBJID::OBJ_ONCURSOR).push_back(_pOther->GetHost());
-
 	
 
 	m_pCollider->SetPosition(D3DXVECTOR3(0.0f, 0.0f, 0.0f));
