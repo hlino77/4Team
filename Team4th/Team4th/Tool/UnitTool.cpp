@@ -118,14 +118,14 @@ BOOL CUnitTool::OnInitDialog()
 
 	tvInsert.hParent = m_Units;
 	tvInsert.item.pszText = L"Zerg";
-	tvInsert.item.iImage = 0;
-	tvInsert.item.iSelectedImage = 0;
+	tvInsert.item.iImage = 5;
+	tvInsert.item.iSelectedImage = 5;
 	m_Zerg = m_UnitTree.InsertItem(&tvInsert);
 
 	tvInsert.hParent = m_Zerg;
 	tvInsert.item.pszText = L"Ground Unit";
-	tvInsert.item.iImage = 0;
-	tvInsert.item.iSelectedImage = 0;
+	tvInsert.item.iImage = 5;
+	tvInsert.item.iSelectedImage = 5;
 	m_ZGround = m_UnitTree.InsertItem(&tvInsert);
 
 	tvInsert.hParent = m_ZGround;

@@ -1,32 +1,31 @@
 #include "stdafx.h"
-#include "Nexus.h"
+#include "Gateway.h"
 #include "Transform.h"
 #include "Collider.h"
 #include "Graphics.h"
 
-CNexus::CNexus()
+CGateway::CGateway()
 {
 }
 
-CNexus::CNexus(const CNexus & rhs)
+CGateway::CGateway(const CGateway & rhs)
 {
 	Initialize();
 }
 
-
-CNexus::~CNexus()
+CGateway::~CGateway()
 {
 	Release();
 }
 
-void CNexus::Initialize(void)
+void CGateway::Initialize(void)
 {
 	m_eType = OBJID::OBJ_BUILDING;
 	m_IsDead = false;
 
 	m_dwTime = 0;
-	
-	m_tData.strName = L"Nexus";
+
+	m_tData.strName = L"Gateway";
 
 	m_tData.iMaxHp = 100;
 	m_tData.iHp = m_tData.iMaxHp;
@@ -54,55 +53,55 @@ void CNexus::Initialize(void)
 	m_pGraphics->Initialize(this);
 }
 
-int CNexus::Update(void)
-{	
+int CGateway::Update(void)
+{
 	return 0;
 }
 
-int CNexus::LateUpdate(void)
+int CGateway::LateUpdate(void)
 {
 	m_pCollider->LateUpdate();
 	return 0;
 }
 
-void CNexus::Render()
+void CGateway::Render()
 {
-	m_pGraphics->Render(L"Nexus", L"Nexus", 1);
+	m_pGraphics->Render(L"Gateway", L"Gateway", 1);
 }
 
-void CNexus::Release(void)
+void CGateway::Release(void)
 {
 	Safe_Delete(m_pTransform);
 	Safe_Delete(m_pCollider);
 	Safe_Delete(m_pGraphics);
 }
 
-void CNexus::OnCollisionEnter(CCollider * _pOther)
+void CGateway::OnCollisionEnter(CCollider * _pOther)
 {
 }
 
-void CNexus::OnCollisionStay(CCollider * _pOther)
+void CGateway::OnCollisionStay(CCollider * _pOther)
 {
 }
 
-void CNexus::OnCollisionExit(CCollider * _pOther)
+void CGateway::OnCollisionExit(CCollider * _pOther)
 {
 }
 
-void CNexus::OnCollisionEnter(TILE * _pTIle)
+void CGateway::OnCollisionEnter(TILE * _pTIle)
 {
 }
 
-void CNexus::OnCollisionStay(TILE * _pTIle)
+void CGateway::OnCollisionStay(TILE * _pTIle)
 {
 }
 
-void CNexus::OnCollisionExit(TILE * _pTIle)
+void CGateway::OnCollisionExit(TILE * _pTIle)
 {
 }
 
-CGameObject * CNexus::Clone()
+CGameObject * CGateway::Clone()
 {
-	CGameObject* pNewObj = new CNexus(*this);
+	CGameObject* pNewObj = new CGateway(*this);
 	return pNewObj;
 }

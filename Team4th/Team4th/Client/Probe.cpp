@@ -54,6 +54,11 @@ void CProbe::Initialize(void)
 	m_pTransform->Scale(D3DXVECTOR3(32.f, 32.f, 0.f));
 	m_pCollider->Initialize(this);
 	m_pGraphics->Initialize(this);
+
+	m_eState = UNIT_STATE::IDLE;
+	m_vTargetPos = m_pTransform->Position();
+
+	m_tFrame = {0.f, 0.f};
 }
 
 int CProbe::Update(void)
@@ -65,6 +70,7 @@ int CProbe::Update(void)
 
 int CProbe::LateUpdate(void)
 {
+	CGroundUnit::LateUpdate();
 	m_pCollider->LateUpdate();
 
 	return 0;
@@ -72,7 +78,8 @@ int CProbe::LateUpdate(void)
 
 void CProbe::Render()
 {
-	m_pGraphics->Render(L"Probe", L"Move12", 0);
+	m_pGraphics->Render(L"Probe", L"Move12", m_tFrame.fFrame);
+	CGroundUnit::Render();
 }
 
 void CProbe::Release(void)
@@ -80,18 +87,6 @@ void CProbe::Release(void)
 	Safe_Delete(m_pTransform);
 	Safe_Delete(m_pCollider);
 	Safe_Delete(m_pGraphics);
-}
-
-void CProbe::OnCollisionEnter(CCollider * _pOther)
-{
-}
-
-void CProbe::OnCollisionStay(CCollider * _pOther)
-{
-}
-
-void CProbe::OnCollisionExit(CCollider * _pOther)
-{
 }
 
 CGameObject * CProbe::Clone()
