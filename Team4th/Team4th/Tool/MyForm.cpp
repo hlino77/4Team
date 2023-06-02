@@ -354,5 +354,4 @@ void CMyForm::OnLoadData()
 
 		CloseHandle(hFile);
 	}
-
 }

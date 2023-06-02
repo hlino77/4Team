@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "ObjectMgr.h"
 #include "CollisionMgr.h"
+#include "KeyMgr.h"
 #include "Device.h"
 #include "Collider.h"
 #include "GameObject.h"
@@ -11,6 +12,7 @@
 #include "Dragoon.h"
 #include "Zergling.h"
 #include "Nexus.h"
+#include "Gateway.h"
 #include "Transform.h"
 
 IMPLEMENT_SINGLETON(CObjectMgr)
@@ -31,6 +33,7 @@ HRESULT CObjectMgr::Initialize()
 		FAILED(CTextureMgr::Get_Instance()->Insert_Texture(L"../Texture/Stage/Unit/protoss/Probe/Move12/%d.png", TEX_MULTI, L"Probe", L"Move12", 1)) ||
 		FAILED(CTextureMgr::Get_Instance()->Insert_Texture(L"../Texture/Stage/Unit/protoss/Dragon/Move12/%d.png", TEX_MULTI, L"Dragoon", L"Move12", 10)) ||
 		FAILED(CTextureMgr::Get_Instance()->Insert_Texture(L"../Texture/Stage/Unit/protoss/Build/Nexus/0.png", TEX_SINGLE, L"Nexus", L"Nexus")) ||
+		FAILED(CTextureMgr::Get_Instance()->Insert_Texture(L"../Texture/Stage/Unit/protoss/Build/Gateway/0.png", TEX_SINGLE, L"Gateway", L"Gateway")) ||
 		FAILED(CTextureMgr::Get_Instance()->Insert_Texture(L"../Texture/Stage/Unit/zerg/Zergling/Move12/%d.png", TEX_MULTI, L"Zergling", L"Move12", 8)) ||
 		FAILED(CTextureMgr::Get_Instance()->Insert_Texture(L"../Texture/Stage/Terrain/Tile/Tile%d.png", TEX_MULTI, L"Terrain", L"Tile", 36)))
 		return E_FAIL;
@@ -38,11 +41,18 @@ HRESULT CObjectMgr::Initialize()
 	if (FAILED(m_Terrain.Initialize()))
 		return E_FAIL;
 
+	m_bPath = false;
+
 	return S_OK;
 }
 
 void CObjectMgr::Update()
 {
+	if (CKeyMgr::Get_Instance()->Key_Down('P'))
+	{
+		m_bPath = !m_bPath;
+	}
+
 	for (int i = 0; i < (UINT)OBJID::OBJ_END; ++i)
 		for (auto& iter = m_vecObjList[i].begin(); iter != m_vecObjList[i].end(); ++iter)
 		{
@@ -98,7 +108,7 @@ void CObjectMgr::CreateObject(TCHAR* _pName, D3DXVECTOR3& vPos)
 	else if (!_tcscmp(_pName, L"DarkTempler")) {}
 	else if (!_tcscmp(_pName, L"Zergling")) { pNewObject = new CZergling; }
 	else if (!_tcscmp(_pName, L"Nexus")) { pNewObject = new CNexus; }
-	else if (!_tcscmp(_pName, L"Gateway")) {}
+	else if (!_tcscmp(_pName, L"Gateway")) { pNewObject = new CGateway; }
 
 	pNewObject->Initialize();
 	pNewObject->GetTransform()->Translate(vPos);

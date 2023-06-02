@@ -65,7 +65,6 @@ public:
 	void	OnMouseMove_Terrain(CPoint point);
 	void	OnMouseMove_Building(CPoint point);
 	void	OnMouseMove_Unit(CPoint point);
-	//afx_msg BOOL OnMouseWheel(UINT nFlags, short zDelta, CPoint pt);
 	afx_msg void OnRButtonDown(UINT nFlags, CPoint point);
 };
 

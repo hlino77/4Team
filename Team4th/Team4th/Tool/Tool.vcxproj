@@ -203,6 +203,7 @@
     <ClInclude Include="Device.h" />
     <ClInclude Include="Dragoon.h" />
     <ClInclude Include="GameObject.h" />
+    <ClInclude Include="Gateway.h" />
     <ClInclude Include="Graphics.h" />
     <ClInclude Include="GroundUnit.h" />
     <ClInclude Include="MainFrm.h" />
@@ -245,6 +246,7 @@
     <ClCompile Include="Device.cpp" />
     <ClCompile Include="Dragoon.cpp" />
     <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="Gateway.cpp" />
     <ClCompile Include="Graphics.cpp" />
     <ClCompile Include="GroundUnit.cpp" />
     <ClCompile Include="MainFrm.cpp" />
@@ -287,6 +289,7 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\bitmap1.bmp" />
+    <Image Include="res\bmp00001.bmp" />
     <Image Include="res\Tool.ico" />
     <Image Include="res\Toolbar.bmp" />
     <Image Include="res\ToolDoc.ico" />

@@ -61,7 +61,8 @@ void CZealot::Initialize(void)
 
 	m_eState = UNIT_STATE::IDLE;
 	m_vTargetPos = m_pTransform->Position();
-	// Temp
+	
+	m_tFrame = {0.f, 7.f};
 }
 
 int CZealot::Update(void)
@@ -78,13 +79,15 @@ int CZealot::Update(void)
 
 int CZealot::LateUpdate(void)
 {
+	CGroundUnit::LateUpdate();
 	m_pCollider->LateUpdate();
 	return 0;
 }
 
 void CZealot::Render()
 {
-	m_pGraphics->Render(L"Zealot", L"Move12", 0);
+	m_pGraphics->Render(L"Zealot", L"Move12", m_tFrame.fFrame);
+	CGroundUnit::Render();
 }
 
 void CZealot::Release(void)
@@ -92,18 +95,6 @@ void CZealot::Release(void)
 	Safe_Delete(m_pTransform);
 	Safe_Delete(m_pCollider);
 	Safe_Delete(m_pGraphics);
-}
-
-void CZealot::OnCollisionEnter(CCollider * _pOther)
-{
-}
-
-void CZealot::OnCollisionStay(CCollider * _pOther)
-{
-}
-
-void CZealot::OnCollisionExit(CCollider * _pOther)
-{
 }
 
 CGameObject * CZealot::Clone()

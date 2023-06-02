@@ -16,10 +16,6 @@ public:
 	virtual void Render()			override;
 	virtual void Release(void)		override;
 
-	virtual void OnCollisionEnter(CCollider * _pOther)	override;
-	virtual void OnCollisionStay(CCollider * _pOther)	override;
-	virtual void OnCollisionExit(CCollider * _pOther)	override;
-
 	virtual CGameObject*	Clone()	override;
 
 //protected:

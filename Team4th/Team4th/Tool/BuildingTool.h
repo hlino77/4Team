@@ -22,10 +22,12 @@ protected:
 
 	DECLARE_MESSAGE_MAP()
 public:
-	CTreeCtrl m_BuildingTree;
-	virtual BOOL OnInitDialog();
+	CTreeCtrl	m_BuildingTree;
+	CImageList	m_ImageListTree;
 
-	HTREEITEM m_Buildings;
-	HTREEITEM m_Protoss;
+	HTREEITEM	m_Buildings;
+	HTREEITEM	m_Protoss;
+
+	virtual BOOL OnInitDialog();
 	afx_msg void OnNMClickBuildingtree(NMHDR *pNMHDR, LRESULT *pResult);
 };

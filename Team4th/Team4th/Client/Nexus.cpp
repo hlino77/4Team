@@ -14,7 +14,6 @@ CNexus::CNexus(const CNexus & rhs)
 	Initialize();
 }
 
-
 CNexus::~CNexus()
 {
 }
@@ -26,12 +25,11 @@ void CNexus::Initialize(void)
 
 	m_dwTime = 0;
 
-
 	m_tData.strName = L"Nexus";
 
-	m_tData.iMaxHp = 100;
+	m_tData.iMaxHp = 750;
 	m_tData.iHp = m_tData.iMaxHp;
-	m_tData.iMaxShield = 60;
+	m_tData.iMaxShield = 750;
 	m_tData.iShield = m_tData.iMaxShield;
 	m_tData.iAttack = 0;
 	m_tData.iDeffnse = 1;
@@ -53,14 +51,11 @@ void CNexus::Initialize(void)
 	m_pTransform->Scale(D3DXVECTOR3(127.f, 95.f, 0.f));
 	m_pCollider->Initialize(this);
 	m_pGraphics->Initialize(this);
-
-
 }
 
 int CNexus::Update(void)
 {
 	m_pTransform->Update();
-
 	
 	return 0;
 }
@@ -68,6 +63,7 @@ int CNexus::Update(void)
 int CNexus::LateUpdate(void)
 {
 	m_pCollider->LateUpdate();
+
 	return 0;
 }
 
@@ -78,6 +74,9 @@ void CNexus::Render()
 
 void CNexus::Release(void)
 {
+	Safe_Delete(m_pTransform);
+	Safe_Delete(m_pCollider);
+	Safe_Delete(m_pGraphics);
 }
 
 void CNexus::OnCollisionEnter(CCollider * _pOther)
@@ -92,12 +91,6 @@ void CNexus::OnCollisionExit(CCollider * _pOther)
 {
 }
 
-CGameObject * CNexus::Clone()
-{
-	CGameObject* pNewObj = new CNexus(*this);
-	return pNewObj;
-}
-
 void CNexus::OnCollisionEnter(TILE * _pTIle)
 {
 }
@@ -108,4 +101,10 @@ void CNexus::OnCollisionStay(TILE * _pTIle)
 
 void CNexus::OnCollisionExit(TILE * _pTIle)
 {
+}
+
+CGameObject * CNexus::Clone()
+{
+	CGameObject* pNewObj = new CNexus(*this);
+	return pNewObj;
 }

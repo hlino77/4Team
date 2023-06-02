@@ -11,6 +11,7 @@
 #include "Dragoon.h"
 #include "Zergling.h"
 #include "Nexus.h"
+#include "Gateway.h"
 #include "Transform.h"
 
 IMPLEMENT_SINGLETON(CObjectMgr)
@@ -45,6 +46,11 @@ HRESULT CObjectMgr::Initialize()
 	if (FAILED(CTextureMgr::Get_Instance()->Insert_Texture(L"../Texture/Stage/Unit/protoss/Build/Nexus/0.png", TEX_SINGLE, L"Nexus", L"Nexus")))
 	{
 		AfxMessageBox(L"Nexus Create Failed");
+		return E_FAIL;
+	}
+	if (FAILED(CTextureMgr::Get_Instance()->Insert_Texture(L"../Texture/Stage/Unit/protoss/Build/Gateway/0.png", TEX_SINGLE, L"Gateway", L"Gateway")))
+	{
+		AfxMessageBox(L"Gateway Create Failed");
 		return E_FAIL;
 	}
 	if (FAILED(CTextureMgr::Get_Instance()->Insert_Texture(L"../Texture/Stage/Unit/zerg/Zergling/Move12/%d.png", TEX_MULTI, L"Zergling", L"Move12", 8)))
@@ -114,7 +120,7 @@ void CObjectMgr::CreateObject(TCHAR * _pName, D3DXVECTOR3& vPos)
 	else if (!_tcscmp(_pName, L"DarkTempler"))		{	}
 	else if (!_tcscmp(_pName, L"Zergling"))			{ pNewObject = new CZergling; }
 	else if (!_tcscmp(_pName, L"Nexus"))			{ pNewObject = new CNexus; }
-	else if (!_tcscmp(_pName, L"Gateway"))			{	}
+	else if (!_tcscmp(_pName, L"Gateway"))			{ pNewObject = new CGateway; }
 
 	pNewObject->Initialize();
 	pNewObject->GetTransform()->Translate(vPos);

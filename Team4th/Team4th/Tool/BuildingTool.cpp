@@ -8,6 +8,7 @@
 #include "GameObject.h"
 #include "ObjectMgr.h"
 #include "Nexus.h"
+#include "Gateway.h"
 
 // CBuildingTool 대화 상자입니다.
 
@@ -42,14 +43,51 @@ BOOL CBuildingTool::OnInitDialog()
 {
 	CDialog::OnInitDialog();
 
-	m_Buildings = m_BuildingTree.InsertItem(L"Buildings");
+#pragma region ImageList
+	m_ImageListTree.Create(IDB_BITMAP_BUILDING, 34, 2, D3DCOLOR_ARGB(255, 255, 255, 255));
+	m_BuildingTree.SetImageList(&m_ImageListTree, TVSIL_NORMAL);
 
-	m_Protoss = m_BuildingTree.InsertItem(L"Protoss", m_Buildings);
-	m_BuildingTree.InsertItem(L"Nexus", m_Protoss);
-	m_BuildingTree.InsertItem(L"GateWay", m_Protoss);
+	TVINSERTSTRUCT	tvInsert;
 
-	// TODO:  여기에 추가 초기화 작업을 추가합니다.
+	tvInsert.hParent = NULL;
+	tvInsert.hInsertAfter = TVI_LAST;
+	tvInsert.item.mask = TVIF_IMAGE | TVIF_SELECTEDIMAGE | TVIF_TEXT;
+	tvInsert.item.state = 0;
+	tvInsert.item.stateMask = 0;
+	tvInsert.item.cchTextMax = 60;
 
+	tvInsert.item.cChildren = 0;
+
+	tvInsert.item.pszText = L"Buildings";
+	tvInsert.item.iImage = 0;
+	tvInsert.item.iSelectedImage = 0;
+	m_Buildings = m_BuildingTree.InsertItem(&tvInsert);
+
+	tvInsert.hParent = m_Buildings;
+	tvInsert.item.pszText = L"Protoss";
+	tvInsert.item.iImage = 0;
+	tvInsert.item.iSelectedImage = 0;
+	m_Protoss = m_BuildingTree.InsertItem(&tvInsert);
+
+	tvInsert.hParent = m_Protoss;
+	tvInsert.item.pszText = L"Nexus";
+	tvInsert.item.iImage = 0;
+	tvInsert.item.iSelectedImage = 0;
+	m_BuildingTree.InsertItem(&tvInsert);
+
+	tvInsert.hParent = m_Protoss;
+	tvInsert.item.pszText = L"Gateway";
+	tvInsert.item.iImage = 1;
+	tvInsert.item.iSelectedImage = 1;
+	m_BuildingTree.InsertItem(&tvInsert);
+#pragma endregion ImageList
+
+
+	m_BuildingTree.Expand(m_Buildings, TVE_EXPAND);
+	m_BuildingTree.Expand(m_Protoss, TVE_EXPAND);
+
+
+	
 	return TRUE;  // return TRUE unless you set the focus to a control
 				  // 예외: OCX 속성 페이지는 FALSE를 반환해야 합니다.
 }
@@ -82,6 +120,12 @@ void CBuildingTool::OnNMClickBuildingtree(NMHDR *pNMHDR, LRESULT *pResult)
 		CGameObject* pNexus = new CNexus;
 		pNexus->Initialize();
 		CObjectMgr::Get_Instance()->GetObjList(OBJID::OBJ_ONCURSOR).push_back(pNexus);
+	}
+	else if (L"Gateway" == m_BuildingTree.GetItemText(hItem_dc))
+	{
+		CGameObject* pGateway = new CGateway;
+		pGateway->Initialize();
+		CObjectMgr::Get_Instance()->GetObjList(OBJID::OBJ_ONCURSOR).push_back(pGateway);
 	}
 
 }
