@@ -27,22 +27,15 @@ void CTerrainTool::DoDataExchange(CDataExchange* pDX)
 	CDialog::DoDataExchange(pDX);
 
 	DDX_Control(pDX, IDC_Option1, m_Option[0]);
-	DDX_Control(pDX, IDC_Option2, m_Option[1]);
 	DDX_Control(pDX, IDC_Option3, m_Option[2]);
 
-
-	DDX_Control(pDX, IDC_Size1, m_Size[0]);
-	DDX_Control(pDX, IDC_Size2, m_Size[1]);
 	DDX_Control(pDX, IDC_ColiderButton, m_ColButton);
 }
 
 
 BEGIN_MESSAGE_MAP(CTerrainTool, CDialog)
 	ON_BN_CLICKED(IDC_Option1, &CTerrainTool::OnOptionNormal)
-	ON_BN_CLICKED(IDC_Option2, &CTerrainTool::OnOptionSmall)
 	ON_BN_CLICKED(IDC_Option3, &CTerrainTool::OnOptionNone)
-	ON_BN_CLICKED(IDC_Size1, &CTerrainTool::OnSizeNormal)
-	ON_BN_CLICKED(IDC_Size2, &CTerrainTool::OnSizeSmall)
 	ON_BN_CLICKED(IDC_ColiderButton, &CTerrainTool::OnColiderbutton)
 END_MESSAGE_MAP()
 
@@ -137,8 +130,6 @@ BOOL CTerrainTool::OnInitDialog()
 	// TODO:  여기에 추가 초기화 작업을 추가합니다.
 
 	m_Option[2].SetCheck(true);
-
-	m_Size[0].SetCheck(true);
 
 	return TRUE;  // return TRUE unless you set the focus to a control
 				  // 예외: OCX 속성 페이지는 FALSE를 반환해야 합니다.

@@ -165,9 +165,15 @@ void CMyForm::OnSaveData()
 
 		for (int i = 0; i < (UINT)OBJID::OBJ_END; ++i)
 		{
+			/*if ((UINT)OBJID::OBJ_MOUSE == i)
+				continue;
+*/
 			vector<CGameObject*>& vecObjList = CObjectMgr::Get_Instance()->GetObjList((OBJID)i);
 			for (auto& iter : vecObjList)
 			{
+				/*if (OBJID::OBJ_MOUSE == iter->GetType())
+					continue;*/
+
 				dwStrByte = sizeof(TCHAR) * (iter->GetData().strName.GetLength() + 1);
 
 				WriteFile(hFile, &dwStrByte, sizeof(DWORD), &dwByte, nullptr);

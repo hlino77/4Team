@@ -185,7 +185,6 @@ void CCollisionMgr::CheckCollisionByType(OBJID _eTypeLeft, OBJID _eTypeRight)
 			D3DXVECTOR3 vScale = vecLeft[i]->GetCollider()->GetScale();
 			
 			D3DXVECTOR3 vLT = vPos - vScale / 2.f;
-			D3DXVECTOR3 vRB = vPos + vScale / 2.f;
 
 			int iCX = (int)vScale.x / TILECX + 1;
 			int iCY = (int)vScale.y / TILECY + 1;
@@ -193,11 +192,11 @@ void CCollisionMgr::CheckCollisionByType(OBJID _eTypeLeft, OBJID _eTypeRight)
 			int iIndexLT_X = (int)vLT.x / TILECX;
 			int iIndexLT_Y = (int)vLT.y / TILECY;
 
-			for (int k = iIndexLT_Y - 1; k < iIndexLT_Y + iCY + 1; ++k)
+			for (int k = iIndexLT_Y - 1; k < iIndexLT_Y + iCY + 2; ++k)
 			{
-				for (int j = iIndexLT_X - 1; j < iIndexLT_X + iCX + 1; ++j)
+				for (int j = iIndexLT_X - 1; j < iIndexLT_X + iCX + 2; ++j)
 				{
-					if (k < 0 || j < 0)
+					if (k < 0 || j < 0 || k >= TILEY || j >= TILEX)
 						continue;
 
 					int iIndex = k * TILEX + j;

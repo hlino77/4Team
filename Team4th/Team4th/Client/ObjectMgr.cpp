@@ -100,6 +100,9 @@ void CObjectMgr::Render()
 
 void CObjectMgr::CreateObject(TCHAR* _pName, D3DXVECTOR3& vPos)
 {
+	if (L"" == _pName)
+		return;
+
 	CGameObject* pNewObject = nullptr;
 	if (!_tcscmp(_pName, L"Zealot")) { pNewObject = new CZealot; }
 	else if (!_tcscmp(_pName, L"Probe")) { pNewObject = new CProbe; }
@@ -109,6 +112,9 @@ void CObjectMgr::CreateObject(TCHAR* _pName, D3DXVECTOR3& vPos)
 	else if (!_tcscmp(_pName, L"Zergling")) { pNewObject = new CZergling; }
 	else if (!_tcscmp(_pName, L"Nexus")) { pNewObject = new CNexus; }
 	else if (!_tcscmp(_pName, L"Gateway")) { pNewObject = new CGateway; }
+
+	if (!pNewObject)
+		return;
 
 	pNewObject->Initialize();
 	pNewObject->GetTransform()->Translate(vPos);

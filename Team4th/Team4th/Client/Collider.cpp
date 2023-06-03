@@ -41,9 +41,6 @@ void CCollider::Initialize(CGameObject * _pHost)
 	m_vVertices[2] = D3DXVECTOR3(m_vScale.x / 2.f, m_vScale.y / 2.f, 0.f);
 	m_vVertices[3] = D3DXVECTOR3(-m_vScale.x / 2.f, m_vScale.y / 2.f, 0.f);
 	m_vVertices[4] = D3DXVECTOR3(-m_vScale.x / 2.f, -m_vScale.y / 2.f, 0.f);
-	
-	//for (int i = 0; i < 5; ++i)
-	//	m_vOriginPoints[i] = m_vVertices[i];
 }
 
 void CCollider::LateUpdate()
@@ -53,37 +50,35 @@ void CCollider::LateUpdate()
 		m_iCol = 0;
 
 	m_vPosition = m_pHost->GetTransform()->Position();
-	int a = 0;
-	
 }
 
 void CCollider::Render(LPD3DXLINE _pLine)
 {
-	D3DXMATRIX	matWorld, matScale, matTrans;
+	//D3DXMATRIX	matWorld, matScale, matTrans;
 
-	// GetClientRect : 현재 클라이언트 영역의 rect 정보를 얻어옴
+	//// GetClientRect : 현재 클라이언트 영역의 rect 정보를 얻어옴
 
-	D3DXMatrixIdentity(&matWorld);
-	D3DXMatrixScaling(&matScale, 1.f, 1.f, 1.f);
-	D3DXMatrixTranslation(&matTrans,
-		m_vPosition.x + CCameraMgr::Get_Instance()->Get_ScrollX(),
-		m_vPosition.y + CCameraMgr::Get_Instance()->Get_ScrollY(),
-		0.f);
+	//D3DXMatrixIdentity(&matWorld);
+	//D3DXMatrixScaling(&matScale, 1.f, 1.f, 1.f);
+	//D3DXMatrixTranslation(&matTrans,
+	//	m_vPosition.x + CCameraMgr::Get_Instance()->Get_ScrollX(),
+	//	m_vPosition.y + CCameraMgr::Get_Instance()->Get_ScrollY(),
+	//	0.f);
 
-	matWorld = matScale * matTrans;
+	//matWorld = matScale * matTrans;
 
-	D3DXVECTOR2	vVertices[5];
-	for (int i = 0; i < 5; ++i)
-	{
-		vVertices[i].x = m_vVertices[i].x;
-		vVertices[i].y = m_vVertices[i].y;
-		D3DXVec2TransformCoord(&vVertices[i], &vVertices[i], &matWorld);
-	}
+	//D3DXVECTOR2	vVertices[5];
+	//for (int i = 0; i < 5; ++i)
+	//{
+	//	vVertices[i].x = m_vVertices[i].x;
+	//	vVertices[i].y = m_vVertices[i].y;
+	//	D3DXVec2TransformCoord(&vVertices[i], &vVertices[i], &matWorld);
+	//}
 
-	if (m_iCol)
-		_pLine->Draw(vVertices, 5, D3DCOLOR_XRGB(255, 0, 0));
-	else
-		_pLine->Draw(vVertices, 5, D3DCOLOR_XRGB(0, 255, 0));
+	//if (m_iCol)
+	//	_pLine->Draw(vVertices, 5, D3DCOLOR_XRGB(255, 0, 0));
+	//else
+	//	_pLine->Draw(vVertices, 5, D3DCOLOR_XRGB(0, 255, 0));
 }
 
 void CCollider::OnCollisionEnter(CCollider * _pOther)

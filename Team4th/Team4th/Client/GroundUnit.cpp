@@ -240,6 +240,32 @@ void CGroundUnit::Move()
 
 bool CGroundUnit::Movable(Pos pos)
 {
+	/*D3DXVECTOR3 vPos = m_pCollider->GetPosition();
+	D3DXVECTOR3 vScale = m_pCollider->GetScale();
+
+	D3DXVECTOR3 vLT = vPos - vScale / 2.f;
+
+	int iCX = (int)vScale.x / TILECX + 1;
+	int iCY = (int)vScale.y / TILECY + 1;
+
+	int iIndexLT_X = (int)vLT.x / TILECX;
+	int iIndexLT_Y = (int)vLT.y / TILECY;
+
+	for (int k = iIndexLT_Y; k < iIndexLT_Y + iCY; ++k)
+	{
+		for (int j = iIndexLT_X; j < iIndexLT_X + iCX; ++j)
+		{
+			if (k < 0 || j < 0 || k >= TILEY || j >= TILEX)
+				return false;;
+
+			int iIndex = k * TILEX + j;
+
+			if (CObjectMgr::Get_Instance()->GetTerrain().Get_TileList()[iIndex]->bCollider)
+				return false;
+		}
+	}
+	return true;*/
+	
 	if (pos.x < 0 || pos.y < 0 || pos.x >= TILEX || pos.y >= TILEY || CObjectMgr::Get_Instance()->GetTerrain().Get_TileList()[pos.y * TILEX + pos.x]->bCollider)
 		return false;
 	return true;

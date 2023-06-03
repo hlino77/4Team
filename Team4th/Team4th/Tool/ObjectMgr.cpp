@@ -104,6 +104,8 @@ void CObjectMgr::Release()
 {
 	for (int i = 0; i < (UINT)OBJID::OBJ_END; ++i)
 	{
+		if ((UINT)OBJID::OBJ_MOUSE == i)
+			continue;
 		for (auto& iter : m_vecObjList[i])
 			Safe_Delete(iter);
 		m_vecObjList[i].clear();
@@ -122,6 +124,8 @@ void CObjectMgr::CreateObject(TCHAR * _pName, D3DXVECTOR3& vPos)
 	else if (!_tcscmp(_pName, L"Nexus"))			{ pNewObject = new CNexus; }
 	else if (!_tcscmp(_pName, L"Gateway"))			{ pNewObject = new CGateway; }
 
+	if (!pNewObject)
+		return;
 	pNewObject->Initialize();
 	pNewObject->GetTransform()->Translate(vPos);
 	m_vecObjList[(UINT)pNewObject->GetType()].push_back(pNewObject);

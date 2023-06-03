@@ -193,9 +193,9 @@ void CCollisionMgr::CheckCollisionByType(OBJID _eTypeLeft, OBJID _eTypeRight)
 			int iIndexLT_X = (int)vLT.x / TILECX;
 			int iIndexLT_Y = (int)vLT.y / TILECY;
 
-			for (int k = iIndexLT_Y - 50; k < iIndexLT_Y + iCY + 50; ++k)
+			for (int k = iIndexLT_Y - 50; k < iIndexLT_Y + iCY + 51; ++k)
 			{
-				for (int j = iIndexLT_X - 50; j < iIndexLT_X + iCX + 50; ++j)
+				for (int j = iIndexLT_X - 50; j < iIndexLT_X + iCX + 51; ++j)
 				{
 					if (k < 0 || j < 0 || k >= TILEY || j >= TILEX)
 						continue;

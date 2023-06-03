@@ -124,14 +124,8 @@ BOOL CMainFrame::OnCreateClient(LPCREATESTRUCT lpcs, CCreateContext* pContext)
 	//
 	//CRuntimeClass* pMyForm = RUNTIME_CLASS(CMyTool);
  
-	m_SecondSplitter.CreateView(1, 0, RUNTIME_CLASS(CMyForm), CSize(300, 190), pContext);
+	m_SecondSplitter.CreateView(1, 0, RUNTIME_CLASS(CMyForm), CSize(300, 90), pContext);
 	m_SecondSplitter.CreateView(2, 0, RUNTIME_CLASS(CToolGroup), CSize(300, 900), pContext);
-
-	//m_SecondSplitter.CreateView(2, 0, RUNTIME_CLASS(CMyTool), CSize(300, 300), pContext);
-	//m_SecondSplitter.CreateView(2, 0, RUNTIME_CLASS(CTool)MyForm, CSize(300, 300), pContext);
-	//m_SecondSplitter.DeleteView(2, 0);
-	//m_SecondSplitter.CreateView(2, 0, pMyForm, CSize(300, 300), pContext);
-	//
 
 	//SetColumnInfo(열 번호, 열의 크기 지정, 허용 가능한 최소 크기)
 	m_MainSplitter.SetColumnInfo(0, 300, 10);

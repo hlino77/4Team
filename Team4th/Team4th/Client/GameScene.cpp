@@ -94,6 +94,8 @@ HRESULT CGameScene::LoadUnitData()
 		}
 
 		//if¹®Ãß°¡
+		if (L"" == pName)
+			continue;
 		CObjectMgr::Get_Instance()->CreateObject(pName, D3DXVECTOR3(fX, fY, 0.f));
 
 		delete[]pName;
